@@ -1,0 +1,58 @@
+{
+  "name": "typescript-library-starter",
+  "version": "1.0.0",
+  "description": "Handout plugin to automatically prefix field keys",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "check": "tsc --noEmit",
+    "check:watch": "tsc -w --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matteo-rigon/typescript-library-starter.git"
+  },
+  "author": "Matteo Rigon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matteo-rigon/typescript-library-starter/issues"
+  },
+  "homepage": "https://github.com/matteo-rigon/typescript-library-starter#readme",
+  "module": "index.js",
+  "devDependencies": {
+    "@babel/core": "^7.0.1",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-typescript": "^7.0.0",
+    "@types/jest": "^23.3.2",
+    "babel-jest": "^23.4.2",
+    "jest": "^23.5.0",
+    "ts-jest": "^23.1.4",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.3"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "html"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/*.+(spec.ts)"
+    ]
+  }
+}

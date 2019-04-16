@@ -1,3 +1,2 @@
-export * from './src/Add';
-export * from './src/Multiply';
-export * from './src/Power';
+export * from './src/Plugin';
+export * from './src/Screen';

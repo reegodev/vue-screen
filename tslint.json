@@ -8,6 +8,10 @@
         "quotemark": [
             true,
             "single"
+        ],
+        "interface-name": [
+            true,
+            "never-prefix"
         ]
     },
     "rulesDirectory": [],

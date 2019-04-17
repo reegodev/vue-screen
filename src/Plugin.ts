@@ -1,8 +1,9 @@
-import Vue from 'vue';
-import { ScreenController, Breakpoints } from './Screen';
+import { VueConstructor } from 'vue';
+import { Breakpoints, ScreenController  } from './Screen';
 
 export default {
-  install(vue: any, breakpoints: Breakpoints = {}) {
-    vue.prototype.$screen = new ScreenController(breakpoints);
-  }
-}
+  install(Vue: VueConstructor, breakpoints: Breakpoints = {}) {
+    console.log(new ScreenController(breakpoints).getScreen());
+    Vue.prototype.$screen = new ScreenController(breakpoints).getScreen();
+  },
+};

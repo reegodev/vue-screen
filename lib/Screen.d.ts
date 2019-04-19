@@ -1,15 +1,4 @@
-export interface Breakpoints {
-    [key: string]: number;
-}
-export interface BreakpointsState {
-    [key: string]: boolean;
-}
-export interface ScreenProps {
-    touch: boolean;
-    width: number;
-    height: number;
-}
-export declare type Screen = BreakpointsState & ScreenProps;
+import { Breakpoints, Screen } from './types';
 export declare class ScreenController {
     /**
      * Screen reactive properties
@@ -20,19 +9,50 @@ export declare class ScreenController {
      *
      * @param {Breakpoints} breakpoints
      */
-    constructor(breakpoints?: Breakpoints);
+    constructor(breakpoints?: Breakpoints | string);
     /**
      * Get the reactive screen object
      */
     getScreen(): Screen;
     /**
+     * Parse the breakpoints parameter and return a Breakpoint object
+     *
+     * @param {Breakpoints | string} breakpoints
+     */
+    protected parseBreakpoints(breakpoints: Breakpoints | string): Breakpoints;
+    /**
+     * Init the reactive object
+     */
+    protected init(): void;
+    /**
      * Attach a listener to the window resize event
      */
     protected attachResize(): void;
+    /**
+     * Set the screen size
+     */
+    protected setScreenSize(): void;
+    /**
+     * Check touch screen capability
+     */
+    protected checkTouch(): void;
     /**
      * Create the reactive object
      *
      * @param {Breakpoints} breakpoints
      */
     protected createScreen(breakpoints: Breakpoints): void;
+    /**
+     * Initialize the media queries to test
+     *
+     * @param {Breakpoints} breakpoints
+     */
+    protected initMediaQueries(breakpoints: Breakpoints): void;
+    /**
+     * Set the media query state on the reactive object
+     *
+     * @param {string} name
+     * @param {boolean} matches
+     */
+    protected mediaStateChanged(name: string, matches: boolean): void;
 }

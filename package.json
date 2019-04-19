@@ -22,7 +22,7 @@
   "homepage": "https://github.com/matteo-rigon/vue-screen#readme",
   "module": "index.js",
   "dependencies": {
-    "lodash": "^4.17.11"
+    "lodash.debounce": "^4.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
@@ -30,6 +30,7 @@
     "@babel/preset-typescript": "^7.3.3",
     "@types/jest": "^24.0.11",
     "@types/lodash": "^4.14.123",
+    "@types/lodash.debounce": "^4.0.6",
     "babel-jest": "^24.7.1",
     "jest": "^24.7.1",
     "ts-jest": "^24.0.2",
@@ -55,7 +56,7 @@
     },
     "globals": {
       "ts-jest": {
-        "tsConfigFile": "tsconfig.json"
+        "tsConfig": "tsconfig.json"
       }
     },
     "testMatch": [

@@ -1,4 +1,3 @@
-// tslint:disable:object-literal-sort-keys
 export default {
   sm: 576,
   md: 768,

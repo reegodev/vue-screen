@@ -1,24 +1,28 @@
-import debounce from 'lodash.debounce';
+import { debounce, inBrowser } from './utils';
 import Vue from 'vue';
 import grids from './grids';
-import { Breakpoints, Screen } from './types';
 
+// GoogleBot default screen size
 const DEFAULT_WIDTH = 410;
 const DEFAULT_HEIGHT = 730;
 
-export class ScreenController {
+export default class Screen {
 
   /**
    * Screen reactive properties
    */
-  protected screen!: Screen;
+  _screen = Vue.observable({
+    height: DEFAULT_HEIGHT,
+    touch: true,
+    width: DEFAULT_WIDTH,
+  });
 
   /**
    * Class constructor
    *
-   * @param {Breakpoints} breakpoints
+   * @param {object | string} breakpoints
    */
-  public constructor(breakpoints: Breakpoints | string = '') {
+  constructor(breakpoints = '') {
     this.createScreen(
       this.parseBreakpoints(breakpoints),
     );
@@ -26,18 +30,19 @@ export class ScreenController {
   }
 
   /**
-   * Get the reactive screen object
+   * Get the reactive screen property
    */
-  public getScreen(): Screen {
-    return this.screen;
+  get() {
+    return this._screen;
   }
 
   /**
    * Parse the breakpoints parameter and return a Breakpoint object
    *
-   * @param {Breakpoints | string} breakpoints
+   * @param {object | string} breakpoints
+   * @returns {object}
    */
-  protected parseBreakpoints(breakpoints: Breakpoints | string): Breakpoints {
+  parseBreakpoints(breakpoints) {
     if (typeof breakpoints === 'object') {
       return breakpoints;
     }
@@ -53,7 +58,7 @@ export class ScreenController {
   /**
    * Init the reactive object
    */
-  protected init() {
+  init() {
     this.attachResize();
     this.setScreenSize();
     this.checkTouch();
@@ -62,8 +67,8 @@ export class ScreenController {
   /**
    * Attach a listener to the window resize event
    */
-  protected attachResize() {
-    if (typeof window !== 'undefined') {
+  attachResize() {
+    if (inBrowser) {
       window.addEventListener(
         'resize',
         debounce(this.setScreenSize.bind(this), 100),
@@ -74,39 +79,33 @@ export class ScreenController {
   /**
    * Set the screen size
    */
-  protected setScreenSize() {
-    this.screen.width = window.innerWidth;
-    this.screen.height = window.innerHeight;
+  setScreenSize() {
+    this._screen.width = window.innerWidth;
+    this._screen.height = window.innerHeight;
   }
 
   /**
    * Check touch screen capability
    */
-  protected checkTouch() {
-    if (typeof window !== 'undefined') {
-      this.screen.touch = 'ontouchstart' in window;
+  checkTouch() {
+    if (inBrowser) {
+      this._screen.touch = 'ontouchstart' in window;
     }
   }
 
   /**
    * Create the reactive object
    *
-   * @param {Breakpoints} breakpoints
+   * @param {object} breakpoints
    */
-  protected createScreen(breakpoints: Breakpoints) {
-    this.screen = Vue.observable({
-      height: DEFAULT_HEIGHT,
-      touch: true,
-      width: DEFAULT_WIDTH,
-    }) as Screen;
-
+  createScreen(breakpoints) {
     for (const name in breakpoints) {
       if (breakpoints.hasOwnProperty(name)) {
-        Vue.set(this.screen, name, false);
+        Vue.set(this._screen, name, false);
       }
     }
 
-    if (typeof window !== 'undefined') {
+    if (inBrowser) {
       this.initMediaQueries(breakpoints);
     }
   }
@@ -114,9 +113,9 @@ export class ScreenController {
   /**
    * Initialize the media queries to test
    *
-   * @param {Breakpoints} breakpoints
+   * @param {object} breakpoints
    */
-  protected initMediaQueries(breakpoints: Breakpoints) {
+  initMediaQueries(breakpoints) {
     for (const name in breakpoints) {
       if (breakpoints.hasOwnProperty(name)) {
         const width = breakpoints[name];
@@ -140,8 +139,8 @@ export class ScreenController {
    * @param {string} name
    * @param {boolean} matches
    */
-  protected mediaStateChanged(name: string, matches: boolean) {
-    Vue.set(this.screen, name, matches);
+  mediaStateChanged(name, matches) {
+    Vue.set(this._screen, name, matches);
   }
 
 }

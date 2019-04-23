@@ -1,5 +1,3 @@
-import { Breakpoints } from '../types';
-
 import bootstrap from './bootstrap';
 import bulma from './bulma';
 import foundation from './foundation';
@@ -12,6 +10,4 @@ export default {
   foundation,
   'semantic-ui': semantic,
   tailwind,
-} as {
-  [key: string]: Breakpoints,
 };

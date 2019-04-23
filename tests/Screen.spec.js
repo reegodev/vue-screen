@@ -1,3 +1,5 @@
+//import Vue from 'vue'
+//import Plugin from '../src/Plugin';
 import { ScreenController } from '../src/Screen';
 import grids from '../src/grids';
 
@@ -35,13 +37,13 @@ it('uses tailwind as default grid framework', () => {
 });
 
 it('sets initial media query state', () => {
-  /* for (const framework in grids) {
+  for (const framework in grids) {
     const screen = new ScreenController(framework).getScreen();
     const breakpoints = grids[framework];
 
     for (const name in breakpoints) {
-      const width = parseInt(<string> <unknown> breakpoints[name]);
+      const width = parseInt(breakpoints[name]);
       expect(screen[name]).toBe(window.innerWidth >= width)
     }
-  } */
+  }
 });

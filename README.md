@@ -1,6 +1,6 @@
 # VueScreen
 
-Reactive window dimensions and media query states for Vue components that integrates with most UI frameworks breakpoints.
+Reactive window size and media query states for Vue components. Integrates with most UI frameworks.
 
 ## Features
 

@@ -1,12 +1,11 @@
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = {
   mode: 'production',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'vue-screen.min.js'
+    filename: 'vue-screen.min.js',
   },
   module: {
     rules: [
@@ -16,16 +15,16 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      }
-    ]
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+    ],
   },
   externals: {
-    vue: 'vue'
+    vue: 'Vue',
   },
   stats: {
-    colors: true
+    colors: true,
   },
 };

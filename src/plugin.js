@@ -1,17 +1,23 @@
-import { debounce, inBrowser } from './utils';
+import { debounce, inBrowser, checkVersion } from './utils';
 import Vue from 'vue';
 import grids from './grids';
+
+const MIN_VUE_VERSION = '2.6.0';
 
 // GoogleBot default screen size
 const DEFAULT_WIDTH = 410;
 const DEFAULT_HEIGHT = 730;
 
-export default class Screen {
+export const DEFAULT_FRAMEWORK = 'tailwind';
+
+export const DEBOUNCE_MS = 100;
+
+export default class Plugin {
 
   /**
    * Screen reactive properties
    */
-  _screen = Vue.observable({
+  screen = Vue.observable({
     height: DEFAULT_HEIGHT,
     touch: true,
     width: DEFAULT_WIDTH,
@@ -30,13 +36,6 @@ export default class Screen {
   }
 
   /**
-   * Get the reactive screen property
-   */
-  get() {
-    return this._screen;
-  }
-
-  /**
    * Parse the breakpoints parameter and return a Breakpoint object
    *
    * @param {object | string} breakpoints
@@ -47,7 +46,7 @@ export default class Screen {
       return breakpoints;
     }
 
-    const key = breakpoints.toString() || 'tailwind';
+    const key = breakpoints.toString() || DEFAULT_FRAMEWORK;
     if (!grids[key]) {
       throw new Error(`Cannot find grid breakpoints for framework "${key}"`);
     }
@@ -71,7 +70,7 @@ export default class Screen {
     if (inBrowser) {
       window.addEventListener(
         'resize',
-        debounce(this.setScreenSize.bind(this), 100),
+        debounce(this.setScreenSize.bind(this), DEBOUNCE_MS),
       );
     }
   }
@@ -80,8 +79,10 @@ export default class Screen {
    * Set the screen size
    */
   setScreenSize() {
-    this._screen.width = window.innerWidth;
-    this._screen.height = window.innerHeight;
+    if (inBrowser) {
+      this.screen.width = window.innerWidth;
+      this.screen.height = window.innerHeight;
+    }
   }
 
   /**
@@ -89,7 +90,7 @@ export default class Screen {
    */
   checkTouch() {
     if (inBrowser) {
-      this._screen.touch = 'ontouchstart' in window;
+      this.screen.touch = 'ontouchstart' in window;
     }
   }
 
@@ -101,7 +102,7 @@ export default class Screen {
   createScreen(breakpoints) {
     for (const name in breakpoints) {
       if (breakpoints.hasOwnProperty(name)) {
-        Vue.set(this._screen, name, false);
+        Vue.set(this.screen, name, false);
       }
     }
 
@@ -140,7 +141,20 @@ export default class Screen {
    * @param {boolean} matches
    */
   mediaStateChanged(name, matches) {
-    Vue.set(this._screen, name, matches);
+    Vue.set(this.screen, name, matches);
   }
 
+  /**
+   * Install the plugin
+   * 
+   * @param {Vue} Vue 
+   * @param {object} options 
+   */
+  static install(Vue, options) {
+    if (!checkVersion(Vue.version, MIN_VUE_VERSION)) {
+      throw Error(`vue-screen requires at least Vue ${MIN_VUE_VERSION}`)
+    }
+
+    Vue.prototype.$screen = new Plugin(options).screen;
+  }
 }

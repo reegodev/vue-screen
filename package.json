@@ -4,7 +4,7 @@
   "description": "Reactive window size and media query states for Vue components. Integrates with most UI frameworks.",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha --require @babel/register --exit 'tests/**/*.spec.js'",
+    "test": "mocha --require @babel/register --timeout 5000 --exit 'tests/**/*.spec.js'",
     "build": "webpack"
   },
   "repository": {

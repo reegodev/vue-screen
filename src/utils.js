@@ -17,23 +17,29 @@ export const debounce = (callback, wait) => {
   };
 };
 
-const parseSemver = (version) => {
+export const parseSemver = (version) => {
   const fragments = version.split('.');
+  const major = parseInt(fragments[0], 10);
   return {
-    major: parseInt(fragments[0], 10) || 1,
+    major: typeof major === 'number' ? major : 1,
     minor: parseInt(fragments[1], 10) || 0,
     patch: parseInt(fragments[2], 10) || 0,
   };
 };
 
-export const checkVersion = (current, expected) => {
+export const checkVersion = (current, required) => {
   const currentVersion = parseSemver(current);
-  const expectedVersion = parseSemver(expected);
+  const requiredVersion = parseSemver(required);
   return (
-    currentVersion.major > expectedVersion.major
+    currentVersion.major > requiredVersion.major
     || (
-      currentVersion.major === expectedVersion.major
-      && currentVersion.minor >= expectedVersion.minor
+      currentVersion.major === requiredVersion.major
+      && currentVersion.minor > requiredVersion.minor
+    )
+    || (
+      currentVersion.major === requiredVersion.major
+      && currentVersion.minor === requiredVersion.minor
+      && currentVersion.patch >= requiredVersion.patch
     )
   );
 };

@@ -36,28 +36,24 @@ export const createPage = async (content = '') => {
     path: join(__dirname, '..', 'dist', 'vue-screen.min.js'),
   });
 
-  if (content) {
-    /* if (typeof content === 'array') {
-      for (const part of content) {
-        await page.addScriptTag({
-          part,
-        });
-      }
-    } else { */
-      await page.addScriptTag({
-        content,
-      });
-    //}
+  await page.addScriptTag({
+    content,
+  });
+  
+  // Define a resize method to get around puppeteer's resize issues
+  // https://github.com/GoogleChrome/puppeteer/issues/1183
+  page.resize = async (viewport) => {
+    await page.setViewport(viewport);
+    await sleep(300);
   }
 
   return page;
 }
 
-export const delay = (callback, ms) => {
-  return new Promise((resolve) => {
-    setTimeout(async () => {
-      await callback();
-      resolve();
-    })
-  });
-}
+export const sleep = (ms) => {
+  return new Promise(
+    (resolve) => {
+      setTimeout(() => resolve(), ms)
+    }
+  );
+};

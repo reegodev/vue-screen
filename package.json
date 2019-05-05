@@ -43,7 +43,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm list"
+      "pre-commit": "npm run lint"
     }
   }
 }

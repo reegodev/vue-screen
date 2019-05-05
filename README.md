@@ -16,7 +16,7 @@ Vue 2.6+
 
 Embed directly as a script:
 ```js
-<script src=""></script>
+<script src="https://unpkg.com/vue-screen/dist/vue-screen.min.js"></script>
 ```
 
 > When embedding, the script automatically registers itself as a Vue plugin. 

@@ -1,0 +1,286 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+*, *:before, *:after {
+ box-sizing: border-box;
+}
+
+body {
+ font-family: 'Montserrat', sans-serif;
+ color: #454545;
+ font-size: 16px;
+}
+
+.screen {
+ display: flex;
+ flex-direction: column;
+ height: 100vh;
+ align-items: center;
+ justify-content: center;
+ background-color: #fbafaf;
+ padding: 15px;
+ transition: background-color 0.3s ease-out;
+}
+
+.screen .description {
+ text-align: center;
+ margin-bottom: 40px;
+ margin-top: -80px;
+ font-size: 18px;
+}
+
+.screen .description h1 {
+ font-size: 30px;
+ margin-bottom: 20px;
+ font-weight: 700;
+}
+
+.screen .description a {
+ display: inline-block;
+ padding: 15px;
+ margin-top: 15px;
+ background-color: #d86767;
+ text-decoration: none;
+ border-radius: 3px;
+ color: #fff;
+ transition: background-color 0.3s ease-out;
+}
+
+.screen .description a:hover {
+ opacity: 0.8;
+}
+
+.screen.sm .description a {
+ background-color: #d46b40;
+}
+
+.screen.md .description a {
+ background-color: #bfa152;
+}
+
+.screen.lg .description a {
+ background-color: #42a9bb;
+}
+
+.screen.xl .description a {
+ background-color: #516eb1;
+}
+
+.screen .description a svg {
+ height: 22px;
+ width: auto;
+ vertical-align: middle;
+ margin-right: 5px;
+ fill: currentColor;
+}
+
+.screen .credits {
+ position: absolute;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ padding: 15px;
+ background-color: #38454f;
+ color: #fff;
+ font-size: 12px;
+}
+
+.screen.md .credits {
+ font-size: 16px;
+}
+
+.screen .credits a {
+ color: #fff;
+ text-decoration: underline;
+}
+
+.screen.sm {
+ background-color: #f2c6b4;
+}
+
+.screen.md {
+ background-color: #f3e8cb;
+}
+
+.screen.lg {
+ background-color: #bbe7f5;
+}
+
+.screen.xl {
+ background-color: #abbeea;
+}
+
+.screen .device {
+ position: relative;
+}
+
+.screen .device svg {
+ display: block;
+}
+
+.screen:not(.sm) .device svg {
+ width: 140px;
+}
+
+.screen .device .breakpoint {
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ color: #fff;
+ font-size: 34px;
+ text-transform: uppercase;
+ transform: translate(-50%, -50%);
+}
+
+.screen.xl .device .breakpoint {
+ transform: translate(-50%, -180%);
+}
+
+.screen .dimension {
+ font-size: 18px;
+ font-weight: 700;
+ position: absolute;
+}
+
+.screen .dimension .line {
+ position: absolute;
+ top: 50%;
+ left: 0;
+ right: 0;
+ height: 3px;
+ background-color: #38454f;
+}
+
+.screen .dimension .line:before {
+ content: '';
+ position: absolute;
+ left: 0;
+ top: -10px;
+ height: 23px;
+ background-color: #38454f;
+ width: 3px;
+}
+.screen .dimension .line:after {
+ content: '';
+ position: absolute;
+ right: 0;
+ top: -10px;
+ height: 23px;
+ background-color: #38454f;
+ width: 3px;
+}
+
+.screen .dimension .value {
+ background-color: #38454f;
+ color: #fff;
+ padding: 5px;
+ border-radius: 3px;
+ position: relative;
+}
+
+.screen .dimension.width {
+ top: 100%;
+ left: 0;
+ right: 0;
+ text-align: center;
+ padding: 20px 0;
+}
+
+.screen .dimension.height {
+ top: 0;
+ left: 100%;
+ bottom: 0;
+ display: flex;
+ align-items: center;
+ padding: 0 20px;
+}
+.screen .dimension.height .line {
+ top: 0;
+ bottom: 0;
+ left: 50%;
+ height: auto;
+ width: 3px;
+}
+.screen .dimension.height .line:before,
+.screen .dimension.height .line:after {
+ transform: rotate(90deg);
+}
+
+.screen .dimension.height .line:after {
+ bottom: -10px;
+ top: auto;
+}
+
+.feed {
+ position: fixed;
+ top: 0;
+ right: 0;
+}
+
+.feed ul {
+ padding: 15px;
+}
+
+.feed ul li {
+ background-color: #38454f;
+ padding: 15px;
+ color: #fff;
+ min-width: 200px;
+ max-width: 100%;
+ font-size: 12px;
+ margin-top: 5px;
+ border-radius: 3px;
+}
+.list-enter-active, .list-leave-active {
+  transition: opacity 0.5s, transform 0.5s;
+}
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateX(30%);
+}

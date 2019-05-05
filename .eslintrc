@@ -4,10 +4,23 @@
     "browser": true
   },
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 2017,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/**.js"
+      ],
+      "rules": {
+        "comma-dangle": [
+          "error",
+          "only-multiline"
+        ]
+      }
+    }
+  ]
 }

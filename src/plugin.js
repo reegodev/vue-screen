@@ -1,5 +1,5 @@
-import { debounce, inBrowser, checkVersion } from './utils';
 import Vue from 'vue';
+import { debounce, inBrowser, checkVersion } from './utils';
 import grids from './grids';
 
 const MIN_VUE_VERSION = '2.6.0';
@@ -12,17 +12,7 @@ export const DEFAULT_FRAMEWORK = 'tailwind';
 
 export const DEBOUNCE_MS = 100;
 
-export default class Plugin {
-
-  /**
-   * Screen reactive properties
-   */
-  screen = Vue.observable({
-    height: DEFAULT_HEIGHT,
-    touch: true,
-    width: DEFAULT_WIDTH,
-  });
-
+export class Plugin {
   /**
    * Class constructor
    *
@@ -30,7 +20,7 @@ export default class Plugin {
    */
   constructor(breakpoints = '') {
     this.createScreen(
-      this.parseBreakpoints(breakpoints),
+      Plugin.parseBreakpoints(breakpoints),
     );
     this.init();
   }
@@ -41,7 +31,7 @@ export default class Plugin {
    * @param {object | string} breakpoints
    * @returns {object}
    */
-  parseBreakpoints(breakpoints) {
+  static parseBreakpoints(breakpoints) {
     if (typeof breakpoints === 'object') {
       return breakpoints;
     }
@@ -100,11 +90,13 @@ export default class Plugin {
    * @param {object} breakpoints
    */
   createScreen(breakpoints) {
-    for (const name in breakpoints) {
-      if (breakpoints.hasOwnProperty(name)) {
-        Vue.set(this.screen, name, false);
-      }
-    }
+    this.screen = Vue.observable({
+      height: DEFAULT_HEIGHT,
+      touch: true,
+      width: DEFAULT_WIDTH,
+    });
+
+    Object.keys(breakpoints).forEach(name => Vue.set(this.screen, name, false));
 
     if (inBrowser) {
       this.initMediaQueries(breakpoints);
@@ -117,21 +109,19 @@ export default class Plugin {
    * @param {object} breakpoints
    */
   initMediaQueries(breakpoints) {
-    for (const name in breakpoints) {
-      if (breakpoints.hasOwnProperty(name)) {
-        const width = breakpoints[name];
-        let w;
-        if (typeof width === 'number') {
-          w = `${width}px`;
-        } else {
-          w = width;
-        }
-
-        const query = window.matchMedia(`(min-width: ${w})`);
-        query.addListener((e) => this.mediaStateChanged(name, e.matches));
-        this.mediaStateChanged(name, query.matches);
+    Object.keys(breakpoints).forEach((name) => {
+      const width = breakpoints[name];
+      let w;
+      if (typeof width === 'number') {
+        w = `${width}px`;
+      } else {
+        w = width;
       }
-    }
+
+      const query = window.matchMedia(`(min-width: ${w})`);
+      query.addListener(e => this.mediaStateChanged(name, e.matches));
+      this.mediaStateChanged(name, query.matches);
+    });
   }
 
   /**
@@ -146,15 +136,16 @@ export default class Plugin {
 
   /**
    * Install the plugin
-   * 
-   * @param {Vue} Vue 
-   * @param {object} options 
+   *
+   * @param {Vue} vue
+   * @param {object} options
    */
-  static install(Vue, options) {
-    if (!checkVersion(Vue.version, MIN_VUE_VERSION)) {
-      throw Error(`vue-screen requires at least Vue ${MIN_VUE_VERSION}`)
+  static install(vue, options) {
+    if (!checkVersion(vue.version, MIN_VUE_VERSION)) {
+      throw Error(`vue-screen requires at least Vue ${MIN_VUE_VERSION}`);
     }
 
-    Vue.prototype.$screen = new Plugin(options).screen;
+    // eslint-disable-next-line no-param-reassign
+    vue.prototype.$screen = new Plugin(options).screen;
   }
 }

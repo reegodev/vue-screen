@@ -1,6 +1,6 @@
 require('@babel/polyfill');
 
-import plugin, { DEFAULT_FRAMEWORK, DEBOUNCE_MS } from '../src/plugin';
+import { Plugin, DEFAULT_FRAMEWORK } from '../src/plugin';
 import grids from '../src/grids';
 import { expect } from 'chai';
 import { createPage } from './helpers';
@@ -9,7 +9,7 @@ describe('plugin', function() {
 
   it('provides breakpoints for supported frameworks', () => {
     for (const framework in grids) {
-      const screen = new plugin(framework).screen;
+      const screen = new Plugin(framework).screen;
       delete screen.width;
       delete screen.height;
       delete screen.touch;
@@ -22,7 +22,7 @@ describe('plugin', function() {
   });
 
   it(`uses ${DEFAULT_FRAMEWORK} as default framework`, () => {
-    const screen = new plugin().screen;
+    const screen = new Plugin().screen;
     delete screen.width;
     delete screen.height;
     delete screen.touch;

@@ -33,6 +33,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "husky": "^2.2.0",
+    "install-peers": "^1.0.3",
     "mocha": "^6.1.4",
     "puppeteer": "^1.14.0",
     "webpack": "^4.30.0",

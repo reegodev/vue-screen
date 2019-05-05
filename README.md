@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/matteo-rigon/vue-screen.svg?branch=master)](https://travis-ci.org/matteo-rigon/vue-screen)
+[![Build Status](https://img.shields.io/badge/vue-2.6.x-brightgreen.svg)](https://img.shields.io/badge/vue-2.x-brightgreen.svg)
+
 # VueScreen
 A Vue plugin that provides reactive window size and media query states. Supports your favourite UI framework grid breakpoints out of the box, and can be configured with any custom breakpoints.
 

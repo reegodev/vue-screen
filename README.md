@@ -16,7 +16,7 @@ Reactive window size and media query states for VueJS. Supports your favourite U
 
 ## Requirements
 
-This library uses Vue.Observable API internally, so 2.6+ is required
+As the library uses Vue.Observable API internally, Vue 2.6+ is required.
 
 ## Installation
 

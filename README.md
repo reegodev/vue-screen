@@ -1,10 +1,11 @@
+[![npm version](https://badge.fury.io/js/vue-screen.svg)](https://badge.fury.io/js/vue-screen)
 [![Build Status](https://travis-ci.org/matteo-rigon/vue-screen.svg?branch=master)](https://travis-ci.org/matteo-rigon/vue-screen)
 [![Build Status](https://img.shields.io/badge/vue-2.6.x-brightgreen.svg)](https://img.shields.io/badge/vue-2.x-brightgreen.svg)
 
 # VueScreen
 Reactive window size and media query states for VueJS. Supports your favourite UI framework grid breakpoints out of the box, and can be configured with any custom breakpoints.
 
-[https://matteo-rigon.github.io/vue-screen/](https://matteo-rigon.github.io/vue-screen/)
+[Demo](https://matteo-rigon.github.io/vue-screen/)
 
 ## Features
 - reactive and debounced window innerWidth and innerHeight
@@ -15,7 +16,7 @@ Reactive window size and media query states for VueJS. Supports your favourite U
 
 ## Requirements
 
-Vue 2.6+
+This library uses Vue.Observable API internally, so 2.6+ is required
 
 ## Installation
 
@@ -85,9 +86,59 @@ Vue.use(VueScreen, {
 }); 
 ```
 
-## Usage
+You can find default UI framework breakspoints [here](https://github.com/matteo-rigon/vue-screen/tree/develop/src/grids)
 
-After registering, the new property `$screen` will be injected on the Vue prototype. You can access it in every component using `this.$screen`.<br>
+## Basic usage
+
+After registering, the property `$screen` will be injected on the Vue prototype. You can access it in a component using `this.$screen`.
+
+#### In a template
+```html
+<template>
+    <div>
+        <p>Page width is {{ $screen.width }} px</p>
+        <p>Page height is {{ $screen.height }} px</p>
+    </div>
+</template>
+```
+
+#### As computed properties
+```html
+<template>
+    <div :class="media">
+        <p>VueScreen</p>
+    </div>
+</template>
+<script>
+export default {
+    computed: {
+        media() {
+            return {
+                'is-phone': this.$screen.sm,
+                'is-tablet': this.$screen.md,
+                'is-desktop': this.$screen.lg,
+                'can-touch': this.$screen.touch,
+            };
+        }
+    }
+}
+</script>
+```
+
+#### As watchers
+```js
+export default {
+    watch: {
+        '$screen.width'() {
+            alert('Width changed');
+        }
+    }
+}
+```
+
+Check out demo source code for more examples.
+
+## API
 Available properties on the `$screen` object:
 
 #### width
@@ -111,7 +162,7 @@ To view default breakpoint keys and values for each framework, [click here](http
 
 ## Browser support
 
-All browsers that support MatchMedia API
+All browsers that support matchMedia API
 
 <p class="ciu_embed" data-feature="matchmedia" data-periods="current,past_1,past_2" data-accessible-colours="false">
 <a href="http://caniuse.com/#feat=matchmedia" target="_blank">

@@ -87,9 +87,8 @@ Vue.use(VueScreen, {
 
 ## Usage
 
-After registering, the new property `$screen` will be injected on the Vue prototype. You can access it in every component using `this.$screen`
-
-Available properties on the $screen object:
+After registering, the new property `$screen` will be injected on the Vue prototype. You can access it in every component using `this.$screen`.<br>
+Available properties on the `$screen` object:
 
 #### width
 *Number*<br>
@@ -110,6 +109,17 @@ Every breakpoint key specified in the configuration will be available as a boole
 To view default breakpoint keys and values for each framework, [click here](https://github.com/matteo-rigon/vue-screen/tree/master/src/grids). 
 
 
+## Browser support
 
+All browsers that support MatchMedia API
 
-
+<p class="ciu_embed" data-feature="matchmedia" data-periods="current,past_1,past_2" data-accessible-colours="false">
+<a href="http://caniuse.com/#feat=matchmedia" target="_blank">
+<picture>
+<source type="image/webp" srcset="https://res.cloudinary.com/ireaderinokun/image/upload/v1557132257/caniuse-embed/matchmedia-2019-5-6.webp">
+<source type="image/png" srcset="https://res.cloudinary.com/ireaderinokun/image/upload/v1557132257/caniuse-embed/matchmedia-2019-5-6.png">
+<source type="image/jpeg" srcset="https://res.cloudinary.com/ireaderinokun/image/upload/v1557132257/caniuse-embed/matchmedia-2019-5-6.jpg">
+<img src="https://res.cloudinary.com/ireaderinokun/image/upload/v1557132257/caniuse-embed/matchmedia-2019-5-6.png" alt="Data on support for the matchmedia feature across the major browsers from caniuse.com">
+</picture>
+</a>
+</p>

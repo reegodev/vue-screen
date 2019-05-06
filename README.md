@@ -2,14 +2,16 @@
 [![Build Status](https://img.shields.io/badge/vue-2.6.x-brightgreen.svg)](https://img.shields.io/badge/vue-2.x-brightgreen.svg)
 
 # VueScreen
-A Vue plugin that provides reactive window size and media query states. Supports your favourite UI framework grid breakpoints out of the box, and can be configured with any custom breakpoints.
+Reactive window size and media query states for VueJS. Supports your favourite UI framework grid breakpoints out of the box, and can be configured with any custom breakpoints.
+
+[https://matteo-rigon.github.io/vue-screen/](https://matteo-rigon.github.io/vue-screen/)
 
 ## Features
 - reactive and debounced window innerWidth and innerHeight
 - reactive media query states
 - detect touch screen capability 
 - breakpoints for most common ui frameworks provided out of the box: Tailwind, Bootstrap, Bulma, Foundation, Materialize, Semantic UI
-- SSR compatible
+- SSR compatible (Nuxt module and Gridsome plugin coming soon)
 
 ## Requirements
 

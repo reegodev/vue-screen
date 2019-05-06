@@ -23,10 +23,6 @@ export default {
   color: #fff;
   font-size: 12px;
 
-  .md & {
-    font-size: 16px;
-  }
-
   a {
     color: #fff;
     text-decoration: underline;

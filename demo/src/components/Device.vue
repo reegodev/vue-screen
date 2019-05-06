@@ -93,11 +93,12 @@ export default {
   }
 
   .fade-enter-active, .fade-leave-active {
-    transition: opacity 0.25s linear;
+    transition: opacity 0.25s linear, transform 0.25s ease-out;
   }
 
   .fade-enter, .fade-leave-to {
     opacity: 0;
+    transform: scale(0, 0);
   }
 }
 

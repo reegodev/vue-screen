@@ -18,7 +18,7 @@ export default {
     add(message) {
       this.events.unshift({
         message,
-        id: Date.now(),
+        id: Date.now() + '.' + Math.random(),
       });
       setTimeout(() => this.events.pop(), 3000);
     },

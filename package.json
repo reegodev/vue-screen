@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha --require @babel/register --timeout 5000 --exit 'tests/**/*.spec.js'",
     "build": "webpack",
-    "lint": "eslint src/**.js"
+    "lint": "eslint src/**.js",
+    "publish": "git subtree push --prefix demo/dist origin gh-pages"
   },
   "repository": {
     "type": "git",

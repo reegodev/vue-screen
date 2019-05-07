@@ -24,7 +24,7 @@ export default {
   text-align: center;
   margin-bottom: 40px;
   margin-top: -80px;
-  font-size: 18px;
+  font-size: 16px;
 
   h1 {
     font-size: 30px;

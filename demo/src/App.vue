@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="screen" :class="media">
+  <div id="app" class="screen" :class="media" :style="{height: `${$screen.height}px`}">
     <Description/>
     <Device/>
     <Credits/>
@@ -77,6 +77,7 @@ export default {
   background-color: #fbafaf;
   padding: 15px;
   transition: background-color 0.3s ease-out;
+  overflow: hidden;
 
   .description a {
     background-color: #d86767;

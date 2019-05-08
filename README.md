@@ -9,7 +9,7 @@ Reactive window size and media query states for VueJS. Supports your favourite U
 
 ## Features
 - reactive and debounced window innerWidth and innerHeight
-- reactive media query states
+- reactive media query states and device orientation
 - detect touch screen capability 
 - breakpoints for most common ui frameworks provided out of the box: Tailwind, Bootstrap, Bulma, Foundation, Materialize, Semantic UI
 - SSR compatible (Nuxt module and Gridsome plugin coming soon)
@@ -152,6 +152,14 @@ Equivalent to window.innerHeight
 #### touch 
 *Boolean*<br>
 Tells if touch events are supported
+<br><br>
+#### portrait 
+*Boolean*<br>
+Tells if the device is in portrait mode
+<br><br>
+#### landscape 
+*Boolean*<br>
+Tells if the device is in landscape mode
 <br><br>
 #### &lt;breakpoint key&gt;
 *Boolean*<br>

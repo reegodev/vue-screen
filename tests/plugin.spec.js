@@ -1,6 +1,6 @@
 require('@babel/polyfill');
 
-import { Plugin, DEFAULT_FRAMEWORK } from '../src/plugin';
+import { Plugin, DEFAULT_FRAMEWORK, RESERVED_KEYS } from '../src/plugin';
 import grids from '../src/grids';
 import { expect } from 'chai';
 import { createPage, breakpointsOnly } from './helpers';
@@ -15,6 +15,14 @@ describe('plugin', function() {
       ).to.have.members(
         Object.keys(grids[framework]).sort()
       );
+    }
+  });
+
+  it('does not allow using protected keys as breakpoint names', () => {
+    const init = key => new Plugin({[key]: 400});
+
+    for (const key of RESERVED_KEYS) {
+      expect(init.bind(null, key)).to.throw();
     }
   });
 

@@ -12,6 +12,14 @@ export const DEFAULT_FRAMEWORK = 'tailwind';
 
 export const DEBOUNCE_MS = 100;
 
+export const RESERVED_KEYS = [
+  'width',
+  'height',
+  'touch',
+  'portrait',
+  'landscape',
+];
+
 export class Plugin {
   /**
    * Class constructor
@@ -91,14 +99,20 @@ export class Plugin {
    */
   createScreen(breakpoints) {
     this.screen = Vue.observable({
+      width: DEFAULT_WIDTH,
       height: DEFAULT_HEIGHT,
       touch: true,
-      width: DEFAULT_WIDTH,
       portrait: true,
       landscape: false,
     });
 
-    Object.keys(breakpoints).forEach(name => Vue.set(this.screen, name, false));
+    Object.keys(breakpoints).forEach((name) => {
+      if (RESERVED_KEYS.indexOf(name) >= 0) {
+        throw new Error(`Invalid breakpoint name: "${name}". This key is reserved.`);
+      }
+
+      Vue.set(this.screen, name, false);
+    });
 
     if (inBrowser) {
       this.initMediaQueries(breakpoints);

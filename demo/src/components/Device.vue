@@ -1,13 +1,15 @@
 <template>
   <div class="device">
-    <transition name="fade" mode="out-in">
-      <component :is="device"></component>
-    </transition>
+    <div class="device-type" ref="device">
+      <transition name="fade" mode="out-in" appear @enter="updateDevice">
+        <component :is="device"></component>
+      </transition>
+    </div>
 
     <div class="breakpoint">{{ breakpoint }}</div>
     
-    <Dimension :value="$screen.width" />
-    <Dimension :value="$screen.height" orientation="v" />
+    <Dimension :value="$screen.width" :w="deviceWidth" :h="deviceHeight" />
+    <Dimension :value="$screen.height" orientation="v" :w="deviceWidth" :h="deviceHeight" />
   </div>
 </template>
 
@@ -27,13 +29,24 @@ export default {
     Widescreen,
   },
 
+  data() {
+    return {
+      deviceWidth: 0,
+      deviceHeight: 0,
+    }
+  },
+
+  mounted() {
+    this.updateDevice();
+  },
+
   computed: {
     device() {
       if (this.$screen.xl) {
         return 'Widescreen';
       }
 
-      if (this.$screen.lg) {
+      if (this.$screen.lg && !this.$screen.touch) {
         return 'Desktop';
       }
 
@@ -63,6 +76,22 @@ export default {
       return 'xs';
     },
   },
+
+  watch: {
+    '$screen.width'(current, old) {
+      this.updateDevice();
+    },
+    '$screen.height'(current, old) {
+      this.updateDevice();
+    },
+  },
+
+  methods: {
+    updateDevice() {
+      this.deviceWidth = this.$screen.landscape && this.$screen.touch ? this.$refs.device.offsetHeight : this.$refs.device.offsetWidth;
+      this.deviceHeight = this.$screen.landscape && this.$screen.touch ? this.$refs.device.offsetWidth : this.$refs.device.offsetHeight;
+    },
+  },
 }
 </script>
 
@@ -75,6 +104,18 @@ export default {
 
     .screen:not(.sm) & {
       width: 140px;
+    }
+
+    .screen.landscape:not(.md) & {
+      width: 60px;
+    }
+  }
+
+  .device-type {
+    transition: transform 0.3s ease-out;
+
+    .can-touch.landscape & {
+      transform: rotate(-90deg);
     }
   }
 
@@ -89,6 +130,10 @@ export default {
 
     .xl & {
       transform: translate(-50%, -180%);
+    }
+
+    .screen.landscape:not(.md) & {
+      font-size: 24px;
     }
   }
 

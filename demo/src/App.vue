@@ -30,6 +30,9 @@ export default {
         md: this.$screen.md,
         lg: this.$screen.lg,
         xl: this.$screen.xl,
+        landscape: this.$screen.landscape,
+        portrait: this.$screen.portrait,
+        'can-touch': this.$screen.touch,
       }
     },
   },
@@ -53,6 +56,9 @@ export default {
     '$screen.xl'(active) {
       this.addBreakpointEvent('XL', active);
     },
+    '$screen.portrait'(active) {
+      this.addOrientationEvent(active);
+    },
   },
 
   methods: {
@@ -61,7 +67,10 @@ export default {
     },
     addResizeEvent(property, current, old) {
       this.$refs.feed.add(`${property} changed: ${old} → ${current}`);
-    }
+    },
+    addOrientationEvent(portrait) {
+      this.$refs.feed.add(`Orientation changed: ${portrait ? 'portrait' : 'landscape'}`);
+    },
   }
 }
 </script>

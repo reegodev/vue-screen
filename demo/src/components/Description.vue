@@ -26,6 +26,10 @@ export default {
   margin-top: -80px;
   font-size: 16px;
 
+  .screen.landscape:not(.md) & {
+    margin-bottom: 0;
+  }
+
   h1 {
     font-size: 30px;
     margin-bottom: 20px;
@@ -52,6 +56,15 @@ export default {
       vertical-align: sub;
       margin-right: 5px;
       fill: currentColor;
+    }
+
+    .screen.landscape:not(.md) & {
+      padding: 8px;
+      font-size: 14px;
+
+      svg {
+        height: 18px;
+      }
     }
   }
 }

@@ -3,16 +3,13 @@ require('@babel/polyfill');
 import { Plugin, DEFAULT_FRAMEWORK } from '../src/plugin';
 import grids from '../src/grids';
 import { expect } from 'chai';
-import { createPage } from './helpers';
+import { createPage, breakpointsOnly } from './helpers';
 
 describe('plugin', function() {
 
   it('provides breakpoints for supported frameworks', () => {
     for (const framework in grids) {
-      const screen = new Plugin(framework).screen;
-      delete screen.width;
-      delete screen.height;
-      delete screen.touch;
+      const screen = breakpointsOnly(new Plugin(framework).screen);
       expect(
         Object.keys(screen).sort()
       ).to.have.members(
@@ -22,10 +19,7 @@ describe('plugin', function() {
   });
 
   it(`uses ${DEFAULT_FRAMEWORK} as default framework`, () => {
-    const screen = new Plugin().screen;
-    delete screen.width;
-    delete screen.height;
-    delete screen.touch;
+    const screen = breakpointsOnly(new Plugin().screen);
     expect(
       Object.keys(screen)
     ).to.have.members(
@@ -134,6 +128,12 @@ describe('plugin', function() {
         expect(matches).to.equal(breakpoints[bpName] <= breakpoints[breakpointName]);
       }
     }
+  });
+
+  it('contains initial orientation state', async () => {
+    const page = await createPage();
+    expect(await page.evaluate(() => window.vm.$screen.portrait)).to.equal(false);
+    expect(await page.evaluate(() => window.vm.$screen.landscape)).to.equal(true);
   });
 
 });

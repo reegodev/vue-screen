@@ -1,5 +1,5 @@
 <template>
-  <div class="dimension" :class="orientation">
+  <div class="dimension" :class="orientation" :style="{top, left, width}">
     <div class="line"></div>
     <span class="value">{{ value }}</span>
   </div>
@@ -18,7 +18,32 @@ export default {
         return 'h';
       }
     },
-  }
+    w: {
+      type: Number,
+      required: true,
+    },
+    h: {
+      type: Number,
+      required: true,
+    },
+  },
+
+  computed: {
+    vertical() {
+      return this.orientation !== 'h';
+    },
+    top() {
+      const diff = this.$screen.landscape && this.$screen.touch ? (this.w - this.h) / 2 : 0;
+      return `${this.h + diff}px`;
+    },
+    left() {
+      const diff = this.$screen.landscape && this.$screen.touch ? (this.h - this.w) / 2 : 0;
+      return `${this.vertical ? this.w + diff : diff}px`;
+    },
+    width() {
+      return `${this.vertical ? this.h : this.w}px`;
+    },
+  },
 }
 </script>
 
@@ -27,6 +52,9 @@ export default {
   font-size: 18px;
   font-weight: 700;
   position: absolute;
+  padding: 20px 0;
+  text-align: center;
+  transition: width 0.3s ease-out;
 
   .line {
     position: absolute;
@@ -69,12 +97,17 @@ export default {
     top: 100%;
     left: 0;
     right: 0;
-    text-align: center;
-    padding: 20px 0;
   }
 
   &.v {
-    top: 0;
+    transform: rotate(-90deg);
+    transform-origin: 0 1px;
+
+    .value {
+      transform: rotate(90deg);
+      display: inline-block;
+    }
+    /* top: 0;
     left: 100%;
     bottom: 0;
     display: flex;
@@ -96,7 +129,7 @@ export default {
         bottom: -10px;
         top: auto;
       }
-    }
+    } */
   }
 }
 </style>

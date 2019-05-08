@@ -94,6 +94,8 @@ export class Plugin {
       height: DEFAULT_HEIGHT,
       touch: true,
       width: DEFAULT_WIDTH,
+      portrait: true,
+      landscape: false,
     });
 
     Object.keys(breakpoints).forEach(name => Vue.set(this.screen, name, false));
@@ -122,6 +124,15 @@ export class Plugin {
       query.addListener(e => this.mediaStateChanged(name, e.matches));
       this.mediaStateChanged(name, query.matches);
     });
+
+    const query = window.matchMedia('(orientation: portrait)');
+    query.addListener((e) => {
+      this.mediaStateChanged('portrait', e.matches);
+      this.mediaStateChanged('landscape', !e.matches);
+    });
+
+    this.mediaStateChanged('portrait', query.matches);
+    this.mediaStateChanged('landscape', !query.matches);
   }
 
   /**

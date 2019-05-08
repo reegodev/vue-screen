@@ -3,6 +3,16 @@ require('@babel/polyfill');
 import puppeteer from 'puppeteer';
 import { join } from 'path';
 
+export const breakpointsOnly = (screen) => {
+  delete screen.width;
+  delete screen.height;
+  delete screen.touch;
+  delete screen.portrait;
+  delete screen.landscape;
+
+  return screen;
+}
+
 export const createPage = async (content = '') => {
   if (!content) {
     content = `

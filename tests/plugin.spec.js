@@ -144,4 +144,7 @@ describe('plugin', function() {
     expect(await page.evaluate(() => window.vm.$screen.landscape)).to.equal(true);
   });
 
+  it('runs callbacks on resize', async () => {
+    
+  });
 });

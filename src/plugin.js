@@ -27,6 +27,8 @@ export class Plugin {
    * @param {object | string} breakpoints
    */
   constructor(breakpoints = '') {
+    this.callbacks = {};
+
     this.createScreen(
       Plugin.parseBreakpoints(breakpoints),
     );
@@ -80,7 +82,18 @@ export class Plugin {
     if (inBrowser) {
       this.screen.width = window.innerWidth;
       this.screen.height = window.innerHeight;
+
+      this.runCallbacks();
     }
+  }
+
+  /**
+   * Run callbacks
+   */
+  runCallbacks() {
+    Object.keys(this.callbacks).forEach((key) => {
+      this.screen[key] = this.callbacks[key].call(this.screen);
+    });
   }
 
   /**
@@ -127,16 +140,21 @@ export class Plugin {
   initMediaQueries(breakpoints) {
     Object.keys(breakpoints).forEach((name) => {
       const width = breakpoints[name];
-      let w;
-      if (typeof width === 'number') {
+      let w = null;
+
+      if (typeof width === 'function') {
+        this.callbacks[name] = width;
+      } else if (typeof width === 'number') {
         w = `${width}px`;
       } else {
         w = width;
       }
 
-      const query = window.matchMedia(`(min-width: ${w})`);
-      query.addListener(e => this.mediaStateChanged(name, e.matches));
-      this.mediaStateChanged(name, query.matches);
+      if (w) {
+        const query = window.matchMedia(`(min-width: ${w})`);
+        query.addListener(e => this.mediaStateChanged(name, e.matches));
+        this.mediaStateChanged(name, query.matches);
+      }
     });
 
     const query = window.matchMedia('(orientation: portrait)');

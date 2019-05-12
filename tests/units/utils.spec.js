@@ -1,7 +1,7 @@
 require('@babel/polyfill');
 
 import { expect } from 'chai';
-import { debounce, parseSemver, checkVersion } from '../src/utils';
+import { debounce, parseSemver, checkVersion } from '../../src/utils';
 import { sleep } from './helpers';
 
 describe('utils', function() {

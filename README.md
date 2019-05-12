@@ -76,7 +76,7 @@ Vue.use(VueScreen, 'materialize');
 Vue.use(VueScreen, 'semantic-ui'); 
 ```
 
-Provide custom breakpoints:
+#### Custom breakpoints:
 
 ```js
 Vue.use(VueScreen, {
@@ -87,6 +87,20 @@ Vue.use(VueScreen, {
 ```
 
 You can find default UI framework breakspoints [here](https://github.com/matteo-rigon/vue-screen/tree/develop/src/grids)
+
+#### Callbacks
+You can provide custom callbacks that will be run every time the debounced window resize event is triggered
+```js
+Vue.use(VueScreen, {
+    md: 768,
+    lg: 992,
+    xl: 1200,
+    tablet(screen) {
+        return screen.md && !screen.xl && screen.touch;
+    },
+});
+```
+
 
 ## Basic usage
 
@@ -166,7 +180,10 @@ Tells if the device is in landscape mode
 Every breakpoint key specified in the configuration will be available as a boolean value indicating if the corresponding media query matches.
 <br><br>
 To view default breakpoint keys and values for each framework, [click here](https://github.com/matteo-rigon/vue-screen/tree/master/src/grids). 
-
+<br><br>
+#### &lt;callback name&gt;
+*any*<br>
+Every callback specified in the configuration will have a corresponding property indicating the result of the callback.
 
 ## Browser support
 

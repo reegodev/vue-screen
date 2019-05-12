@@ -4,7 +4,9 @@
   "description": "Reactive window size and media query states for Vue components. Integrates with most UI frameworks.",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha --require @babel/register --timeout 5000 --exit 'tests/**/*.spec.js'",
+    "test": "npm run lint && npm run test:unit && npm run test:e2e",
+    "test:unit": "mocha --require @babel/register --timeout 5000 --exit 'tests/units/*.spec.js'",
+    "test:e2e": "node tests/e2e/runner.js",
     "build": "webpack",
     "lint": "eslint src/**.js",
     "publish": "git subtree push --prefix demo/dist origin gh-pages"
@@ -19,7 +21,7 @@
     "url": "https://github.com/matteo-rigon/vue-screen/issues"
   },
   "homepage": "https://github.com/matteo-rigon/vue-screen#readme",
-  "module": "index.js",
+  "module": "src/index.js",
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
@@ -28,20 +30,22 @@
     "@babel/register": "^7.4.0",
     "babel-loader": "^8.0.5",
     "chai": "^4.2.0",
+    "cross-spawn": "^6.0.5",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
+    "express": "^4.16.4",
+    "express-urlrewrite": "^1.2.0",
     "husky": "^2.2.0",
     "install-peers": "^1.0.3",
     "mocha": "^6.1.4",
-    "puppeteer": "^1.14.0",
+    "puppeteer": "^1.15.0",
+    "vue": "^2.6.10",
     "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.1"
-  },
-  "peerDependencies": {
-    "vue": ">= 2.6.0"
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-middleware": "^3.6.2"
   },
   "husky": {
     "hooks": {

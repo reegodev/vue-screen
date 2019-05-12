@@ -1,6 +1,7 @@
-import Vue from 'vue';
 import { debounce, inBrowser, checkVersion } from './utils';
 import grids from './grids';
+
+let Vue;
 
 const MIN_VUE_VERSION = '2.6.0';
 
@@ -92,7 +93,7 @@ export class Plugin {
    */
   runCallbacks() {
     Object.keys(this.callbacks).forEach((key) => {
-      this.screen[key] = this.callbacks[key].call(this.screen);
+      this.screen[key] = this.callbacks[key].call(null, this.screen);
     });
   }
 
@@ -184,11 +185,13 @@ export class Plugin {
    * @param {object} options
    */
   static install(vue, options) {
-    if (!checkVersion(vue.version, MIN_VUE_VERSION)) {
-      throw Error(`vue-screen requires at least Vue ${MIN_VUE_VERSION}`);
+    Vue = vue;
+
+    if (!checkVersion(Vue.version, MIN_VUE_VERSION)) {
+      throw Error(`VueScreen requires at least Vue ${MIN_VUE_VERSION}`);
     }
 
     // eslint-disable-next-line no-param-reassign
-    vue.prototype.$screen = new Plugin(options).screen;
+    Vue.prototype.$screen = new Plugin(options).screen;
   }
 }

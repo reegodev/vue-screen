@@ -44,15 +44,40 @@ export class Plugin {
    */
   static parseBreakpoints(breakpoints) {
     if (typeof breakpoints === 'object') {
+      if (breakpoints.extend) {
+        const framework = breakpoints.extend.toString();
+        // eslint-disable-next-line no-param-reassign
+        delete breakpoints.extend;
+
+        return {
+          ...breakpoints,
+          ...Plugin.getBreakpoints(framework),
+        };
+      }
+
       return breakpoints;
     }
 
-    const key = breakpoints.toString() || DEFAULT_FRAMEWORK;
-    if (!grids[key]) {
-      throw new Error(`Cannot find grid breakpoints for framework "${key}"`);
+    return Plugin.getBreakpoints(breakpoints.toString());
+  }
+
+  /**
+   * Get the breakpoints of one of the supported frameworks
+   *
+   * @param {string} framework
+   * @returns {object}
+   */
+  static getBreakpoints(framework = '') {
+    if (!framework) {
+      // eslint-disable-next-line no-param-reassign
+      framework = DEFAULT_FRAMEWORK;
     }
 
-    return grids[key];
+    if (!grids[framework]) {
+      throw new Error(`Cannot find grid breakpoints for framework "${framework}"`);
+    }
+
+    return grids[framework];
   }
 
   /**

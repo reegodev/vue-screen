@@ -47,4 +47,18 @@ describe('plugin', function() {
     );
   });
 
+  it('extends default frameworks with custom callbacks', () => {
+    const screen = breakpointsOnly(createPlugin({
+      extend: 'bootstrap',
+      test() {return false},
+    }));
+
+    expect(
+      Object.keys(screen)
+    ).to.have.members([
+      ...Object.keys(grids['bootstrap']),
+      'test',
+    ]);
+  });
+
 });

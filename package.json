@@ -51,5 +51,8 @@
     "hooks": {
       "pre-commit": "npm run lint"
     }
-  }
+  },
+  "browserslist": [
+    "ie >= 10"
+  ]
 }

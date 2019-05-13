@@ -1,6 +1,6 @@
 {
   "name": "vue-screen",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Reactive window size and media query states for Vue components. Integrates with most UI frameworks.",
   "main": "src/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "test:e2e": "node tests/e2e/runner.js",
     "build": "webpack",
     "lint": "eslint src/**.js",
-    "publish": "git subtree push --prefix demo/dist origin gh-pages"
+    "update-demo": "git subtree push --prefix demo/dist origin gh-pages"
   },
   "repository": {
     "type": "git",

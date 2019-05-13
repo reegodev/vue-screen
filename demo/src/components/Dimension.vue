@@ -33,11 +33,11 @@ export default {
       return this.orientation !== 'h';
     },
     top() {
-      const diff = this.$screen.landscape && this.$screen.touch ? (this.w - this.h) / 2 : 0;
+      const diff = this.$screen.mobileLandscape ? (this.w - this.h) / 2 : 0;
       return `${this.h + diff}px`;
     },
     left() {
-      const diff = this.$screen.landscape && this.$screen.touch ? (this.h - this.w) / 2 : 0;
+      const diff = this.$screen.mobileLandscape ? (this.h - this.w) / 2 : 0;
       return `${this.vertical ? this.w + diff : diff}px`;
     },
     width() {

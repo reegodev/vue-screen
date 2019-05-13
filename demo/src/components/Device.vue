@@ -2,11 +2,11 @@
   <div class="device">
     <div class="device-type" ref="device">
       <transition name="fade" mode="out-in" appear @enter="updateDevice">
-        <component :is="device"></component>
+        <component :is="$screen.device"></component>
       </transition>
     </div>
 
-    <div class="breakpoint">{{ breakpoint }}</div>
+    <div class="breakpoint">{{ $screen.breakpoint }}</div>
     
     <Dimension :value="$screen.width" :w="deviceWidth" :h="deviceHeight" />
     <Dimension :value="$screen.height" orientation="v" :w="deviceWidth" :h="deviceHeight" />
@@ -40,43 +40,6 @@ export default {
     this.updateDevice();
   },
 
-  computed: {
-    device() {
-      if (this.$screen.xl) {
-        return 'Widescreen';
-      }
-
-      if (this.$screen.lg && !this.$screen.touch) {
-        return 'Desktop';
-      }
-
-      if (this.$screen.md) {
-        return 'Tablet';
-      }
-
-      return 'Phone';
-    },
-    breakpoint() {
-      if (this.$screen.xl) {
-        return 'xl';
-      }
-
-      if (this.$screen.lg) {
-        return 'lg';
-      }
-
-      if (this.$screen.md) {
-        return 'md';
-      }
-
-      if (this.$screen.sm) {
-        return 'sm';
-      }
-
-      return 'xs';
-    },
-  },
-
   watch: {
     '$screen.width'(current, old) {
       this.updateDevice();
@@ -88,8 +51,8 @@ export default {
 
   methods: {
     updateDevice() {
-      this.deviceWidth = this.$screen.landscape && this.$screen.touch ? this.$refs.device.offsetHeight : this.$refs.device.offsetWidth;
-      this.deviceHeight = this.$screen.landscape && this.$screen.touch ? this.$refs.device.offsetWidth : this.$refs.device.offsetHeight;
+      this.deviceWidth = this.$screen.mobileLandscape ? this.$refs.device.offsetHeight : this.$refs.device.offsetWidth;
+      this.deviceHeight = this.$screen.mobileLandscape ? this.$refs.device.offsetWidth : this.$refs.device.offsetHeight;
     },
   },
 }

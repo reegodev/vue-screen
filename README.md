@@ -8,11 +8,11 @@ Reactive window size and media query states for VueJS. Supports your favourite U
 [Demo](https://matteo-rigon.github.io/vue-screen/)
 
 ## Features
-- reactive and debounced window innerWidth and innerHeight
-- reactive media query states and device orientation
-- detect touch screen capability 
-- breakpoints for most common ui frameworks provided out of the box: Tailwind, Bootstrap, Bulma, Foundation, Materialize, Semantic UI
-- SSR compatible (Nuxt module and Gridsome plugin coming soon)
+✔ Reactive and debounced window innerWidth and innerHeight ↔ 🕐 <br>
+✔ Reactive media query states and device orientation 💻📲<br>
+✔ Detect touch screen capability 👆🖱<br>
+✔ breakpoints for most common ui frameworks provided out of the box: Tailwind, Bootstrap, Bulma, Foundation, Materialize, Semantic UI ⚙ 📦<br>
+✔ SSR compatible 🚀 📟 (Nuxt module and Gridsome plugin coming 🔜) <br>
 
 ## Requirements
 
@@ -34,7 +34,7 @@ npm i vue-screen
 
 ```js
 import Vue from 'vue';
-import VueScreen from 'vue-screen' ;
+import VueScreen from 'vue-screen';
 
 Vue.use(VueScreen);
 ```
@@ -86,21 +86,27 @@ Vue.use(VueScreen, {
 }); 
 ```
 
-You can find default UI framework breakspoints [here](https://github.com/matteo-rigon/vue-screen/tree/develop/src/grids)
+You can find default UI framework breakpoints [here](https://github.com/matteo-rigon/vue-screen/tree/develop/src/grids)
 
 #### Callbacks
-You can provide custom callbacks that will be run every time the debounced window resize event is triggered
+You can provide custom callbacks that will be run every time the debounced window resize event is triggered:
 ```js
 Vue.use(VueScreen, {
     md: 768,
     lg: 992,
     xl: 1200,
-    tablet(screen) {
-        return screen.md && !screen.xl && screen.touch;
-    },
+    tablet: screen => screen.md && !screen.xl && screen.touch,
 });
 ```
 
+To use callbacks togheter with breakpoints from one of the supported UI frameworks you can specify the `extend` property:
+
+```js
+Vue.use(VueScreen, {
+    extend: 'bootstrap',
+    tablet: screen => screen.md && !screen.xl && screen.touch,
+});
+```
 
 ## Basic usage
 
@@ -150,7 +156,7 @@ export default {
 }
 ```
 
-Check out demo source code for more examples.
+Check out [demo source code](https://github.com/matteo-rigon/vue-screen/tree/develop/demo/src) for more examples.
 
 ## API
 Available properties on the `$screen` object:
@@ -182,8 +188,8 @@ Every breakpoint key specified in the configuration will be available as a boole
 To view default breakpoint keys and values for each framework, [click here](https://github.com/matteo-rigon/vue-screen/tree/master/src/grids). 
 <br><br>
 #### &lt;callback name&gt;
-*any*<br>
-Every callback specified in the configuration will have a corresponding property indicating the result of the callback.
+*Any*<br>
+Every callback specified in the configuration will have a corresponding property indicating the result of the callback. Callbacks will be called on every debounced resize event. 
 
 ## Browser support
 

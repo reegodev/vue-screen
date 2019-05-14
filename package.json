@@ -8,7 +8,9 @@
     "test": "npm run lint && npm run test:unit && npm run test:e2e",
     "test:unit": "mocha --require @babel/register --timeout 5000 --exit 'tests/units/*.spec.js'",
     "test:e2e": "node tests/e2e/runner.js",
-    "build": "webpack",
+    "build:browser": "rollup -c rollup.config.browser.js",
+    "build:cjs": "rollup -c rollup.config.cjs.js",
+    "build": "npm run build:cjs && npm run build:browser",
     "lint": "eslint src/**.js",
     "update-demo": "git subtree push --prefix demo/dist origin gh-pages"
   },

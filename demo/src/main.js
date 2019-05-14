@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import VueScreen from '../../src/index';
+import VueScreen from 'vue-screen';
 import App from './App.vue';
 
 Vue.use(VueScreen, {

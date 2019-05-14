@@ -1,5 +1,5 @@
 import { debounce, inBrowser, checkVersion } from './utils';
-import grids from './grids';
+import grids from './grids/index';
 
 let Vue;
 

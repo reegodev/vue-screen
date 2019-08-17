@@ -99,7 +99,7 @@ Vue.use(VueScreen, {
 });
 ```
 
-To use callbacks togheter with breakpoints from one of the supported UI frameworks you can specify the `extend` property:
+To use callbacks together with breakpoints from one of the supported UI frameworks you can specify the `extend` property:
 
 ```js
 Vue.use(VueScreen, {

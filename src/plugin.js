@@ -49,10 +49,11 @@ export class Plugin {
         // eslint-disable-next-line no-param-reassign
         delete breakpoints.extend;
 
-        return {
-          ...breakpoints,
-          ...Plugin.getBreakpoints(framework),
-        };
+        return Object.assign(
+          {},
+          breakpoints,
+          Plugin.getBreakpoints(framework)
+        );
       }
 
       return breakpoints;

@@ -2,7 +2,15 @@
   "name": "vue-screen",
   "version": "1.1.5",
   "description": "Reactive window size and media query states for Vue components. Integrates with most UI frameworks.",
-  "keywords": ["vuejs", "window", "reactive window", "media query", "matchMedia", "innerWidth", "innerHeight"],
+  "keywords": [
+    "vuejs",
+    "window",
+    "reactive window",
+    "media query",
+    "matchMedia",
+    "innerWidth",
+    "innerHeight"
+  ],
   "main": "dist/vue-screen.js",
   "scripts": {
     "test": "npm run lint && npm run test:unit && npm run test:e2e",
@@ -44,6 +52,7 @@
     "husky": "^2.2.0",
     "install-peers": "^1.0.3",
     "mocha": "^6.1.4",
+    "nuxt": "^2.10.0",
     "puppeteer": "^1.15.0",
     "rollup": "^1.11.3",
     "rollup-plugin-babel": "^4.3.2",

@@ -6,7 +6,7 @@ const runner = spawn('./node_modules/.bin/mocha', [
   '--require',
   '@babel/register',
   '--timeout',
-  '5000',
+  '10000',
   '--exit',
   '"tests/e2e/**.spec.js"',
 ], {

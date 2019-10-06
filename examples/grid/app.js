@@ -7,30 +7,9 @@ const Test = {
   template: `
   <div>
     <div class="width">Width: <span>{{ $screen.width }}</span></div>
-    <div class="breakpoint">Breakpoint: <span>{{ breakpoint }}</span></div>
+    <div class="breakpoint">Breakpoint: <span>{{ $screen.breakpoint }}</span></div>
   </div>
   `,
-  computed: {
-    breakpoint() {
-      if (this.$screen.xl) {
-        return 'XL';
-      }
-
-      if (this.$screen.lg) {
-        return 'LG';
-      }
-
-      if (this.$screen.md) {
-        return 'MD';
-      }
-
-      if (this.$screen.sm) {
-        return 'SM';
-      }
-
-      return 'XS';
-    }
-  },
 };
 
 new Vue({

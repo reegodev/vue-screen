@@ -1,6 +1,6 @@
 {
   "name": "vue-screen",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "Reactive window size and media query states for Vue components. Integrates with most UI frameworks.",
   "keywords": [
     "vuejs",

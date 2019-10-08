@@ -145,6 +145,7 @@ export default {
                 'is-tablet': this.$screen.md,
                 'is-desktop': this.$screen.lg,
                 'can-touch': this.$screen.touch,
+                'breakpoint': this.$screen.breakpoint,
             };
         }
     }
@@ -204,9 +205,11 @@ Vue.use(VueScreen, {
     tabletPortrait: 768,
     tabletLandscape: 1024,
     desktop: 1200,
-    order: ['phonePortrait', 'phoneLandscape', 'tabletPortrait', 'tabletLandscape', 'desktop']
+    breakpointsOrder: ['phonePortrait', 'phoneLandscape', 'tabletPortrait', 'tabletLandscape', 'desktop']
 });
 ```
+> If you extend one of the default frameworks, `breakpointsOrder` is provided automatically.
+
 <br><br>
 #### &lt;breakpoint key&gt;
 *Boolean*<br>

@@ -32,6 +32,12 @@ Via npm:
 npm i vue-screen
 ```
 
+Via yarn:
+```bash
+yarn add vue-screen
+```
+
+## Setup
 ```js
 import Vue from 'vue';
 import VueScreen from 'vue-screen';
@@ -118,6 +124,7 @@ After registering, the property `$screen` will be injected on the Vue prototype.
     <div>
         <p>Page width is {{ $screen.width }} px</p>
         <p>Page height is {{ $screen.height }} px</p>
+        <p>Current breakpoint is {{ $screen.breakpoint }} px</p>
     </div>
 </template>
 ```
@@ -138,6 +145,7 @@ export default {
                 'is-tablet': this.$screen.md,
                 'is-desktop': this.$screen.lg,
                 'can-touch': this.$screen.touch,
+                'breakpoint': this.$screen.breakpoint,
             };
         }
     }
@@ -180,6 +188,28 @@ Tells if the device is in portrait mode
 #### landscape 
 *Boolean*<br>
 Tells if the device is in landscape mode
+<br><br>
+#### breakpoint 
+*String*<br>
+Returns the currently active breakpoint. If you use custom breakpoint names, you must also provide the `breakpointsOrder` property (see below).
+<br><br>
+#### breakpointsOrder 
+*Array*<br>
+Contains the order of the custom breakpoints provided in the configuration. This is required for the `breakpoint` property to work with custom breakpoint names.
+<br>
+Example:
+```js
+Vue.use(VueScreen, {
+    phonePortrait: 0,
+    phoneLandscape: 520,
+    tabletPortrait: 768,
+    tabletLandscape: 1024,
+    desktop: 1200,
+    breakpointsOrder: ['phonePortrait', 'phoneLandscape', 'tabletPortrait', 'tabletLandscape', 'desktop']
+});
+```
+> If you extend one of the default frameworks, `breakpointsOrder` is provided automatically.
+
 <br><br>
 #### &lt;breakpoint key&gt;
 *Boolean*<br>

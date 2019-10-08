@@ -23,6 +23,8 @@ export const breakpointsOnly = (screen) => {
   delete screen.touch;
   delete screen.portrait;
   delete screen.landscape;
+  delete screen.breakpoint;
+  delete screen.breakpointsOrder;
 
   return screen;
 }

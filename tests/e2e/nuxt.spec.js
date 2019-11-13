@@ -14,6 +14,11 @@ describe('nuxt module', () => {
       screen: {
         extend: 'tailwind',
       },
+      build: {
+        extend (config) {
+          config.resolve.alias['vue-screen'] = resolve('.', 'dist', 'vue-screen.esm.js')
+        }
+      }
     })
     await new Builder(nuxt).build()
     await nuxt.listen(3000)

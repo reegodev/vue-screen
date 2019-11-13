@@ -21,6 +21,17 @@ export const RESERVED_KEYS = [
   'landscape',
 ];
 
+const CUSTOM_FRAMEWORK_NAME = '__CUSTOM__';
+
+export const DEFAULT_ORDERS = {
+  bootstrap: ['xs', 'sm', 'md', 'lg', 'xl'],
+  bulma: ['mobile', 'tablet', 'desktop', 'widescreen', 'fullhd'],
+  foundation: ['small', 'medium', 'large'],
+  materialize: ['s', 'm', 'l', 'xl'],
+  'semantic-ui': ['mobile', 'tablet', 'computer', 'large'],
+  tailwind: ['xs', 'sm', 'md', 'lg', 'xl'],
+};
+
 export class Plugin {
   /**
    * Class constructor
@@ -29,7 +40,8 @@ export class Plugin {
    */
   constructor(breakpoints = '') {
     this.callbacks = {};
-
+    this.framework = '';
+    this.customBreakpointFn = false;
     this.createScreen(
       Plugin.parseBreakpoints(breakpoints),
     );
@@ -45,21 +57,25 @@ export class Plugin {
   static parseBreakpoints(breakpoints) {
     if (typeof breakpoints === 'object') {
       if (breakpoints.extend) {
-        const framework = breakpoints.extend.toString();
+        this.framework = breakpoints.extend.toString();
         // eslint-disable-next-line no-param-reassign
         delete breakpoints.extend;
 
         return Object.assign(
           {},
           breakpoints,
-          Plugin.getBreakpoints(framework)
+          Plugin.getBreakpoints()
         );
       }
+
+      this.framework = CUSTOM_FRAMEWORK_NAME;
 
       return breakpoints;
     }
 
-    return Plugin.getBreakpoints(breakpoints.toString());
+    this.framework = breakpoints.toString();
+
+    return Plugin.getBreakpoints();
   }
 
   /**
@@ -68,17 +84,17 @@ export class Plugin {
    * @param {string} framework
    * @returns {object}
    */
-  static getBreakpoints(framework = '') {
-    if (!framework) {
+  static getBreakpoints() {
+    if (!this.framework) {
       // eslint-disable-next-line no-param-reassign
-      framework = DEFAULT_FRAMEWORK;
+      this.framework = DEFAULT_FRAMEWORK;
     }
 
-    if (!grids[framework]) {
-      throw new Error(`Cannot find grid breakpoints for framework "${framework}"`);
+    if (!grids[this.framework]) {
+      throw new Error(`Cannot find grid breakpoints for framework "${this.framework}"`);
     }
 
-    return grids[framework];
+    return grids[this.framework];
   }
 
   /**
@@ -111,6 +127,7 @@ export class Plugin {
       this.screen.height = window.innerHeight;
 
       this.runCallbacks();
+      this.findCurrentBreakpoint();
     }
   }
 
@@ -121,6 +138,26 @@ export class Plugin {
     Object.keys(this.callbacks).forEach((key) => {
       this.screen[key] = this.callbacks[key].call(null, this.screen);
     });
+  }
+
+  /**
+   * Calculate the current breakpoint name based on "order" property
+   */
+  findCurrentBreakpoint() {
+    if (this.customBreakpointFn) {
+      return;
+    }
+
+    this.screen.breakpoint = this.screen.breakpointsOrder.reduce(
+      (activeBreakpoint, currentBreakpoint) => {
+        if (this.screen[currentBreakpoint]) {
+          return currentBreakpoint;
+        }
+
+        return activeBreakpoint;
+      },
+      this.screen.breakpointsOrder[0]
+    );
   }
 
   /**
@@ -138,15 +175,26 @@ export class Plugin {
    * @param {object} breakpoints
    */
   createScreen(breakpoints) {
+    const breakpointKeys = Object.keys(breakpoints);
+    const breakpointsOrder = DEFAULT_ORDERS[this.framework] || breakpointKeys;
+
     this.screen = Vue.observable({
       width: DEFAULT_WIDTH,
       height: DEFAULT_HEIGHT,
       touch: true,
       portrait: true,
       landscape: false,
+      breakpointsOrder,
+      breakpoint: breakpointsOrder[0],
     });
 
-    Object.keys(breakpoints).forEach((name) => {
+    if (breakpointKeys.includes('breakpoint')) {
+      this.customBreakpointFn = true;
+    }
+
+    this.findCurrentBreakpoint();
+
+    breakpointKeys.forEach((name) => {
       if (RESERVED_KEYS.indexOf(name) >= 0) {
         throw new Error(`Invalid breakpoint name: "${name}". This key is reserved.`);
       }
@@ -173,8 +221,10 @@ export class Plugin {
         this.callbacks[name] = width;
       } else if (typeof width === 'number') {
         w = `${width}px`;
-      } else {
+      } else if (typeof width === 'string') {
         w = width;
+      } else {
+        this.screen[name] = width;
       }
 
       if (w) {

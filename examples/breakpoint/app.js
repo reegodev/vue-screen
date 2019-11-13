@@ -1,12 +1,17 @@
 import Vue from 'vue';
 import VueScreen from 'vue-screen';
 
-Vue.use(VueScreen);
+Vue.use(VueScreen, {
+  xs: 0,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+});
 
 const Test = {
   template: `
   <div>
-    <div class="width">Width: <span>{{ $screen.width }}</span></div>
     <div class="breakpoint">Breakpoint: <span>{{ $screen.breakpoint }}</span></div>
   </div>
   `,

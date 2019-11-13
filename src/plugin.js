@@ -19,7 +19,6 @@ export const RESERVED_KEYS = [
   'touch',
   'portrait',
   'landscape',
-  'breakpoint',
 ];
 
 const CUSTOM_FRAMEWORK_NAME = '__CUSTOM__';
@@ -42,6 +41,7 @@ export class Plugin {
   constructor(breakpoints = '') {
     this.callbacks = {};
     this.framework = '';
+    this.customBreakpointFn = false;
     this.createScreen(
       Plugin.parseBreakpoints(breakpoints),
     );
@@ -144,6 +144,10 @@ export class Plugin {
    * Calculate the current breakpoint name based on "order" property
    */
   findCurrentBreakpoint() {
+    if (this.customBreakpointFn) {
+      return;
+    }
+
     this.screen.breakpoint = this.screen.breakpointsOrder.reduce(
       (activeBreakpoint, currentBreakpoint) => {
         if (this.screen[currentBreakpoint]) {
@@ -172,6 +176,7 @@ export class Plugin {
    */
   createScreen(breakpoints) {
     const breakpointKeys = Object.keys(breakpoints);
+    const breakpointsOrder = DEFAULT_ORDERS[this.framework] || breakpointKeys;
 
     this.screen = Vue.observable({
       width: DEFAULT_WIDTH,
@@ -179,10 +184,15 @@ export class Plugin {
       touch: true,
       portrait: true,
       landscape: false,
-      breakpointsOrder: DEFAULT_ORDERS[this.framework] || breakpointKeys,
+      breakpointsOrder,
+      breakpoint: breakpointsOrder[0],
     });
 
-    this.screen.breakpoint = this.findCurrentBreakpoint();
+    if (breakpointKeys.includes('breakpoint')) {
+      this.customBreakpointFn = true;
+    }
+
+    this.findCurrentBreakpoint();
 
     breakpointKeys.forEach((name) => {
       if (RESERVED_KEYS.indexOf(name) >= 0) {

@@ -171,11 +171,11 @@ Available properties on the `$screen` object:
 
 #### width
 *Number*<br>
-Equivalent to window.innerWidth
+Alias of window.innerWidth
 <br><br>
 #### height
 *Number*<br>
-Equivalent to window.innerHeight
+Alias of window.innerHeight
 <br><br>
 #### touch 
 *Boolean*<br>

@@ -12,7 +12,7 @@ Reactive window size and media query states for VueJS. Supports your favourite U
 ✔ Reactive media query states and device orientation 💻📲<br>
 ✔ Detect touch screen capability 👆🖱<br>
 ✔ breakpoints for most common ui frameworks provided out of the box: Tailwind, Bootstrap, Bulma, Foundation, Materialize, Semantic UI ⚙ 📦<br>
-✔ SSR compatible 🚀 📟 (Nuxt module and Gridsome plugin coming 🔜) <br>
+✔ SSR compatible 🚀 📟 (Nuxt module included) <br>
 
 ## Requirements
 
@@ -219,7 +219,27 @@ To view default breakpoint keys and values for each framework, [click here](http
 <br><br>
 #### &lt;callback name&gt;
 *Any*<br>
-Every callback specified in the configuration will have a corresponding property indicating the result of the callback. Callbacks will be called on every debounced resize event. 
+Every callback specified in the configuration will have a corresponding property indicating the result of the callback. Callbacks will be called on every debounced resize event.
+
+## Nuxt module
+The library can be used directly as a Nuxt module, just add it to the module section in `nuxt.config.js`:
+
+```js
+export default {
+    ...
+    ...
+    modules: [
+        'vue-screen/nuxt',
+    ],
+
+    screen: {
+        extend: 'bootstrap',
+    },
+    ...
+    ...
+}
+```
+
 
 ## Browser support
 

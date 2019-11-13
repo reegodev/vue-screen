@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { loadExample } = require('./helpers');
 
-describe('callbacks', () => {
+describe('breakpoint', () => {
 
   it('prints current breakpoint on load', async () => {
     await testBreakpoint('iPhone 6', 'xs');

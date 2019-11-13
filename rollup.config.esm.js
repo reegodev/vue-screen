@@ -3,8 +3,8 @@ import babel from 'rollup-plugin-babel';
 export default {
   input: 'src/index.js',
   output: {
-    file: 'dist/vue-screen.cjs.js',
-    format: 'cjs',
+    file: 'dist/vue-screen.esm.js',
+    format: 'esm',
   },
   plugins: [
     babel({

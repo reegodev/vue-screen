@@ -91,6 +91,13 @@ var foundation = {
   large: 1024
 };
 
+var materialize = {
+  s: 0,
+  m: 601,
+  l: 993,
+  xl: 1201
+};
+
 var semantic = {
   mobile: 0,
   tablet: 768,
@@ -110,6 +117,7 @@ var grids = {
   bootstrap: bootstrap,
   bulma: bulma,
   foundation: foundation,
+  materialize: materialize,
   'semantic-ui': semantic,
   tailwind: tailwind
 };
@@ -121,7 +129,7 @@ var DEFAULT_WIDTH = 410;
 var DEFAULT_HEIGHT = 730;
 var DEFAULT_FRAMEWORK = 'tailwind';
 var DEBOUNCE_MS = 100;
-var RESERVED_KEYS = ['width', 'height', 'touch', 'portrait', 'landscape', 'breakpoint'];
+var RESERVED_KEYS = ['width', 'height', 'touch', 'portrait', 'landscape'];
 var CUSTOM_FRAMEWORK_NAME = '__CUSTOM__';
 var DEFAULT_ORDERS = {
   bootstrap: ['xs', 'sm', 'md', 'lg', 'xl'],
@@ -146,6 +154,7 @@ function () {
 
     this.callbacks = {};
     this.framework = '';
+    this.customBreakpointFn = false;
     this.createScreen(Plugin.parseBreakpoints(breakpoints));
     this.init();
   }
@@ -215,6 +224,10 @@ function () {
     value: function findCurrentBreakpoint() {
       var _this2 = this;
 
+      if (this.customBreakpointFn) {
+        return;
+      }
+
       this.screen.breakpoint = this.screen.breakpointsOrder.reduce(function (activeBreakpoint, currentBreakpoint) {
         if (_this2.screen[currentBreakpoint]) {
           return currentBreakpoint;
@@ -246,15 +259,22 @@ function () {
       var _this3 = this;
 
       var breakpointKeys = Object.keys(breakpoints);
+      var breakpointsOrder = DEFAULT_ORDERS[this.framework] || breakpointKeys;
       this.screen = Vue.observable({
         width: DEFAULT_WIDTH,
         height: DEFAULT_HEIGHT,
         touch: true,
         portrait: true,
         landscape: false,
-        breakpointsOrder: DEFAULT_ORDERS[this.framework] || breakpointKeys
+        breakpointsOrder: breakpointsOrder,
+        breakpoint: breakpointsOrder[0]
       });
-      this.screen.breakpoint = this.findCurrentBreakpoint();
+
+      if (breakpointKeys.includes('breakpoint')) {
+        this.customBreakpointFn = true;
+      }
+
+      this.findCurrentBreakpoint();
       breakpointKeys.forEach(function (name) {
         if (RESERVED_KEYS.indexOf(name) >= 0) {
           throw new Error("Invalid breakpoint name: \"".concat(name, "\". This key is reserved."));

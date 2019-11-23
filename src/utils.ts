@@ -1,7 +1,7 @@
 export const inBrowser = typeof window !== 'undefined';
 
-export const debounce = (callback, wait) => {
-  let timeout;
+export const debounce = (callback: () => any, delay: number) => {
+  let timeout: number;
   // eslint-disable-next-line func-names
   return function () {
     const context = this;
@@ -13,11 +13,11 @@ export const debounce = (callback, wait) => {
       callback.apply(context, args);
     };
     clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
+    timeout = window.setTimeout(later, delay);
   };
 };
 
-export const parseSemver = (version) => {
+export const parseSemver = (version: string) => {
   const fragments = version.split('.');
   const major = parseInt(fragments[0], 10);
   return {
@@ -27,7 +27,7 @@ export const parseSemver = (version) => {
   };
 };
 
-export const checkVersion = (current, required) => {
+export const checkVersion = (current: string, required: string) => {
   const currentVersion = parseSemver(current);
   const requiredVersion = parseSemver(required);
   return (

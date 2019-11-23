@@ -13,9 +13,10 @@
   "overrides": [
     {
       "files": [
-        "src/**.js"
+        "src/**.ts"
       ],
       "rules": {
+        "semi": "off",
         "comma-dangle": [
           "error",
           "only-multiline"

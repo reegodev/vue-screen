@@ -1,3 +1,4 @@
+import typescript from 'rollup-plugin-typescript2';
 import babel from 'rollup-plugin-babel';
 
 export default {
@@ -7,6 +8,7 @@ export default {
     format: 'cjs',
   },
   plugins: [
+    typescript(),
     babel({
       exclude: 'node_modules/**',
       presets: ['@babel/preset-env'],

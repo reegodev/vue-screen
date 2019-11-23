@@ -1,3 +1,4 @@
+import { FrameworkLiteral, VueScreenConfigBreakpoints } from '../interfaces/config';
 import bootstrap from './bootstrap';
 import bulma from './bulma';
 import foundation from './foundation';
@@ -12,4 +13,5 @@ export default {
   materialize,
   'semantic-ui': semantic,
   tailwind,
-};
+} as Record<FrameworkLiteral, VueScreenConfigBreakpoints>
+

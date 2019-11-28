@@ -18,12 +18,11 @@ export const debounce = (callback: () => any, delay: number) => {
 };
 
 export const parseSemver = (version: string) => {
-  const fragments = version.split('.');
-  const major = parseInt(fragments[0], 10);
+  const [major, minor, patch] = version.split('.').map((fragment) => parseInt(fragment) || 0);
   return {
-    major: typeof major === 'number' ? major : 1,
-    minor: parseInt(fragments[1], 10) || 0,
-    patch: parseInt(fragments[2], 10) || 0,
+    major: major || 1,
+    minor,
+    patch,
   };
 };
 

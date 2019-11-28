@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-      "module": "system",
+      "module": "esnext",
       "noImplicitAny": true,
       "removeComments": true,
       "preserveConstEnums": true,
       "sourceMap": true,
-      "target": "es6"
+      "target": "es5",
+      "declaration": true,
+      "declarationDir": "./types",
+      "lib": ["esnext", "dom"],
   },
   "include": [
       "src/**/*"

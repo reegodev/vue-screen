@@ -1,5 +1,6 @@
 import { Breakpoint } from './config'
-import Vue, { VueConstructor } from 'vue'
+
+export type BreakpointQueries = Record<Breakpoint, MediaQueryList>
 
 export interface VueScreenProperties {
   width: number,
@@ -18,15 +19,3 @@ export interface VueScreenCallbacks {
 export type VueScreenBreakpointsValues = Record<Breakpoint, boolean>
 
 export type VueScreen = VueScreenProperties | VueScreenBreakpointsValues | VueScreenCallbacks
-
-declare module 'vue/types/vue' {
-  interface Vue {
-    $screen: VueScreen
-  }
-}
-
-declare global {
-  interface Window {
-    Vue: VueConstructor
-  }
-}

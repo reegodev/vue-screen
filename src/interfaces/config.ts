@@ -1,3 +1,5 @@
+import { VueScreen } from "./screen"
+
 export type FrameworkLiteral = 'bootstrap' | 'bulma' | 'foundation' | 'materialize' | 'semantic-ui' | 'tailwind' | '__CUSTOM__'
 
 export type BootstrapBreakpoint =    'xs' | 'sm' | 'md' | 'lg' | 'xl'
@@ -29,7 +31,9 @@ export interface VueScreenConfigCallbacks {
 
 export interface VueScreenConfigParams {
   breakpointsOrder?: string[],
+  breakpointFn?: (screen: VueScreen) => string,
   extend?: FrameworkLiteral,
+  debounceDelay?: number,
 }
 
 export type VueScreenConfigBreakpoints = Record<Breakpoint, number | string>

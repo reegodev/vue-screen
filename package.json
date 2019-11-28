@@ -19,12 +19,9 @@
     "test": "npm run lint && npm run test:unit && npm run test:e2e",
     "test:unit": "mocha --require @babel/register --timeout 5000 --exit 'tests/units/*.spec.js'",
     "test:e2e": "node tests/e2e/runner.js",
-    "build:browser": "rollup -c rollup.config.browser.js",
-    "build:cjs": "rollup -c rollup.config.cjs.js",
-    "build:esm": "rollup -c rollup.config.esm.js",
-    "build": "npm run build:esm && npm run build:cjs && npm run build:browser",
+    "build": "yarn run rollup -c rollup.config.js",
     "lint": "eslint src/**.js",
-    "update-demo": "git subtree push --prefix demo/dist origin gh-pages"
+    "examples": "node examples/server.js"
   },
   "repository": {
     "type": "git",
@@ -37,14 +34,8 @@
   },
   "homepage": "https://github.com/matteo-rigon/vue-screen#readme",
   "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/polyfill": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
-    "@babel/register": "^7.4.0",
-    "babel-loader": "^8.0.5",
-    "chai": "^4.2.0",
     "cross-spawn": "^6.0.5",
+    "cypress": "^3.6.1",
     "eslint": "^5.3.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.2",
@@ -53,26 +44,22 @@
     "express": "^4.16.4",
     "express-urlrewrite": "^1.2.0",
     "husky": "^2.2.0",
-    "install-peers": "^1.0.3",
-    "mocha": "^6.1.4",
     "nuxt": "^2.10.0",
-    "puppeteer": "^1.15.0",
     "rollup": "^1.11.3",
-    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-terser": "^5.1.2",
     "rollup-plugin-typescript2": "^0.25.2",
-    "rollup-plugin-uglify": "^6.0.2",
     "typescript": "^3.7.2",
     "vue": "^2.6.10",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1",
     "webpack-dev-middleware": "^3.6.2"
   },
+  "peerDependencies": {
+    "vue": ">= 2.6.x"
+  },
   "husky": {
     "hooks": {
       "pre-commit": ""
     }
-  },
-  "browserslist": [
-    "ie >= 10"
-  ]
+  }
 }

@@ -1,5 +1,4 @@
-const { expect } = require('chai');
-const { loadExample } = require('./helpers');
+import { loadExample, resize } from './helpers';
 
 describe('breakpoint', () => {
 
@@ -16,24 +15,24 @@ describe('breakpoint', () => {
     let breakpoint = await page.evaluate(() => {
       return document.querySelector('.breakpoint span').textContent;
     });
-    expect(breakpoint).to.equal('md');
+    expect(breakpoint).toEqual('md');
 
-    await page.resize({
+    await resize(page, {
       width: 1200,
       height: 800,
     });
     breakpoint = await page.evaluate(() => {
       return document.querySelector('.breakpoint span').textContent;
     });
-    expect(breakpoint).to.equal('xl');
+    expect(breakpoint).toEqual('xl');
   });
 
 });
 
-const testBreakpoint = async (device, expected) => {
+const testBreakpoint = async (device: string, expected: string) => {
   const page = await loadExample('breakpoint', device);
   if (!device) {
-    await page.resize({
+    await resize(page, {
       width: 1200,
       height: 800,
     });
@@ -42,5 +41,5 @@ const testBreakpoint = async (device, expected) => {
   const breakpoint = await page.evaluate(() => {
     return document.querySelector('.breakpoint span').textContent;
   });
-  expect(breakpoint).to.equal(expected);
+  expect(breakpoint).toEqual(expected);
 }

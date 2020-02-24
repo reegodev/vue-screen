@@ -9,12 +9,16 @@
       "declaration": true,
       "declarationDir": "./types",
       "lib": ["esnext", "dom"],
+      "esModuleInterop": true,
+      "typeRoots": [
+        "types",
+        "node_modules/@types"
+      ]
   },
   "include": [
-      "src/**/*"
+      "src/**/*", "plugin.js"
   ],
   "exclude": [
-      "node_modules",
-      "**/*.spec.ts"
+      "node_modules"
   ]
 }

@@ -1,5 +1,4 @@
-const { expect } = require('chai');
-const { loadExample } = require('./helpers');
+import { loadExample } from './helpers';
 
 describe('size', () => {
 
@@ -18,22 +17,22 @@ describe('size', () => {
         actualHeight: window.innerHeight,
       };
     });
-    expect(expectedWidth).to.equal(actualWidth);
-    expect(expectedHeight).to.equal(actualHeight);
+    expect(expectedWidth).toEqual(actualWidth);
+    expect(expectedHeight).toEqual(actualHeight);
 
     const nextViewport = {
       width: 1300,
       height: 800,
     };
-    await page.resize(nextViewport);
+    await page['resize'](nextViewport);
     const newViewport = await page.evaluate(() => {
       return {
         width: parseInt(document.querySelector('.width span').textContent),
         height: parseInt(document.querySelector('.height span').textContent),
       }
     });
-    expect(newViewport.width).to.equal(nextViewport.width);
-    expect(newViewport.height).to.equal(nextViewport.height);
+    expect(newViewport.width).toEqual(nextViewport.width);
+    expect(newViewport.height).toEqual(nextViewport.height);
   });
 
 });

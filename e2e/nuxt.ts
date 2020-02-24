@@ -1,11 +1,10 @@
-const { expect } = require('chai');
-const { Nuxt, Builder } = require('nuxt');
-const { resolve, basename } = require('path');
+import { resolve, basename } from 'path';
+import { Nuxt, Builder } from 'nuxt';
 
 describe('nuxt module', () => {
   let nuxt
 
-  before(async () => {
+  beforeAll(async () => {
     nuxt = new Nuxt({
       mode: 'universal',
       modules: [
@@ -24,14 +23,14 @@ describe('nuxt module', () => {
     await nuxt.listen(3000)
   }, )
 
-  after(async () => {
+  afterAll(async () => {
     await nuxt.close()
   })
 
   it('adds a custom plugin', () => {
     expect(
       basename(nuxt.options.plugins[0].src)
-    ).to.equal('vue-screen.js');
+    ).toEqual('vue-screen.js');
   })
 
 });

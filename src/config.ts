@@ -1,4 +1,4 @@
-import { VueScreenConfig, ParsedConfig, FrameworkLiteral, VueScreenConfigParams } from './interfaces/config'
+import { VueScreenConfig, ParsedConfig, FrameworkLiteral, VueScreenConfigParams, VueScreenConfigBreakpoints } from './interfaces/config'
 import grid from './grids/index'
 import { DEFAULT_BREAKPOINTS_ORDER, CUSTOM_FRAMEWORK_NAME, RESERVED_KEYS, DEFAULT_FRAMEWORK, DEFAULT_BREAKPOINT_FN, DEFAULT_DEBOUNCE_DELAY } from './constants'
 
@@ -30,7 +30,7 @@ export const parseConfig = (rawConfig: VueScreenConfig): ParsedConfig => {
 
   if (typeof rawConfig === 'object') {
     if ('extend' in rawConfig) {
-      config.framework = rawConfig.extend
+      config.framework = rawConfig.extend as FrameworkLiteral
       validateFrameworkName(config.framework)
       delete rawConfig.extend
     } else {
@@ -38,7 +38,7 @@ export const parseConfig = (rawConfig: VueScreenConfig): ParsedConfig => {
     }
 
     if ('breakpointsOrder' in rawConfig) {
-      config.params.breakpointsOrder = rawConfig.breakpointsOrder
+      config.params.breakpointsOrder = rawConfig.breakpointsOrder as string[]
       delete rawConfig.breakpointsOrder
     } else {
       if (config.framework === CUSTOM_FRAMEWORK_NAME) {
@@ -62,6 +62,7 @@ export const parseConfig = (rawConfig: VueScreenConfig): ParsedConfig => {
       delete rawConfig.debounceDelay
     }
 
+    const breakpoints: VueScreenConfigBreakpoints = {}
     Object.entries(rawConfig).forEach(([key, value]) => {
       const isCallback = typeof value === 'function'
       if (RESERVED_KEYS.indexOf(key) >= 0) {
@@ -71,9 +72,13 @@ export const parseConfig = (rawConfig: VueScreenConfig): ParsedConfig => {
       if (isCallback) {
         config.callbacks[key] = value
       } else {
-        config.breakpoints[key] = value
+        breakpoints[key] = value
       }
     })
+
+    if (Object.keys(breakpoints).length > 0) {
+      config.breakpoints = breakpoints
+    }
   } else {
     config.framework = rawConfig || DEFAULT_FRAMEWORK
     validateFrameworkName(config.framework)

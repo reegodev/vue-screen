@@ -40,8 +40,8 @@ export type VueScreenConfigBreakpoints = Record<Breakpoint, number | string>
 
 export type VueScreenConfigObject = 
   VueScreenConfigBreakpoints 
-  & VueScreenConfigParams 
-  & VueScreenConfigCallbacks
+  | VueScreenConfigParams 
+  | VueScreenConfigCallbacks
 
 export type VueScreenConfig = FrameworkLiteral | VueScreenConfigObject
 

@@ -1,3 +1,4 @@
+// @ts-ignore
 import { VueConstructor } from 'vue'
 import { inBrowser, checkVersion } from './utils'
 import { createScreenObject } from './screen'

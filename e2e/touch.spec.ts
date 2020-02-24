@@ -1,5 +1,4 @@
-const { expect } = require('chai');
-const { loadExample } = require('./helpers');
+import { loadExample } from './helpers';
 
 describe('touch', () => {
 
@@ -8,13 +7,13 @@ describe('touch', () => {
     let touch = await page.evaluate(() => {
       return document.querySelector('.touch span').textContent;
     });
-    expect(touch).to.equal('true');
+    expect(touch).toEqual('true');
 
     page = await loadExample('touch');
     touch = await page.evaluate(() => {
       return document.querySelector('.touch span').textContent;
     });
-    expect(touch).to.equal('false');
+    expect(touch).toEqual('false');
   });
 
 });

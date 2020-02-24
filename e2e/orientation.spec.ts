@@ -1,11 +1,10 @@
-const { expect } = require('chai');
-const { loadExample } = require('./helpers');
+import { loadExample } from './helpers';
 
 describe('orientation', () => {
 
   it('reacts to orientation changes', async () => {
     const page = await loadExample('orientation');
-    await page.resize({
+    await page['resize']({
       width: 400,
       height: 700,
     });
@@ -15,10 +14,10 @@ describe('orientation', () => {
         landscape: document.querySelector('.landscape span').textContent,
       };
     });
-    expect(orientation.portrait).to.equal('true');
-    expect(orientation.landscape).to.equal('false');
+    expect(orientation.portrait).toEqual('true');
+    expect(orientation.landscape).toEqual('false');
 
-    await page.resize({
+    await page['resize']({
       width: 1200,
       height: 800,
     });
@@ -28,8 +27,8 @@ describe('orientation', () => {
         landscape: document.querySelector('.landscape span').textContent,
       };
     });
-    expect(orientation.portrait).to.equal('false');
-    expect(orientation.landscape).to.equal('true');
+    expect(orientation.portrait).toEqual('false');
+    expect(orientation.landscape).toEqual('true');
   });
 
 });

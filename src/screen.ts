@@ -1,3 +1,4 @@
+// @ts-ignore
 import Vue from 'vue'
 import { VueScreenConfig, ParsedConfig } from './interfaces/config'
 import { VueScreen, VueScreenCallbacks, VueScreenBreakpointsValues, BreakpointQueries } from './interfaces/screen'
@@ -29,7 +30,7 @@ export const initScreenObject = (config: ParsedConfig): VueScreen => {
     height: 0,
     landscape: false,
     portrait: true,
-    touch: 'ontouchstart' in window,
+    touch: inBrowser ? 'ontouchstart' in window : true,
     breakpointsOrder: config.params.breakpointsOrder,
     breakpoint: config.params.breakpointsOrder[0],
   }

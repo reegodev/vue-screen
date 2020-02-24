@@ -1,5 +1,4 @@
-const { expect } = require('chai');
-const { loadExample } = require('./helpers');
+import { loadExample } from './helpers';
 
 describe('grid', () => {
 
@@ -15,12 +14,12 @@ describe('grid', () => {
 });
 
 const testBreakpoint = async (page, width, height, label) => {
-  await page.resize({
+  await page['resize']({
     width,
     height,
   });
   let breakpoint = await page.evaluate(() => {
     return document.querySelector('.breakpoint span').textContent;
   });
-  expect(breakpoint).to.equal(label);
+  expect(breakpoint).toEqual(label);
 }

@@ -1,26 +1,24 @@
-require('@babel/polyfill');
-
-import { expect } from 'chai';
-import { DEFAULT_FRAMEWORK, RESERVED_KEYS } from '../../src/plugin';
-import grids from '../../src/grids';
+import { DEFAULT_FRAMEWORK, RESERVED_KEYS } from '../src/constants';
+import grids from '../src/grids';
 import { breakpointsOnly, createPlugin } from './helpers';
+import { FrameworkLiteral, VueScreenConfigObject } from '../src/interfaces/config';
 
 describe('plugin', function() {
 
   it('provides breakpoints for supported frameworks', () => {
     for (const framework in grids) {
-      const screen = breakpointsOnly(createPlugin(framework));
+      const screen = breakpointsOnly(createPlugin(framework as FrameworkLiteral));
       expect(
         Object.keys(screen).sort()
-      ).to.have.members(
-        Object.keys(grids[framework]).sort()
+      ).toEqual(
+        Object.keys(grids[framework as FrameworkLiteral]).sort()
       );
     }
   });
 
   it('does not allow using protected keys as breakpoint names', () => {
     for (const key of RESERVED_KEYS) {
-      expect(createPlugin.bind(null, { [key]: 400 })).to.throw();
+      expect(createPlugin.bind(null, { [key]: 400 })).toThrow();
     }
   });
 
@@ -28,7 +26,7 @@ describe('plugin', function() {
     const screen = breakpointsOnly(createPlugin());
     expect(
       Object.keys(screen)
-    ).to.have.members(
+    ).toEqual(
       Object.keys(grids[DEFAULT_FRAMEWORK])
     );
   });
@@ -38,24 +36,27 @@ describe('plugin', function() {
       small: 500,
       medium: 800,
       large: 1400,
-    };
+    } as VueScreenConfigObject;
+    
     const screen = breakpointsOnly(createPlugin(breakpoints));
     expect(
       Object.keys(screen)
-    ).to.have.members(
+    ).toEqual(
       Object.keys(breakpoints)
     );
   });
 
   it('extends default frameworks with custom callbacks', () => {
-    const screen = breakpointsOnly(createPlugin({
+    const config = {
       extend: 'bootstrap',
       test() {return false},
-    }));
+    } as VueScreenConfigObject
+
+    const screen = breakpointsOnly(createPlugin(config));
 
     expect(
       Object.keys(screen)
-    ).to.have.members([
+    ).toEqual([
       ...Object.keys(grids['bootstrap']),
       'test',
     ]);

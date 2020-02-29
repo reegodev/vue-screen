@@ -1,6 +1,6 @@
 {
   "name": "vue-screen",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Reactive window size and media query states for Vue components. Integrates with most UI frameworks.",
   "keywords": [
     "vuejs",
@@ -35,7 +35,8 @@
   "files": [
     "src",
     "dist/*.js",
-    "types/*.d.ts"
+    "types/*.d.ts",
+    "nuxt.js"
   ],
   "author": "Matteo Rigon",
   "license": "MIT",

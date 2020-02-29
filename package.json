@@ -35,7 +35,8 @@
   "files": [
     "src",
     "dist/*.js",
-    "types/*.d.ts"
+    "types/*.d.ts",
+    "nuxt.js"
   ],
   "author": "Matteo Rigon",
   "license": "MIT",

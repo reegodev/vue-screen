@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matteo-rigon/vue-screen.git"
+    "url": "git+https://github.com/reegodev/vue-screen.git"
   },
   "files": [
     "src",
@@ -41,9 +41,9 @@
   "author": "Matteo Rigon",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/matteo-rigon/vue-screen/issues"
+    "url": "https://github.com/reegodev/vue-screen/issues"
   },
-  "homepage": "https://github.com/matteo-rigon/vue-screen#readme",
+  "homepage": "https://github.com/reegodev/vue-screen#readme",
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/plugin-proposal-class-properties": "^7.4.0",

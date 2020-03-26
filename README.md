@@ -1,5 +1,5 @@
 [![npm version](https://badge.fury.io/js/vue-screen.svg)](https://badge.fury.io/js/vue-screen)
-[![Build Status](https://travis-ci.org/matteo-rigon/vue-screen.svg?branch=master)](https://travis-ci.org/matteo-rigon/vue-screen)
+[![Build Status](https://travis-ci.org/reegodev/vue-screen.svg?branch=master)](https://travis-ci.org/matteo-rigon/vue-screen)
 [![Build Status](https://img.shields.io/badge/vue-2.6.x-brightgreen.svg)](https://img.shields.io/badge/vue-2.x-brightgreen.svg)
 
 # VueScreen

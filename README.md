@@ -5,7 +5,7 @@
 # VueScreen
 Reactive window size and media query states for VueJS. Supports your favourite UI framework grid breakpoints out of the box, and can be configured with any custom breakpoints.
 
-[Demo](https://matteo-rigon.github.io/vue-screen/)
+[Demo](https://reegodev.github.io/vue-screen/)
 
 ## Features
 ✔ Reactive and debounced window innerWidth and innerHeight ↔ 🕐 <br>

@@ -26,3 +26,4 @@ vm.$screen.portrait
 vm.$screen.touch
 vm.$screen.xl
 vm.$screen.tablet
+vm.$screen.config

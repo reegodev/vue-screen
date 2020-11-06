@@ -12,6 +12,7 @@ export interface DefaultProperties {
   portrait: boolean;
   touch: boolean;
   breakpoint?: string;
+  config: Record<string, any>;
 }
 export interface CustomProperties {
   [key: string]: any;

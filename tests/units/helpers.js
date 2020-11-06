@@ -25,6 +25,7 @@ export const breakpointsOnly = (screen) => {
   delete screen.landscape;
   delete screen.breakpoint;
   delete screen.breakpointsOrder;
+  delete screen.config;
 
   return screen;
 }

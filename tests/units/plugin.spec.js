@@ -13,7 +13,7 @@ describe('plugin', function() {
       expect(
         Object.keys(screen).sort()
       ).to.have.members(
-        Object.keys(grids[framework]).sort()
+        Object.keys(grids[framework])
       );
     }
   });
@@ -60,5 +60,43 @@ describe('plugin', function() {
       'test',
     ]);
   });
+
+  it('includes the configuration in the screen object', () => {
+    let screen = createPlugin()
+
+    expect(
+      Object.keys(screen.config)
+    ).to.have.members([
+      ...Object.keys(grids[DEFAULT_FRAMEWORK]),
+      'breakpointsOrder'
+    ]);
+
+    screen = createPlugin({
+      extend: 'bootstrap',
+      test() {return false},
+    });
+
+    expect(
+      Object.keys(screen.config)
+    ).to.have.members([
+      ...Object.keys(grids['bootstrap']),
+      'breakpointsOrder',
+      'test',
+    ]);
+
+    let config = {
+      phonePortrait: 0,
+      phoneStandard: 375,
+      phoneLandscape: 480,
+      breakpointsOrder: [
+        'phonePortrait',
+        'phoneStandard',
+        'phoneLandscape',
+      ]
+    }
+    screen = createPlugin(config)
+
+    expect(screen.config).to.be.deep.equal(config);
+  })
 
 });

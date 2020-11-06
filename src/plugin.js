@@ -19,6 +19,7 @@ export const RESERVED_KEYS = [
   'touch',
   'portrait',
   'landscape',
+  'config',
 ];
 
 const CUSTOM_FRAMEWORK_NAME = '__CUSTOM__';
@@ -41,10 +42,8 @@ export class Plugin {
   constructor(breakpoints = '') {
     this.callbacks = {};
     this.framework = '';
-    this.customBreakpointFn = false;
-    this.createScreen(
-      Plugin.parseBreakpoints(breakpoints),
-    );
+    this.config = Plugin.parseBreakpoints(breakpoints);
+    this.createScreen();
     this.init();
   }
 
@@ -70,7 +69,10 @@ export class Plugin {
 
       this.framework = CUSTOM_FRAMEWORK_NAME;
 
-      return breakpoints;
+      return {
+        breakpointsOrder: Object.keys(breakpoints),
+        ...breakpoints
+      };
     }
 
     this.framework = breakpoints.toString();
@@ -94,7 +96,10 @@ export class Plugin {
       throw new Error(`Cannot find grid breakpoints for framework "${this.framework}"`);
     }
 
-    return grids[this.framework];
+    return {
+      ...grids[this.framework],
+      breakpointsOrder: DEFAULT_ORDERS[this.framework],
+    };
   }
 
   /**
@@ -144,11 +149,7 @@ export class Plugin {
    * Calculate the current breakpoint name based on "order" property
    */
   findCurrentBreakpoint() {
-    if (this.customBreakpointFn) {
-      return;
-    }
-
-    this.screen.breakpoint = this.screen.breakpointsOrder.reduce(
+    this.screen.breakpoint = this.config.breakpointsOrder.reduce(
       (activeBreakpoint, currentBreakpoint) => {
         if (this.screen[currentBreakpoint]) {
           return currentBreakpoint;
@@ -156,7 +157,7 @@ export class Plugin {
 
         return activeBreakpoint;
       },
-      this.screen.breakpointsOrder[0]
+      this.config.breakpointsOrder[0]
     );
   }
 
@@ -171,12 +172,9 @@ export class Plugin {
 
   /**
    * Create the reactive object
-   *
-   * @param {object} breakpoints
    */
-  createScreen(breakpoints) {
-    const breakpointKeys = Object.keys(breakpoints);
-    const breakpointsOrder = DEFAULT_ORDERS[this.framework] || breakpointKeys;
+  createScreen() {
+    const breakpointKeys = Object.keys(this.config);
 
     this.screen = Vue.observable({
       width: DEFAULT_WIDTH,
@@ -184,13 +182,10 @@ export class Plugin {
       touch: true,
       portrait: true,
       landscape: false,
-      breakpointsOrder,
-      breakpoint: breakpointsOrder[0],
+      breakpoint: this.config.breakpointsOrder[0],
+      breakpointsOrder: this.config.breakpointsOrder,
+      config: this.config,
     });
-
-    if (breakpointKeys.includes('breakpoint')) {
-      this.customBreakpointFn = true;
-    }
 
     this.findCurrentBreakpoint();
 
@@ -203,39 +198,39 @@ export class Plugin {
     });
 
     if (inBrowser) {
-      this.initMediaQueries(breakpoints);
+      this.initMediaQueries();
     }
   }
 
   /**
    * Initialize the media queries to test
-   *
-   * @param {object} breakpoints
    */
-  initMediaQueries(breakpoints) {
-    Object.keys(breakpoints).forEach((name) => {
-      const width = breakpoints[name];
+  initMediaQueries() {
+    Object.keys(this.config).forEach((name) => {
       let w = null;
+      if (name !== 'breakpointsOrder') {
+        const width = this.config[name];
 
-      if (typeof width === 'function') {
-        this.callbacks[name] = width;
-      } else if (typeof width === 'number') {
-        w = `${width}px`;
-      } else if (typeof width === 'string') {
-        w = width;
-      } else {
-        this.screen[name] = width;
+        if (typeof width === 'function') {
+          this.callbacks[name] = width;
+        } else if (typeof width === 'number') {
+          w = `${width}px`;
+        } else if (typeof width === 'string') {
+          w = width;
+        } else {
+          this.screen[name] = width;
+        }
       }
 
       if (w) {
         const query = window.matchMedia(`(min-width: ${w})`);
-        query.addListener(e => this.mediaStateChanged(name, e.matches));
+        query.addEventListener('change', e => this.mediaStateChanged(name, e.matches));
         this.mediaStateChanged(name, query.matches);
       }
     });
 
     const query = window.matchMedia('(orientation: portrait)');
-    query.addListener((e) => {
+    query.addEventListener('change', (e) => {
       this.mediaStateChanged('portrait', e.matches);
       this.mediaStateChanged('landscape', !e.matches);
     });

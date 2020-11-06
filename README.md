@@ -7,18 +7,60 @@ Reactive window size and media query states for VueJS. Supports your favourite U
 
 [Demo](https://reegodev.github.io/vue-screen/)
 
-## Features
-✔ Reactive and debounced window innerWidth and innerHeight ↔ 🕐 <br>
-✔ Reactive media query states and device orientation 💻📲<br>
-✔ Detect touch screen capability 👆🖱<br>
-✔ breakpoints for most common ui frameworks provided out of the box: Tailwind, Bootstrap, Bulma, Foundation, Materialize, Semantic UI ⚙ 📦<br>
-✔ SSR compatible 🚀 📟 (Nuxt module included) <br>
+Table of contents
+=================
 
-## Requirements
+<!--ts-->
+   * [Features](#features)
+   * [Requirements](#requirements)
+   * [Installation](#installation)
+   * [Setup](#setup)
+   * [Basic usage](#basic-usage)
+       * [In a template](#in-a-template)
+       * [As computed properties](#as-computed-properties)
+       * [As watchers](#as-watchers)
+   * [Configuration](#configuration)
+       * [Breakpoints](#breakpoints)
+         * [Default breakpoints](#default-breakpoints)
+             * [Tailwind \(default\)](#tailwind-default)
+             * [Bootstrap](#bootstrap)
+             * [Bulma](#bulma)
+             * [Foundation](#foundation)
+             * [Materialize](#materialize)
+             * [Semantic UI](#semantic-ui)
+         * [Custom breakpoints](#custom-breakpoints)
+       * [Callbacks](#callbacks)
+       * [Breakpoints order](#breakpoints-order)
+   * [API](#api)
+       * [Width](#width)
+       * [Height](#height)
+       * [Touch](#touch)
+       * [Portrait](#portrait)
+       * [Landscape](#landscape)
+       * [Breakpoint](#breakpoint)
+       * [Config](#config)
+       * [&lt;breakpoint key&gt;](#breakpoint-key)
+       * [&lt;callback key&gt;](#callback-key)
+   * [Nuxt module](#nuxt-module)
+   * [SSR Caveats](#ssr-caveats)
+   * [Browser support](#browser-support)
+   * [License](#license)
+
+<!--te-->
+
+
+# Features
+✅ - Reactive and debounced window innerWidth and innerHeight<br>
+✅ - Reactive media query states and device orientation<br>
+✅ - Detect touch screen capability<br>
+✅ - Breakpoints for most common ui frameworks provided out of the box: Tailwind, Bootstrap, Bulma, Foundation, Materialize, Semantic UI<br>
+✅ - SSR compatible with Nuxt module included <br>
+
+# Requirements
 
 As the library uses Vue.Observable API internally, Vue 2.6+ is required.
 
-## Installation
+# Installation
 
 Embed directly as a script:
 ```js
@@ -37,16 +79,70 @@ Via yarn:
 yarn add vue-screen
 ```
 
-## Setup
+# Setup
 ```js
 import Vue from 'vue';
 import VueScreen from 'vue-screen';
 
 Vue.use(VueScreen);
 ```
+# Basic usage
 
-## Configuration
+After registering, the property `$screen` will be injected on the Vue prototype. You can access it in a component using `this.$screen`.
 
+## In a template
+```html
+<template>
+    <div>
+        <p>Page width is {{ $screen.width }} px</p>
+        <p>Page height is {{ $screen.height }} px</p>
+        <p>Current breakpoint is {{ $screen.breakpoint }} px</p>
+    </div>
+</template>
+```
+
+## As computed properties
+```html
+<template>
+    <div :class="media">
+        <p>VueScreen</p>
+    </div>
+</template>
+<script>
+export default {
+    computed: {
+        media() {
+            return {
+                'is-phone': this.$screen.sm,
+                'is-tablet': this.$screen.md,
+                'is-desktop': this.$screen.lg,
+                'can-touch': this.$screen.touch,
+                'breakpoint': this.$screen.breakpoint,
+            };
+        }
+    }
+}
+</script>
+```
+
+## As watchers
+```js
+export default {
+    watch: {
+        '$screen.width'() {
+            alert('Width changed');
+        }
+    }
+}
+```
+
+Check out [demo source code](https://github.com/matteo-rigon/vue-screen/tree/develop/demo/src) for more examples.
+
+# Configuration
+
+## Breakpoints
+
+### Default breakpoints
 Use default breakpoints from one of the supported UI frameworks:
 
 #### Tailwind (default)
@@ -82,7 +178,7 @@ Vue.use(VueScreen, 'materialize');
 Vue.use(VueScreen, 'semantic-ui'); 
 ```
 
-#### Custom breakpoints:
+### Custom breakpoints:
 
 ```js
 Vue.use(VueScreen, {
@@ -94,8 +190,9 @@ Vue.use(VueScreen, {
 
 You can find default UI framework breakpoints [here](https://github.com/matteo-rigon/vue-screen/tree/develop/src/grids)
 
-#### Callbacks
-You can provide custom callbacks that will be run every time the debounced window resize event is triggered:
+## Callbacks
+You can provide callbacks to decorate the `$screen` object with custom properties.
+They are similar to Vue computed properties, but they can only depend on the properties of the `$screen` object will be run every time the debounced window resize event is triggered
 ```js
 Vue.use(VueScreen, {
     md: 768,
@@ -103,6 +200,19 @@ Vue.use(VueScreen, {
     xl: 1200,
     tablet: screen => screen.md && !screen.xl && screen.touch,
 });
+```
+Callbacks results will be included in the `$screen` object along with other breakpoint properties.
+```js
+console.log(this.$screen)
+/*
+Output on an iPad in portrait mode:
+{
+    md: true,
+    lg: true,
+    xl: false
+    tablet: true,
+}
+*/
 ```
 
 To use callbacks together with breakpoints from one of the supported UI frameworks you can specify the `extend` property:
@@ -114,88 +224,8 @@ Vue.use(VueScreen, {
 });
 ```
 
-## Basic usage
-
-After registering, the property `$screen` will be injected on the Vue prototype. You can access it in a component using `this.$screen`.
-
-#### In a template
-```html
-<template>
-    <div>
-        <p>Page width is {{ $screen.width }} px</p>
-        <p>Page height is {{ $screen.height }} px</p>
-        <p>Current breakpoint is {{ $screen.breakpoint }} px</p>
-    </div>
-</template>
-```
-
-#### As computed properties
-```html
-<template>
-    <div :class="media">
-        <p>VueScreen</p>
-    </div>
-</template>
-<script>
-export default {
-    computed: {
-        media() {
-            return {
-                'is-phone': this.$screen.sm,
-                'is-tablet': this.$screen.md,
-                'is-desktop': this.$screen.lg,
-                'can-touch': this.$screen.touch,
-                'breakpoint': this.$screen.breakpoint,
-            };
-        }
-    }
-}
-</script>
-```
-
-#### As watchers
-```js
-export default {
-    watch: {
-        '$screen.width'() {
-            alert('Width changed');
-        }
-    }
-}
-```
-
-Check out [demo source code](https://github.com/matteo-rigon/vue-screen/tree/develop/demo/src) for more examples.
-
-## API
-Available properties on the `$screen` object:
-
-#### width
-*Number*<br>
-Alias of window.innerWidth
-<br><br>
-#### height
-*Number*<br>
-Alias of window.innerHeight
-<br><br>
-#### touch 
-*Boolean*<br>
-Tells if touch events are supported
-<br><br>
-#### portrait 
-*Boolean*<br>
-Tells if the device is in portrait mode
-<br><br>
-#### landscape 
-*Boolean*<br>
-Tells if the device is in landscape mode
-<br><br>
-#### breakpoint 
-*String*<br>
-Returns the currently active breakpoint. If you use custom breakpoint names, you must also provide the `breakpointsOrder` property (see below).
-<br><br>
-#### breakpointsOrder 
-*Array*<br>
-Contains the order of the custom breakpoints provided in the configuration. This is required for the `breakpoint` property to work with custom breakpoint names.
+## Breakpoints order
+This property is required in order to make `$object.breakpoint` property work with custom breakpoint names.
 <br>
 Example:
 ```js
@@ -210,18 +240,49 @@ Vue.use(VueScreen, {
 ```
 > If you extend one of the default frameworks, `breakpointsOrder` is provided automatically.
 
+
+# API
+Available properties on the `$screen` object:
+
+## width
+*Number*<br>
+Alias of window.innerWidth
 <br><br>
-#### &lt;breakpoint key&gt;
+## height
+*Number*<br>
+Alias of window.innerHeight
+<br><br>
+## touch 
+*Boolean*<br>
+Tells if touch events are supported
+<br><br>
+## portrait 
+*Boolean*<br>
+Tells if the device is in portrait mode
+<br><br>
+## landscape 
+*Boolean*<br>
+Tells if the device is in landscape mode
+<br><br>
+## breakpoint 
+*String*<br>
+Returns the currently active breakpoint. If you use custom breakpoint names, you must provide the [`breakpointsOrder` property](#breakpoints-order).
+<br><br>
+## config 
+*Object*<br>
+Access the configuration passed when registering the plugin.
+<br><br>
+## &lt;breakpoint key&gt;
 *Boolean*<br>
 Every breakpoint key specified in the configuration will be available as a boolean value indicating if the corresponding media query matches.
 <br><br>
 To view default breakpoint keys and values for each framework, [click here](https://github.com/matteo-rigon/vue-screen/tree/master/src/grids). 
 <br><br>
-#### &lt;callback name&gt;
+## &lt;callback key&gt;
 *Any*<br>
 Every callback specified in the configuration will have a corresponding property indicating the result of the callback. Callbacks will be called on every debounced resize event.
 
-## Nuxt module
+# Nuxt module
 The library can be used directly as a Nuxt module, just add it to the module section in `nuxt.config.js`:
 
 ```js
@@ -240,8 +301,38 @@ export default {
 }
 ```
 
+# SSR caveats
 
-## Browser support
+While this library has no problems with SSR, there are some caveats related to the fact that when performing SSR the server does not have a screen size.
+Due to this, when performing SSR this library will always have a `$screen` object with the following properties:
+
+```js
+{
+    width: 410,
+    height: 730,
+    touch: true,
+    portrait: true,
+    landscape: false,
+    breakpoint: '<first breakpoint returned by breakpointsOrder>',
+}
+```
+These values are some sensible defaults to promote a mobile-first approach.<br><br><br>
+This behavior however can lead to hydration errors if you wanna conditionally render a component based on one of the `$screen` properties:
+
+```html
+<template>
+    <div>
+        <MyComponent v-if="$screen.lg" />
+    </div>
+</template>
+```
+When performing SSR, the template will be compiled into `<div><!----></div>`.<br>
+When rendering the component on a browser with a width that matches the `$screen.lg` condition, the template will be compiled into `<div><MyComponent /></div>`.<br>
+This will make Vue generate a warning in the console.<br><br>
+
+To read more about this topic you can check out [this issue](https://github.com/reegodev/vue-screen/issues/14).
+
+# Browser support
 
 All browsers that support matchMedia API
 
@@ -255,3 +346,7 @@ All browsers that support matchMedia API
 </picture>
 </a>
 </p>
+
+# License
+
+[MIT](blob/master/LICENSE)

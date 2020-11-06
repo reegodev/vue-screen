@@ -1,0 +1,9 @@
+{
+  "git.ignoreLimitWarning": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "vue"
+  ],
+  "eslint.enable": true
+}

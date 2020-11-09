@@ -70,7 +70,7 @@ export class Plugin {
       this.framework = CUSTOM_FRAMEWORK_NAME;
 
       return {
-        breakpointsOrder: Object.keys(breakpoints),
+        breakpointsOrder: Object.keys(breakpoints).filter(key => key !== 'breakpointsOrder'),
         ...breakpoints
       };
     }
@@ -174,7 +174,7 @@ export class Plugin {
    * Create the reactive object
    */
   createScreen() {
-    const breakpointKeys = Object.keys(this.config);
+    const breakpointKeys = Object.keys(this.config).filter(key => key !== 'breakpointsOrder');
 
     this.screen = Vue.observable({
       width: DEFAULT_WIDTH,
@@ -206,7 +206,7 @@ export class Plugin {
    * Initialize the media queries to test
    */
   initMediaQueries() {
-    Object.keys(this.config).forEach((name) => {
+    Object.keys(this.config).filter(key => key !== 'breakpointsOrder').forEach((name) => {
       let w = null;
       if (name !== 'breakpointsOrder') {
         const width = this.config[name];

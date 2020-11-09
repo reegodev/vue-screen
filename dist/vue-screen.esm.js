@@ -34,6 +34,55 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(source, true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(source).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
 var inBrowser = typeof window !== 'undefined';
 var debounce = function debounce(callback, wait) {
   var timeout; // eslint-disable-next-line func-names
@@ -108,7 +157,8 @@ var tailwind = {
   sm: 640,
   md: 768,
   lg: 1024,
-  xl: 1280
+  xl: 1280,
+  '2xl': 1536
 };
 
 var grids = {
@@ -127,7 +177,7 @@ var DEFAULT_WIDTH = 410;
 var DEFAULT_HEIGHT = 730;
 var DEFAULT_FRAMEWORK = 'tailwind';
 var DEBOUNCE_MS = 100;
-var RESERVED_KEYS = ['width', 'height', 'touch', 'portrait', 'landscape'];
+var RESERVED_KEYS = ['width', 'height', 'touch', 'portrait', 'landscape', 'config'];
 var CUSTOM_FRAMEWORK_NAME = '__CUSTOM__';
 var DEFAULT_ORDERS = {
   bootstrap: ['xs', 'sm', 'md', 'lg', 'xl'],
@@ -152,8 +202,8 @@ function () {
 
     this.callbacks = {};
     this.framework = '';
-    this.customBreakpointFn = false;
-    this.createScreen(Plugin.parseBreakpoints(breakpoints));
+    this.config = Plugin.parseBreakpoints(breakpoints);
+    this.createScreen();
     this.init();
   }
   /**
@@ -222,17 +272,13 @@ function () {
     value: function findCurrentBreakpoint() {
       var _this2 = this;
 
-      if (this.customBreakpointFn) {
-        return;
-      }
-
-      this.screen.breakpoint = this.screen.breakpointsOrder.reduce(function (activeBreakpoint, currentBreakpoint) {
+      this.screen.breakpoint = this.config.breakpointsOrder.reduce(function (activeBreakpoint, currentBreakpoint) {
         if (_this2.screen[currentBreakpoint]) {
           return currentBreakpoint;
         }
 
         return activeBreakpoint;
-      }, this.screen.breakpointsOrder[0]);
+      }, this.config.breakpointsOrder[0]);
     }
     /**
      * Check touch screen capability
@@ -247,31 +293,26 @@ function () {
     }
     /**
      * Create the reactive object
-     *
-     * @param {object} breakpoints
      */
 
   }, {
     key: "createScreen",
-    value: function createScreen(breakpoints) {
+    value: function createScreen() {
       var _this3 = this;
 
-      var breakpointKeys = Object.keys(breakpoints);
-      var breakpointsOrder = DEFAULT_ORDERS[this.framework] || breakpointKeys;
+      var breakpointKeys = Object.keys(this.config).filter(function (key) {
+        return key !== 'breakpointsOrder';
+      });
       this.screen = Vue.observable({
         width: DEFAULT_WIDTH,
         height: DEFAULT_HEIGHT,
         touch: true,
         portrait: true,
         landscape: false,
-        breakpointsOrder: breakpointsOrder,
-        breakpoint: breakpointsOrder[0]
+        breakpoint: this.config.breakpointsOrder[0],
+        breakpointsOrder: this.config.breakpointsOrder,
+        config: this.config
       });
-
-      if (breakpointKeys.includes('breakpoint')) {
-        this.customBreakpointFn = true;
-      }
-
       this.findCurrentBreakpoint();
       breakpointKeys.forEach(function (name) {
         if (RESERVED_KEYS.indexOf(name) >= 0) {
@@ -282,38 +323,41 @@ function () {
       });
 
       if (inBrowser) {
-        this.initMediaQueries(breakpoints);
+        this.initMediaQueries();
       }
     }
     /**
      * Initialize the media queries to test
-     *
-     * @param {object} breakpoints
      */
 
   }, {
     key: "initMediaQueries",
-    value: function initMediaQueries(breakpoints) {
+    value: function initMediaQueries() {
       var _this4 = this;
 
-      Object.keys(breakpoints).forEach(function (name) {
-        var width = breakpoints[name];
+      Object.keys(this.config).filter(function (key) {
+        return key !== 'breakpointsOrder';
+      }).forEach(function (name) {
         var w = null;
 
-        if (typeof width === 'function') {
-          _this4.callbacks[name] = width;
-        } else if (typeof width === 'number') {
-          w = "".concat(width, "px");
-        } else if (typeof width === 'string') {
-          w = width;
-        } else {
-          _this4.screen[name] = width;
+        if (name !== 'breakpointsOrder') {
+          var width = _this4.config[name];
+
+          if (typeof width === 'function') {
+            _this4.callbacks[name] = width;
+          } else if (typeof width === 'number') {
+            w = "".concat(width, "px");
+          } else if (typeof width === 'string') {
+            w = width;
+          } else {
+            _this4.screen[name] = width;
+          }
         }
 
         if (w) {
           var _query = window.matchMedia("(min-width: ".concat(w, ")"));
 
-          _query.addListener(function (e) {
+          _query.addEventListener('change', function (e) {
             return _this4.mediaStateChanged(name, e.matches);
           });
 
@@ -321,7 +365,7 @@ function () {
         }
       });
       var query = window.matchMedia('(orientation: portrait)');
-      query.addListener(function (e) {
+      query.addEventListener('change', function (e) {
         _this4.mediaStateChanged('portrait', e.matches);
 
         _this4.mediaStateChanged('landscape', !e.matches);
@@ -360,7 +404,11 @@ function () {
         }
 
         this.framework = CUSTOM_FRAMEWORK_NAME;
-        return breakpoints;
+        return _objectSpread2({
+          breakpointsOrder: Object.keys(breakpoints).filter(function (key) {
+            return key !== 'breakpointsOrder';
+          })
+        }, breakpoints);
       }
 
       this.framework = breakpoints.toString();
@@ -385,7 +433,9 @@ function () {
         throw new Error("Cannot find grid breakpoints for framework \"".concat(this.framework, "\""));
       }
 
-      return grids[this.framework];
+      return _objectSpread2({}, grids[this.framework], {
+        breakpointsOrder: DEFAULT_ORDERS[this.framework]
+      });
     }
   }, {
     key: "install",

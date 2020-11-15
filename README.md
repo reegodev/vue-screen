@@ -47,7 +47,7 @@ Table of contents
    * [License](#license)
 
 <!--te-->
-
+ 
 
 # Features
 ✅ - Reactive and debounced window innerWidth and innerHeight<br>
@@ -59,6 +59,7 @@ Table of contents
 # Requirements
 
 As the library uses Vue.Observable API internally, Vue 2.6+ is required.
+Vue 3 is currently _not_ supported.
 
 # Installation
 

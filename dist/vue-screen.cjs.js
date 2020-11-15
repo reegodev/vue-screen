@@ -359,19 +359,35 @@ function () {
         if (w) {
           var _query = window.matchMedia("(min-width: ".concat(w, ")"));
 
-          _query.addEventListener('change', function (e) {
-            return _this4.mediaStateChanged(name, e.matches);
-          });
+          if ('addEventListener' in _query) {
+            _query.addEventListener('change', function (e) {
+              return _this4.mediaStateChanged(name, e.matches);
+            });
+          } else {
+            _query.addListener(function (e) {
+              return _this4.mediaStateChanged(name, e.matches);
+            });
+          }
 
           _this4.mediaStateChanged(name, _query.matches);
         }
       });
       var query = window.matchMedia('(orientation: portrait)');
-      query.addEventListener('change', function (e) {
-        _this4.mediaStateChanged('portrait', e.matches);
 
-        _this4.mediaStateChanged('landscape', !e.matches);
-      });
+      if ('addEventListener' in query) {
+        query.addEventListener('change', function (e) {
+          _this4.mediaStateChanged('portrait', e.matches);
+
+          _this4.mediaStateChanged('landscape', !e.matches);
+        });
+      } else {
+        query.addListener(function (e) {
+          _this4.mediaStateChanged('portrait', e.matches);
+
+          _this4.mediaStateChanged('landscape', !e.matches);
+        });
+      }
+
       this.mediaStateChanged('portrait', query.matches);
       this.mediaStateChanged('landscape', !query.matches);
     }

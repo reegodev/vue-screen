@@ -224,16 +224,28 @@ export class Plugin {
 
       if (w) {
         const query = window.matchMedia(`(min-width: ${w})`);
-        query.addEventListener('change', e => this.mediaStateChanged(name, e.matches));
+        if ('addEventListener' in query) {
+          query.addEventListener('change', e => this.mediaStateChanged(name, e.matches));
+        } else {
+          query.addListener(e => this.mediaStateChanged(name, e.matches));
+        }
+
         this.mediaStateChanged(name, query.matches);
       }
     });
 
     const query = window.matchMedia('(orientation: portrait)');
-    query.addEventListener('change', (e) => {
-      this.mediaStateChanged('portrait', e.matches);
-      this.mediaStateChanged('landscape', !e.matches);
-    });
+    if ('addEventListener' in query) {
+      query.addEventListener('change', (e) => {
+        this.mediaStateChanged('portrait', e.matches);
+        this.mediaStateChanged('landscape', !e.matches);
+      });
+    } else {
+      query.addListener((e) => {
+        this.mediaStateChanged('portrait', e.matches);
+        this.mediaStateChanged('landscape', !e.matches);
+      });
+    }
 
     this.mediaStateChanged('portrait', query.matches);
     this.mediaStateChanged('landscape', !query.matches);

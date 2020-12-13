@@ -1,9 +1,19 @@
 {
-  "git.ignoreLimitWarning": true,
+  "editor.formatOnSave": false,
+  "editor.formatOnPaste": false,
+  "vetur.validation.style": false,
+  "javascript.format.enable": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.alwaysShowStatus": true,
+  "eslint.options": {
+    "extensions": [ ".js", ".ts" ]
+  },
   "eslint.validate": [
+    "html",
+    "vue",
     "javascript",
-    "javascriptreact",
-    "vue"
-  ],
-  "eslint.enable": true
+    "javascriptreact"
+  ]
 }

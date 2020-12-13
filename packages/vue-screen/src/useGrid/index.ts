@@ -21,15 +21,15 @@ export const createGridObject = <T extends GridTypes>(config: GridType<T>): Grid
   }, {} as GridObject<T>)
 }
 
-export const createConfigFromLiteral = <T extends GridDefinitionLiteral>(literal: T): GridTypeLiteral<T> => {
+export const createConfigFromLiteral = (literal: GridDefinitionLiteral): GridTypeLiteral<GridDefinitionLiteral> => {
   if (!grids[literal]) {
-    throw new Error(`Invalid grid type ${literal}`)
+    throw new Error(`Invalid grid type "${literal}"`)
   }
 
-  return grids[literal] as any
+  return grids[literal]
 }
 
-export const createMediaQueries = (config: Custom, object: CustomObject) => {
+export const createMediaQueries = (config: Custom, object: CustomObject): void => {
   Object.keys(config).forEach((breakpoint) => {
     let width = config[breakpoint]
 
@@ -40,26 +40,32 @@ export const createMediaQueries = (config: Custom, object: CustomObject) => {
     }
 
     const query = window.matchMedia(`(min-width: ${width})`)
-    query.addEventListener('change', (e: MediaQueryListEvent) => object[breakpoint] = e.matches)
+    if ('addEventListener' in query) {
+      query.addEventListener('change', (e: MediaQueryListEvent) => object[breakpoint] = e.matches);
+    } else {
+      // query.addListener is not deprecated for iOS 12
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (query as any).addListener((e: MediaQueryListEvent) => object[breakpoint] = e.matches)
+    }
     object[breakpoint] = query.matches
   })
 }
 
 export function useGrid<T extends GridDefinitionLiteral> (gridConfig: T): GridObjectLiteral<T>
 export function useGrid<T extends GridDefinitionCustomObject> (gridConfig: T): GridObject<T>
-export function useGrid (gridConfig: any): GridObject<any> {
-  let config: any
+export function useGrid (gridConfig: GridDefinitionLiteral | GridType<Custom>): GridObject<GridTypes> {
+  let config: Custom | SupportedGridType
 
   if (typeof gridConfig === 'string') {
     config = createConfigFromLiteral(gridConfig as GridDefinitionLiteral) as SupportedGridType 
   } else {
-    config = Object.assign(gridConfig) as GridType<Custom>
+    config = Object.assign(gridConfig as Custom) as GridType<Custom>
   }
 
   const gridObject = reactive(createGridObject(config))
 
   if (inBrowser) {
-    createMediaQueries(config, gridObject)
+    createMediaQueries(config as Custom, gridObject)
   }
 
   return gridObject

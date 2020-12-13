@@ -8,11 +8,11 @@ export const DEFAULT_HEIGHT = 730
 export const DEFAULT_ORIENTATION = 'portrait'
 export const DEFAULT_TOUCH_SUPPORT = true
 
-export const useScreen = (config: ScreenConfig = {}) => {
+export const useScreen = (config: ScreenConfig = {}): Readonly<ScreenObject> => {
   const width = config.width || DEFAULT_WIDTH
   const height = config.height || DEFAULT_HEIGHT
   const orientation = config.orientation || DEFAULT_ORIENTATION
-  const touch = config.touch || DEFAULT_TOUCH_SUPPORT
+  const touch = config.touch === undefined ? DEFAULT_TOUCH_SUPPORT : config.touch
 
   const screen = reactive({
     resolution: `${width}x${height}`,
@@ -41,9 +41,15 @@ export const useScreen = (config: ScreenConfig = {}) => {
     updateWindowProperties()
   
     const query = window.matchMedia('(orientation: portrait)')
-    query.addListener(updateOrientationPropperties)
+    if ('addEventListener' in query) {
+      query.addEventListener('change', updateOrientationPropperties);
+    } else {
+      // query.addListener is not deprecated for iOS 12
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (query as any).addListener(updateOrientationPropperties)
+    }
 
-    // This is not reactive to resize events.
+    // This does not react to resize events.
     // You always need to reload the browser to add/remove touch support,
     // even when using DevTools device simulation
     screen.touch = 'ontouchstart' in window

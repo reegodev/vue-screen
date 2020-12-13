@@ -1,12 +1,16 @@
 {
   "name": "vue-screen",
-  "version": "2.0.0",
+  "version": "2.0.0-alpha.0",
   "description": "Reactive window size and media query states for Vue components. Integrates with most UI frameworks out of the box.",
-  "main": "index.js",
+  "main": "dist/vue-screen.cjs.js",
+  "module": "dist/vue-screen.esm.js",
+  "types": "dist/vue-screen.d.ts",
+  "files": [
+    "dist/**.js"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reegodev/vue-screen.git",
-    "directory": "packages/vue-screen"
+    "url": "git+https://github.com/reegodev/vue-screen.git"
   },
   "author": "Matteo Rigon",
   "license": "MIT",
@@ -25,11 +29,22 @@
     "grid",
     "breakpoints"
   ],
+  "scripts": {
+    "test": "jest",
+    "build": "rollup -c",
+    "watch": "rollup -cw"
+  },
   "devDependencies": {
+    "@types/jest": "^26.0.16",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "eslint": "^7.8.1",
-    "vue": "^3.0.0-rc.10"
+    "jest": "^26.6.3",
+    "rollup": "^2.34.2",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.1.2",
+    "vue": "^3.0.4"
   },
   "peerDependencies": {
     "vue": "^3.0.0"

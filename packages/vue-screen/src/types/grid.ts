@@ -57,4 +57,4 @@ export type GridDefinitionLiteral =
   | GridTypeMaterializeName
   | GridTypeSemanticUiName
 
-export type GridDefinition = GridDefinitionLiteral | GridDefinitionCustomObject
+export type GridDefinition = GridDefinitionCustomObject | GridDefinitionLiteral

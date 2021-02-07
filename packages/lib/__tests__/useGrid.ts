@@ -12,9 +12,9 @@ import { watchEffect } from 'vue'
 describe('useGrid', () => {
 
   it('creates a config from a framework literal', () => {
-    Object.keys(grids).forEach((framework: GridDefinitionLiteral) => {
+    Object.keys(grids).forEach((framework) => {
       const expectedGrid = grids[framework]
-      const config = createConfigFromLiteral(framework)
+      const config = createConfigFromLiteral(framework as GridDefinitionLiteral)
 
       expect(config).toStrictEqual(expectedGrid)
     })
@@ -32,6 +32,7 @@ describe('useGrid', () => {
     }
 
     const gridObject = createGridObject(config)
+    delete gridObject['breakpoint']
 
     expect(Object.keys(gridObject)).toStrictEqual(Object.keys(config))
     expect(Object.values(gridObject).every(value => value === false)).toBe(true)

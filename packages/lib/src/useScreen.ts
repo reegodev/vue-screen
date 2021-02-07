@@ -1,6 +1,6 @@
 import { reactive } from 'vue'
-import { inBrowser } from '../utils'
-import { ScreenObject, ScreenConfig } from '../types'
+import { inBrowser, debounce } from './utils'
+import { ScreenObject, ScreenConfig } from './types'
 
 // GoogleBot default screen properties
 export const DEFAULT_WIDTH = 410
@@ -8,7 +8,9 @@ export const DEFAULT_HEIGHT = 730
 export const DEFAULT_ORIENTATION = 'portrait'
 export const DEFAULT_TOUCH_SUPPORT = true
 
-export const useScreen = (config: ScreenConfig = {}): Readonly<ScreenObject> => {
+export const DEFAULT_DEBOUNCE_DELAY = 100
+
+export const useScreen = (config: ScreenConfig = {}, debounceDelay = DEFAULT_DEBOUNCE_DELAY): Readonly<ScreenObject> => {
   const width = config.width || DEFAULT_WIDTH
   const height = config.height || DEFAULT_HEIGHT
   const orientation = config.orientation || DEFAULT_ORIENTATION
@@ -30,14 +32,14 @@ export const useScreen = (config: ScreenConfig = {}): Readonly<ScreenObject> => 
     screen.resolution = `${screen.width}x${screen.height}`
   }
   
-  const updateOrientationPropperties = (e: MediaQueryListEvent) => {
+  const updateOrientationPropperties = (e: MediaQueryListEvent | MediaQueryList) => {
     screen.portrait = e.matches
     screen.landscape = !e.matches
     screen.orientation = e.matches ? 'portrait' : 'landscape'
   }
   
   if (inBrowser) {
-    window.addEventListener('resize', updateWindowProperties)
+    window.addEventListener('resize', debounce(updateWindowProperties, debounceDelay))
     updateWindowProperties()
   
     const query = window.matchMedia('(orientation: portrait)')
@@ -48,6 +50,8 @@ export const useScreen = (config: ScreenConfig = {}): Readonly<ScreenObject> => 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (query as any).addListener(updateOrientationPropperties)
     }
+
+    updateOrientationPropperties(query)
 
     // This does not react to resize events.
     // You always need to reload the browser to add/remove touch support,

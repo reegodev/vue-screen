@@ -1,14 +1,14 @@
 import { GridDefinitionLiteral, GridDefinition } from './grid'
 import { ScreenConfig, ScreenObject } from './screen'
 
-export type ComputedDefinition = Record<string, (screen: ScreenObject) => unknown>
+export type GettersDefinition = Record<string, (screen: ScreenObject) => unknown>
 
 export type VueScreenConfigLiteral = GridDefinitionLiteral
 
 export interface VueScreenConfigObject {
   grid: GridDefinition
-  screen?: ScreenConfig
-  computed?: ComputedDefinition
+  ssr?: ScreenConfig,
+  // getters?: GettersDefinition
   debounceDelay?: number
 }
 

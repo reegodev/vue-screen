@@ -28,7 +28,7 @@ describe('plugin', () => {
   it('initializes screen with custom properties', () => {
     const app = createApp({})
     app.use({install}, {
-      screen: {
+      ssr: {
         width: 1200,
         height: 800,
       }

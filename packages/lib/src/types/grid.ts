@@ -14,7 +14,7 @@ import {
 } from '../grids'
 
 export type Custom = Record<string, number | string>
-export type CustomObject = Record<string, boolean>
+
 
 export type SupportedGridType =
   Tailwind 
@@ -28,7 +28,13 @@ export type SupportedGridType =
 export type GridTypes = SupportedGridType | Custom
 
 export type GridType<T extends GridTypes> = Record<keyof T, string | number>
-export type GridObject<T extends GridTypes> = Record<keyof T, boolean>
+
+export interface GridObjectStatic {
+  breakpoint: string
+}
+export type GridObject<T extends GridTypes> = Record<keyof T, boolean> | GridObjectStatic
+
+export type CustomObject = Record<string, boolean> | GridObjectStatic
 
 export type GridTypeLiteral<T> =
   T extends GridTypeTailwindName ? Tailwind :

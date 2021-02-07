@@ -24,8 +24,9 @@ createApp({
   template: '<div id="#app"><Test></Test></div>',
 })
   .use(VueScreen, {
-    screen: {
-      
-    }
+    ssr: {
+      width: 800,
+      height: 600,
+    },
   })
   .mount('#app')

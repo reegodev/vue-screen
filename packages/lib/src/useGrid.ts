@@ -9,16 +9,20 @@ import {
   GridObjectLiteral,
   SupportedGridType,
   CustomObject
-} from '../types/grid'
-import grids from '../grids'
+} from './types/grid'
+import grids from './grids'
 import { reactive } from 'vue'
-import { inBrowser } from '../utils'
+import { inBrowser } from './utils'
+
+export const DEFAULT_GRID_FRAMEWORK = 'tailwind'
 
 export const createGridObject = <T extends GridTypes>(config: GridType<T>): GridObject<T> => {
   return Object.keys(config).reduce((accumulator, key) => {
     accumulator[key] = false
     return accumulator
-  }, {} as GridObject<T>)
+  }, {
+    breakpoint: '',
+  } as GridObject<T>)
 }
 
 export const createConfigFromLiteral = (literal: GridDefinitionLiteral): GridTypeLiteral<GridDefinitionLiteral> => {
@@ -27,6 +31,11 @@ export const createConfigFromLiteral = (literal: GridDefinitionLiteral): GridTyp
   }
 
   return grids[literal]
+}
+
+export const getCurrentBreakpoint = (object: CustomObject): string => {
+  const current = Object.keys(object).filter(key => !['breakpoint'].includes(key)).reverse().find(key => object[key])
+  return current || ''
 }
 
 export const createMediaQueries = (config: Custom, object: CustomObject): void => {
@@ -39,21 +48,27 @@ export const createMediaQueries = (config: Custom, object: CustomObject): void =
       width = width.toString()
     }
 
+    const onChange = (event: MediaQueryListEvent) => {
+      object[breakpoint] = event.matches
+      object.breakpoint = getCurrentBreakpoint(object)
+    }
+
     const query = window.matchMedia(`(min-width: ${width})`)
     if ('addEventListener' in query) {
-      query.addEventListener('change', (e: MediaQueryListEvent) => object[breakpoint] = e.matches);
+      query.addEventListener('change', onChange);
     } else {
       // query.addListener is not deprecated for iOS 12
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (query as any).addListener((e: MediaQueryListEvent) => object[breakpoint] = e.matches)
+      (query as any).addListener(onChange)
     }
     object[breakpoint] = query.matches
+    object.breakpoint = getCurrentBreakpoint(object)
   })
 }
 
 export function useGrid<T extends GridDefinitionLiteral> (gridConfig: T): GridObjectLiteral<T>
 export function useGrid<T extends GridDefinitionCustomObject> (gridConfig: T): GridObject<T>
-export function useGrid (gridConfig: GridDefinitionLiteral | GridType<Custom>): GridObject<GridTypes> {
+export function useGrid (gridConfig: GridDefinitionLiteral | GridType<Custom> = DEFAULT_GRID_FRAMEWORK): GridObject<GridTypes> {
   let config: Custom | SupportedGridType
 
   if (typeof gridConfig === 'string') {

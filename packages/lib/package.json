@@ -6,7 +6,8 @@
   "module": "dist/vue-screen.esm.js",
   "types": "dist/vue-screen.d.ts",
   "files": [
-    "dist/**.js"
+    "dist/**.js",
+    "dist/*/**.ts"
   ],
   "repository": {
     "type": "git",

@@ -20,6 +20,10 @@ fs.readdirSync(__dirname).forEach(file => {
   }
 })
 
+app.get('/', (req, res) => {
+  res.send('Examples ready')
+})
+
 app.use(express.static(__dirname))
 
 const port = process.env.EXAMPLES_PORT || 8081

@@ -65,8 +65,6 @@ export default {
     }
 }
 ```
-> If you extend one of the default frameworks, `breakpointsOrder` is provided automatically.
-
 For advanced configurations, check out the [docs website](https://reegodev.github.io/vue-screen/).
 
 ### Use as a plugin

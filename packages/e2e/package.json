@@ -1,0 +1,13 @@
+{
+  "name": "vue-screen-e2e",
+  "version": "2.0.0-alpha.0",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^6.4.0"
+  }
+}

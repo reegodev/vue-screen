@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "rollup.config.js"],
+  "types" : ["jest"]
+}

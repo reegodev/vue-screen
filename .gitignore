@@ -1,4 +1,6 @@
-/node_modules
-/coverage
-/demo/node_modules
-/.nuxt
+node_modules
+dist
+!packages/docs/src/.vitepress/dist
+.nuxt
+packages/e2e/cypress/screenshots
+.DS_Store

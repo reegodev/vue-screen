@@ -1,0 +1,1 @@
+import{o as n,c as s,d as a}from"./app.89f185b4.js";const t='{"title":"Semantic UI","description":"","frontmatter":{"editLink":true},"relativePath":"guide/frameworks/semantic-ui.md","lastUpdated":1615734849715}',e={},p=a('',7);e.render=function(a,t,e,o,c,i){return n(),s("div",null,[p])};export default e;export{t as __pageData};

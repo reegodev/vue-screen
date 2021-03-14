@@ -1,7 +1,10 @@
 ---
 editLink: true
 ---
-
+::: warning
+Version 2.0 only supports Vue 3 and is in early alpha version. There might still be API changes before final release.<br> v1 docs are available [here](https://github.com/reegodev/vue-screen/tree/v1.5.3#vuescreen)
+:::
+<br>
 <div style="text-align: center">
 <img src="/logo.svg" alt="VueScreen logo" width="300" style="margin-top: 40px" />
 

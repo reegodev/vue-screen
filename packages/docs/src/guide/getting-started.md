@@ -29,22 +29,21 @@ The library exposes two composables:
 import { useScreen, useGrid } from 'vue-screen'
 export default {
   setup() {
-    const { width, height } = useScreen()
-    const { breakpoint } = useGrid('tailwind')
+    const screen = useScreen()
+    const grid = useGrid('tailwind')
 
     return {
-      width,
-      height,
-      breakpoint,
+      screen
+      grid,
     }
   }
 }
 </script>
 <template>
   <div>
-    <p>Screen width is {{ width }}</p>
-    <p>Screen height is {{ height }}</p>
-    <p>Current breakpoint is {{ breakpoint }}</p>
+    <p>Screen width is {{ screen.width }}</p>
+    <p>Screen height is {{ screen.height }}</p>
+    <p>Current breakpoint is {{ grid.breakpoint }}</p>
   </div>
 </template>
 ```

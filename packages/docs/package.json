@@ -1,0 +1,14 @@
+{
+  "name": "vue-screen-docs",
+  "version": "2.0.0-alpha.0",
+  "license": "MIT",
+  "private": true,
+  "scripts":{
+    "dev": "vitepress dev src --port 8080",
+    "build": "vitepress build src",
+    "serve": "vitepress serve src"
+  },
+  "devDependencies": {
+    "vitepress": "^0.11.5"
+  }
+}

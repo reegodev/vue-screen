@@ -2,3 +2,4 @@ node_modules
 dist
 .nuxt
 packages/e2e/cypress/screenshots
+.DS_Store

@@ -4,19 +4,25 @@
 
 <br>
 
-> Warning: Version 2.0 supports only Vue 3 and is in early alpha version. There still might be API changes before final release.
+> Warning: Version 2.0 only supports Vue 3 and is in early alpha version. There might still be API changes before final release.
 
 <br>
 
+<img src="blob/next/packages/docs/src/public/logo.svg" alt="VueScreen logo" width="300" style="margin-top: 40px" />
+
 # VueScreen@next
-Reactive window size and media query states for VueJS. Supports your favourite UI framework grid breakpoints out of the box, and can be configured with any custom breakpoints.
+Reactive screen size and media query states for Vue. Supports your favourite UI framework out of the box, and can be configured with any custom breakpoints.
+
+# Docs
+
+[https://reegodev.github.io/vue-screen](https://reegodev.github.io/vue-screen)
 
 # Features
-✅ - Reactive and debounced window innerWidth and innerHeight<br>
-✅ - Reactive media query states and device orientation<br>
-✅ - Detect touch screen capability<br>
-✅ - Breakpoints for most common ui frameworks provided out of the box: Tailwind, Bootstrap, Bulma, Foundation, Materialize, Semantic UI<br>
-✅ - SSR compatible <s>with Nuxt module included</s>. Nuxt module development is pending Nuxt 3 release <br>
+- Reactive and debounced screen size<br>
+- Reactive media query states and device orientation<br>
+- Detect touch screen capability<br>
+- Breakpoints for most common ui frameworks provided out of the box: Tailwind, Bootstrap, Bulma, Foundation, Materialize, Semantic UI<br>
+- SSR compatible <s>with Nuxt module included</s>. Nuxt module development is pending Nuxt 3 release <br>
 
 # Installation
 
@@ -29,6 +35,25 @@ yarn add vue-screen@next
 ```
 
 # Quick start
+
+### Use with composition API
+```js
+import { useScreen, useGrid } from 'vue-screen'
+
+export default {
+    setup() {
+        const screen = useScreen()
+        const grid = useGrid('bulma')
+
+        return {
+            screen,
+            grid
+        }
+    }
+}
+```
+
+For advanced configurations, check out the [docs website](https://reegodev.github.io/vue-screen/).
 
 ### Use as a plugin
 ```js
@@ -50,29 +75,10 @@ createApp()
 </template>
 ```
 
-### Use with composition API
-```js
-import { useScreen, useGrid } from 'vue-screen'
-
-export default {
-    setup() {
-        const screen = useScreen()
-        const grid = useGrid('bulma')
-
-        return {
-            screen,
-            grid
-        }
-    }
-}
-```
-
-For advanced configurations, check out the [docs website](https://reegodev.github.io/vue-screen/).
-
 # Upgrading from v1
 
 v2 introduces a few breaking changes both in the configuration and in the API.
-Read more about them in the [docs section](https://reegodev.github.io/vue-screen/breaking-changes).
+Read more about them in the [docs section](https://reegodev.github.io/vue-screen/guide/upgrading).
 
 # Browser support
 
@@ -83,6 +89,3 @@ All browsers except IE.
 
 [MIT](blob/master/LICENSE)
 
-# Contributing
-
-TODO

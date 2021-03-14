@@ -8,7 +8,7 @@
 
 <br>
 
-<img src="blob/next/packages/docs/src/public/logo.svg" alt="VueScreen logo" width="300" style="margin-top: 40px" />
+<img src="/packages/docs/src/public/logo.svg" alt="VueScreen logo" width="300" style="margin-top: 40px" />
 
 # VueScreen@next
 Reactive screen size and media query states for Vue. Supports your favourite UI framework out of the box, and can be configured with any custom breakpoints.
@@ -87,5 +87,5 @@ All browsers except IE.
 
 # License
 
-[MIT](blob/master/LICENSE)
+[MIT](/LICENSE)
 

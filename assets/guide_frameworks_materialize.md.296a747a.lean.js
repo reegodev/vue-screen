@@ -1,0 +1,1 @@
+import{o as n,c as s,d as a}from"./app.89f185b4.js";const e='{"title":"Materialize","description":"","frontmatter":{"editLink":true},"relativePath":"guide/frameworks/materialize.md","lastUpdated":1615734852194}',t={},p=a('',7);t.render=function(a,e,t,o,c,i){return n(),s("div",null,[p])};export default t;export{e as __pageData};

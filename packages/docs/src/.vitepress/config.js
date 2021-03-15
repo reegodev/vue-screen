@@ -1,8 +1,12 @@
+const head = [['link', { rel: 'icon', href: `/vue-screen/favicon.ico` }]]
+
 module.exports = {
   base: '/vue-screen/',
   lang: 'en-US',
   title: 'VueScreen',
   description: '"Reactive screen size and media query states for Vue components. Integrates with most UI frameworks out of the box.',
+
+  head,
 
   themeConfig: {
     editLinks: true,

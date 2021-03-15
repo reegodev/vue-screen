@@ -1,1 +1,0 @@
-import{o as n,c as s,d as a}from"./app.06bf97d3.js";const o='{"title":"Foundation","description":"","frontmatter":{"editLink":true},"relativePath":"guide/frameworks/foundation.md","lastUpdated":1615763376876}',t={},e=a('',7);t.render=function(a,o,t,p,c,i){return n(),s("div",null,[e])};export default t;export{o as __pageData};

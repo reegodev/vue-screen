@@ -1,1 +1,0 @@
-import{o as n,c as s,d as a}from"./app.df2adaf1.js";const p='{"title":"Shared config between components","description":"","frontmatter":{},"relativePath":"guide/examples/shared-config.md","lastUpdated":1615763376874}',t={},o=a('',10);t.render=function(a,p,t,e,c,u){return n(),s("div",null,[o])};export default t;export{p as __pageData};

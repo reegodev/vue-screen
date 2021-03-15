@@ -33,19 +33,6 @@ npm i vue-screen@next
 ```bash
 yarn add vue-screen@next
 ```
-Callbacks results will be included in the `$screen` object along with other breakpoint properties.
-```js
-console.log(this.$screen)
-/*
-Output on an iPad in portrait mode:
-{
-    md: true,
-    lg: true,
-    xl: false
-    tablet: true,
-}
-*/
-```
 
 # Quick start
 

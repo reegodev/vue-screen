@@ -1,5 +1,15 @@
 const head = [['link', { rel: 'icon', href: `/vue-screen/favicon.ico` }]]
 
+if (process.env.NODE_ENV === 'production') {
+  head.push([
+    'script',
+    {
+      src: 'https://unpkg.com/thesemetrics@latest',
+      async: '',
+    },
+  ])
+}
+
 module.exports = {
   base: '/vue-screen/',
   lang: 'en-US',

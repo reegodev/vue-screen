@@ -1,4 +1,9 @@
-const head = [['link', { rel: 'icon', href: `/vue-screen/favicon.ico` }]]
+const head = [
+  ['link', { rel: 'icon', href: `/vue-screen/favicon.ico` }],
+  ['meta', { property: 'og:title', content: `Vue-Screen` }],
+  ['meta', { property: 'og:description', content: `Reactive screen size and media query states for Vue components. Integrates with most UI frameworks out of the box.` }],
+  ['meta', { property: 'og:image', content: `https://repository-images.githubusercontent.com/181772522/80a74800-8595-11eb-90ce-102e7efee0a6` }],
+]
 
 if (process.env.NODE_ENV === 'production') {
   head.push([
@@ -13,7 +18,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   base: '/vue-screen/',
   lang: 'en-US',
-  title: 'VueScreen',
+  title: 'Vue-Screen',
   description: '"Reactive screen size and media query states for Vue components. Integrates with most UI frameworks out of the box.',
 
   head,

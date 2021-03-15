@@ -3,6 +3,22 @@ const rewrite = require('express-urlrewrite')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const WebpackConfig = require('./webpack.config')
+const fs = require('fs')
+const path = require('path')
+const fse = require('fs-extra');
+
+// console.log(path.join(__dirname, 'node_modules', 'vue-screen'))
+try {
+  fse.mkdirSync(path.join(__dirname, 'node_modules', 'vue-screen'))
+} catch (e) {console.log(e)}
+
+fse.copyFileSync(path.resolve(path.join(__dirname, '..', 'lib', 'package.json')), path.join(__dirname, 'node_modules', 'vue-screen', 'package.json'))
+try {
+  fse.copySync(path.resolve(path.join(__dirname, '..', 'lib', 'dist')), path.join(__dirname, 'node_modules', 'vue-screen', 'dist'), { overwrite: true })
+} catch (e) {console.log(e)}
+
+// fse.createSymlinkSync(path.resolve(path.join(__dirname, '..', 'lib')), path.join(__dirname, 'node_modules', 'vue-screen'))
+
 
 const app = express()
 
@@ -10,9 +26,6 @@ app.use(webpackDevMiddleware(webpack(WebpackConfig), {
   publicPath: '/__build__/',
   // stats: 'none',
 }))
-
-const fs = require('fs')
-const path = require('path')
 
 fs.readdirSync(__dirname).forEach(file => {
   if (fs.statSync(path.join(__dirname, file)).isDirectory()) {

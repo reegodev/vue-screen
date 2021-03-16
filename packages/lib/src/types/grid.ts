@@ -14,7 +14,7 @@ import {
 } from '../grids'
 
 export type Custom = Record<string, number | string>
-
+export type CustomObject = Record<string, boolean>
 
 export type SupportedGridType =
   Tailwind 
@@ -27,14 +27,9 @@ export type SupportedGridType =
 
 export type GridTypes = SupportedGridType | Custom
 
+export type BaseObject<T> = { breakpoint: keyof T }
 export type GridType<T extends GridTypes> = Record<keyof T, string | number>
-
-export interface GridObjectStatic {
-  breakpoint: string
-}
-export type GridObject<T extends GridTypes> = Record<keyof T, boolean> | GridObjectStatic
-
-export type CustomObject = Record<string, boolean> | GridObjectStatic
+export type GridObject<T extends GridTypes> = Record<keyof T, boolean>  & BaseObject<T>
 
 export type GridTypeLiteral<T> =
   T extends GridTypeTailwindName ? Tailwind :
@@ -46,12 +41,12 @@ export type GridTypeLiteral<T> =
   never
 
 export type GridObjectLiteral<T> =
-  T extends GridTypeTailwindName ? Record<keyof Tailwind, boolean> :
-  T extends GridTypeBootstrapName ? Record<keyof Bootstrap, boolean> :
-  T extends GridTypeBulmaName ? Record<keyof Bulma, boolean> :
-  T extends GridTypeFoundationName ? Record<keyof Foundation, boolean> :
-  T extends GridTypeMaterializeName ? Record<keyof Materialize, boolean> :
-  T extends GridTypeSemanticUiName ? Record<keyof SemanticUi, boolean> :
+  T extends GridTypeTailwindName ? Record<keyof Tailwind, boolean> & BaseObject<Tailwind> :
+  T extends GridTypeBootstrapName ? Record<keyof Bootstrap, boolean> & BaseObject<Bootstrap> :
+  T extends GridTypeBulmaName ? Record<keyof Bulma, boolean> & BaseObject<Bulma> :
+  T extends GridTypeFoundationName ? Record<keyof Foundation, boolean> & BaseObject<Foundation> :
+  T extends GridTypeMaterializeName ? Record<keyof Materialize, boolean> & BaseObject<Materialize> :
+  T extends GridTypeSemanticUiName ? Record<keyof SemanticUi, boolean> & BaseObject<SemanticUi> :
   never
 
 export type GridDefinitionCustomObject = Custom
@@ -63,4 +58,4 @@ export type GridDefinitionLiteral =
   | GridTypeMaterializeName
   | GridTypeSemanticUiName
 
-export type GridDefinition = GridDefinitionCustomObject | GridDefinitionLiteral
+export type GridDefinition = GridDefinitionLiteral | GridDefinitionCustomObject

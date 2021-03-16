@@ -38,7 +38,7 @@ export const getCurrentBreakpoint = (object: CustomObject): string => {
   return current || ''
 }
 
-export const createMediaQueries = (config: Custom, object: CustomObject): void => {
+export const createMediaQueries = (config: Custom, object: CustomObject & { breakpoint: keyof CustomObject }): void => {
   Object.keys(config).forEach((breakpoint) => {
     let width = config[breakpoint]
 
@@ -68,13 +68,15 @@ export const createMediaQueries = (config: Custom, object: CustomObject): void =
 
 export function useGrid<T extends GridDefinitionLiteral> (gridConfig: T): GridObjectLiteral<T>
 export function useGrid<T extends GridDefinitionCustomObject> (gridConfig: T): GridObject<T>
-export function useGrid (gridConfig: GridDefinitionLiteral | GridType<Custom> = DEFAULT_GRID_FRAMEWORK): GridObject<GridTypes> {
+export function useGrid (
+  gridConfig: GridDefinitionLiteral | GridDefinitionCustomObject = DEFAULT_GRID_FRAMEWORK
+): GridObjectLiteral<GridDefinitionLiteral> | GridObject<any> {
   let config: Custom | SupportedGridType
 
   if (typeof gridConfig === 'string') {
-    config = createConfigFromLiteral(gridConfig as GridDefinitionLiteral) as SupportedGridType 
+    config = createConfigFromLiteral(gridConfig as GridDefinitionLiteral)
   } else {
-    config = Object.assign(gridConfig as Custom) as GridType<Custom>
+    config = Object.assign(gridConfig as GridDefinitionCustomObject)
   }
 
   const gridObject = reactive(createGridObject(config))

@@ -1,1 +1,0 @@
-import{o as e,c as t,d as a}from"./app.ae8eaa2d.js";const r='{"title":"API Reference","description":"","frontmatter":{},"relativePath":"api/index.md","lastUpdated":1615763376870}',n={},i=a('',3);n.render=function(a,r,n,o,s,h){return e(),t("div",null,[i])};export default n;export{r as __pageData};

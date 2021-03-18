@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { reactive, onUnmounted } from 'vue'
 import { inBrowser, debounce } from './utils'
 import { ScreenObject, ScreenConfig } from './types'
 
@@ -39,13 +39,15 @@ export const useScreen = (config: ScreenConfig = {}, debounceDelay = DEFAULT_DEB
   }
   
   if (inBrowser) {
-    window.addEventListener('resize', debounce(updateWindowProperties, debounceDelay))
+    const resizeListener = debounce(updateWindowProperties, debounceDelay)
+    window.addEventListener('resize', resizeListener)
     updateWindowProperties()
   
     const query = window.matchMedia('(orientation: portrait)')
     if ('addEventListener' in query) {
       query.addEventListener('change', updateOrientationPropperties);
     } else {
+      // https://github.com/reegodev/vue-screen/issues/30
       // query.addListener is not deprecated for iOS 12
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (query as any).addListener(updateOrientationPropperties)
@@ -57,6 +59,23 @@ export const useScreen = (config: ScreenConfig = {}, debounceDelay = DEFAULT_DEB
     // You always need to reload the browser to add/remove touch support,
     // even when using DevTools device simulation
     screen.touch = 'ontouchstart' in window
+
+    // Do not leak memory by keeping event listeners active.
+    // This appears to work as expected, using useScreen() inside components
+    // triggers this hook when they are destroyed.
+    // If useScreen() is used outside a component, this hook is never executed.
+    onUnmounted(() => {
+      window.removeEventListener('resize', resizeListener)
+
+      if ('removeEventListener' in query) {
+        query.removeEventListener('change', updateOrientationPropperties);
+      } else {
+        // https://github.com/reegodev/vue-screen/issues/30
+        // query.removeListener is not deprecated for iOS 12
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (query as any).removeListener(updateOrientationPropperties)
+      }
+    })
   }
 
   return screen as Readonly<ScreenObject>

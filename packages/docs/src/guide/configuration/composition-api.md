@@ -42,11 +42,11 @@ If you are not performing server-side rendering in your app, this config has no 
 
 ## useGrid
 
-```js
-useGrid(config? = 'tailwind')
+```ts
+useGrid(config: string)
 ```
 
-- **config**: an optional grid config, defaults to `tailwind`
+- **config**: a grid config.
 
 The value can either be a string literal, with one of the supported UI frameworks:
 
@@ -64,9 +64,8 @@ For example:
 ```js
 useGrid({
   phone: '340px',
-  tablet: '768px',
-  desktop: '1024px',
-  wideScreen: '1440px',
+  tablet: 768,
+  desktop: '32em',
 })
 ```
 

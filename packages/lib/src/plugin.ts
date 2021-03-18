@@ -1,4 +1,4 @@
-import { App } from 'vue'
+import { App, Plugin } from 'vue'
 import { useScreen } from './useScreen'
 import { VueScreenConfig } from './types/config'
 import { useGrid } from './useGrid'
@@ -25,4 +25,8 @@ export const install = (app: App, options: VueScreenConfig): void => {
 
   app.config.globalProperties.$screen = screen
   app.config.globalProperties.$grid = grid
+}
+
+export const plugin: Plugin = {
+  install
 }

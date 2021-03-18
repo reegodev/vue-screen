@@ -70,7 +70,7 @@ export function useGrid<T extends GridDefinitionLiteral> (gridConfig: T): GridOb
 export function useGrid<T extends GridDefinitionCustomObject> (gridConfig: T): GridObject<T>
 export function useGrid (
   gridConfig: GridDefinitionLiteral | GridDefinitionCustomObject = DEFAULT_GRID_FRAMEWORK
-): GridObjectLiteral<GridDefinitionLiteral> | GridObject<any> {
+): Readonly<GridObjectLiteral<GridDefinitionLiteral>> | Readonly<GridObject<any>> {
   let config: Custom | SupportedGridType
 
   if (typeof gridConfig === 'string') {

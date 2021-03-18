@@ -14,3 +14,9 @@ export interface ScreenConfig {
   orientation?: 'portrait' | 'landscape'
   touch?: boolean
 }
+
+declare module '@vue/runtime-core' {
+  interface ComponentCustomProperties {
+    $screen: Readonly<ScreenObject>
+  }
+}

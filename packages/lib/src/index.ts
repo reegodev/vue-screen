@@ -1,6 +1,6 @@
 import { useScreen } from './useScreen'
 import { useGrid } from './useGrid'
-import { install } from './plugin'
+import { plugin } from './plugin'
 import grids from './grids'
 
 export {
@@ -9,6 +9,4 @@ export {
   grids,
 }
 
-export default {
-  install
-}
+export default plugin

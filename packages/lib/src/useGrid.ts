@@ -11,7 +11,7 @@ import {
   CustomObject
 } from './types/grid'
 import grids from './grids'
-import { reactive, onUnmounted } from 'vue'
+import { reactive, onUnmounted, getCurrentInstance } from 'vue'
 import { inBrowser } from './utils'
 
 export const DEFAULT_GRID_FRAMEWORK = 'tailwind'
@@ -68,17 +68,18 @@ export const createMediaQueries = (config: Custom, object: CustomObject & { brea
     // Do not leak memory by keeping event listeners active.
     // This appears to work as expected, using useGrid() inside components
     // triggers this hook when they are destroyed.
-    // If useGrid() is used outside a component, this hook is never executed.
-    onUnmounted(() => {
-      if ('removeEventListener' in query) {
-        query.removeEventListener('change', onChange);
-      } else {
-        // https://github.com/reegodev/vue-screen/issues/30
-        // query.removeListener is not deprecated for iOS 12
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (query as any).removeListener(onChange)
-      }
-    })
+    if (getCurrentInstance()) {
+      onUnmounted(() => {
+        if ('removeEventListener' in query) {
+          query.removeEventListener('change', onChange);
+        } else {
+          // https://github.com/reegodev/vue-screen/issues/30
+          // query.removeListener is not deprecated for iOS 12
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (query as any).removeListener(onChange)
+        }
+      })
+    }
   })
 }
 

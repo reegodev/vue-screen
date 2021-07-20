@@ -24,5 +24,5 @@ createApp({
   },
   template: '<div id="#app"><Test></Test></div>',
 })
-  .use(VueScreen, 'tailwind')
+  .use(VueScreen)
   .mount('#app')

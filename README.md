@@ -5,7 +5,7 @@
 
 <br>
 
-> Warning: Version 2.0 only supports Vue 3 and is in early alpha version. There might still be API changes before final release.<br> v1 docs are available [here](https://github.com/reegodev/vue-screen/tree/v1.5.3#vuescreen)
+> Warning: Version 2.x only supports Vue 3 and is still in alpha.<br> v1 docs are available [here](https://github.com/reegodev/vue-screen/tree/v1.5.3#vuescreen)
 
 <br>
 

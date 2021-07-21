@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports = {
-  // base: '/vue-screen/',
+  base: '/vue-screen/',
   lang: 'en-US',
   title: 'Vue-Screen',
   description: '"Reactive screen size and media query states for Vue components. Integrates with most UI frameworks out of the box.',

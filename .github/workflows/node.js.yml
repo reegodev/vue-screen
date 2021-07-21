@@ -21,12 +21,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
     - run: npm install -g lerna start-server-and-test
     - run: lerna bootstrap
     - run: lerna run --scope vue-screen build --stream
     - run: lerna run --scope vue-screen test --stream
     - run: start-server-and-test "lerna run --scope vue-screen-examples serve --stream" http://localhost:8081 "lerna run --scope vue-screen-e2e cy:run  --stream"
+
+    - name: Coverage
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}

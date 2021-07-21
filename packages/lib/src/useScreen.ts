@@ -26,18 +26,21 @@ export const useScreen = (config: ScreenConfig = {}, debounceDelay = DEFAULT_DEB
     touch: touch,
   } as ScreenObject)
 
+  /* istanbul ignore next */
   const updateWindowProperties = () => {
     screen.width = window.innerWidth
     screen.height = window.innerHeight
     screen.resolution = `${screen.width}x${screen.height}`
   }
   
+  /* istanbul ignore next */
   const updateOrientationPropperties = (e: MediaQueryListEvent | MediaQueryList) => {
     screen.portrait = e.matches
     screen.landscape = !e.matches
     screen.orientation = e.matches ? 'portrait' : 'landscape'
   }
   
+  /* istanbul ignore if */
   if (inBrowser) {
     const resizeListener = debounce(updateWindowProperties, debounceDelay)
     window.addEventListener('resize', resizeListener)

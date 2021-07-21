@@ -1,11 +1,12 @@
 import { useScreen } from './useScreen'
-import { useGrid } from './useGrid'
+import { useGrid, extendGrid } from './useGrid'
 import { plugin } from './plugin'
 import grids from './grids'
 
 export {
   useScreen,
   useGrid,
+  extendGrid,
   grids,
 }
 

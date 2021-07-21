@@ -13,7 +13,9 @@ import {
   SemanticUi,
 } from '../grids'
 
-export type Custom = Record<string, number | string>
+export type ComputedBreakpoint = (grid: GridObject<Custom>) => boolean
+
+export type Custom = Record<string, number | string | ComputedBreakpoint>
 export type CustomObject = Record<string, boolean>
 
 export type SupportedGridType =

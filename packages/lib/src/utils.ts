@@ -1,6 +1,6 @@
 export const inBrowser = typeof window !== 'undefined'
 
-export const debounce = (callback: () => unknown, wait: number): () => void => {
+export const debounce = (callback: (...params: unknown[]) => unknown, wait: number): (...params: unknown[]) => unknown => {
   let timeout;
   // eslint-disable-next-line func-names
   return function () {

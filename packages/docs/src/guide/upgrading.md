@@ -6,8 +6,7 @@ editLink: true
 
 ## Configuration
 v2 has brought a few breaking changes on the configuration.
-To see how to configure the libary please refer to the [configuration section](/vue-screen/guide/configuration/composition-api).<br>
-Callbacks have been removed and there is no plan on adding them back at the moment.
+To see how to configure the library please refer to the [configuration section](/vue-screen/guide/configuration/composition-api).<br>
 
 ## API
 

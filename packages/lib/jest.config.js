@@ -10,4 +10,7 @@ module.exports = {
     "^.+\\.(ts|tsx)$": "ts-jest"
   },
   "testEnvironment": "node",
+  collectCoverage: true,
+  coveragePathIgnorePatterns: ['src/utils.ts', 'src/grids'],
+  coverageReporters: ['lcov', 'html', 'text'],
 }

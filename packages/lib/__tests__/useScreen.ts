@@ -33,7 +33,7 @@ describe('useScreen', () => {
       touch: false,
     } as ScreenConfig
 
-    const screen = useScreen(config)
+    const screen = useScreen(config, 300)
 
     expect(screen).toStrictEqual({
       resolution: `${config.width}x${config.height}`,

@@ -224,8 +224,8 @@ function () {
      */
     value: function init() {
       this.attachResize();
-      this.setScreenSize();
       this.checkTouch();
+      this.setScreenSize();
     }
     /**
      * Attach a listener to the window resize event

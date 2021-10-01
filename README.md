@@ -5,7 +5,7 @@
 # VueScreen
 Reactive window size and media query states for VueJS. Supports your favourite UI framework grid breakpoints out of the box, and can be configured with any custom breakpoints.
 
-[Demo](https://reegodev.github.io/vue-screen/)
+> Version 1 only supports Vue 2. Vue 3 is supported in the [v2 branch](https://github.com/reegodev/vue-screen)
 
 Table of contents
 =================
@@ -55,11 +55,6 @@ Table of contents
 ✅ - Detect touch screen capability<br>
 ✅ - Breakpoints for most common ui frameworks provided out of the box: Tailwind, Bootstrap, Bulma, Foundation, Materialize, Semantic UI<br>
 ✅ - SSR compatible with Nuxt module included <br>
-
-# Requirements
-
-As the library uses Vue.Observable API internally, Vue 2.6+ is required.
-Vue 3 is currently _not_ supported.
 
 # Installation
 

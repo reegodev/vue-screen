@@ -107,8 +107,8 @@ export class Plugin {
    */
   init() {
     this.attachResize();
-    this.setScreenSize();
     this.checkTouch();
+    this.setScreenSize();
   }
 
   /**

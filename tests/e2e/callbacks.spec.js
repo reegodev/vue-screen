@@ -33,15 +33,17 @@ describe('callbacks', () => {
 
 const testTablet = async (device, expected) => {
   const page = await loadExample('callbacks', device);
+  let desktopResult = 'false'
   if (!device) {
-    await page.resize({
-      width: 1200,
-      height: 800,
-    });
+    desktopResult = 'true'
   }
 
   const tablet = await page.evaluate(() => {
     return document.querySelector('.tablet span').textContent;
   });
+  const desktop = await page.evaluate(() => {
+    return document.querySelector('.desktop span').textContent;
+  });
   expect(tablet).to.equal(expected ? 'true' : 'false');
+  expect(desktop).to.equal(desktopResult);
 }

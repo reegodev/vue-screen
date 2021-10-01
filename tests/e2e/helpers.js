@@ -7,6 +7,12 @@ const loadExample = async (example, device = '') => {
   const page = await browser.newPage();
   if (device) {
     await page.emulate(puppeteer.devices[device]);
+  } else {
+    await page.setViewport({
+      width: 1200,
+      height: 800,
+    });
+    await sleep(300);
   }
 
   await page.goto(`http://localhost:8080/${example}`);

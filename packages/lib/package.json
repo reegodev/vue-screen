@@ -1,6 +1,6 @@
 {
   "name": "vue-screen",
-  "version": "2.1.0-alpha.5",
+  "version": "2.1.0-beta.1",
   "description": "Reactive screen size and media query states for Vue. Integrates with most UI frameworks out of the box.",
   "main": "dist/vue-screen.cjs.js",
   "module": "dist/vue-screen.esm.js",

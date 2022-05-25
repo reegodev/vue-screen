@@ -17,3 +17,7 @@ export const debounce = (callback: (...params: unknown[]) => unknown, wait: numb
     timeout = setTimeout(later, wait);
   };
 };
+
+export const remAndEmToPixels = (value: number): number => {
+  return value * 16
+}

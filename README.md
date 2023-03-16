@@ -6,7 +6,7 @@
 
 <br>
 
-> Warning: Version 2.x only supports Vue 3 and is still in alpha.<br> v1 docs are available [here](https://github.com/reegodev/vue-screen/tree/v1.5.3#vuescreen)
+> Warning: Version 2.x only supports Vue 3.<br> v1 docs are available [here](https://github.com/reegodev/vue-screen/tree/v1.5.3#vuescreen)
 
 <br>
 
@@ -80,11 +80,6 @@ createApp()
 
 v2 introduces a few breaking changes both in the configuration and in the API.
 Read more about them in the [docs section](https://reegodev.github.io/vue-screen/guide/upgrading).
-
-# Browser support
-
-All browsers except IE.
-<br>Efforts in supporting IE will never occur. Let it die.
 
 # License
 

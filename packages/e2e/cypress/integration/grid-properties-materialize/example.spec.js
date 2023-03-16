@@ -9,7 +9,7 @@ const grid = grids.materialize
 
 describe(example, () => {
   beforeEach(() => {
-    cy.visit(`/${example}`)
+    cy.visit(`/${example}/`)
   })
 
   Object.keys(grid).forEach(breakpoint => {

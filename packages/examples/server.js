@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 
 app.use(express.static(__dirname))
 
-const port = process.env.EXAMPLES_PORT || 8081
+const port = process.env.EXAMPLES_PORT || 8082
 module.exports = app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}, Ctrl+C to stop`)
 })

@@ -13,7 +13,7 @@ import {
 } from './types/grid'
 import grids from './grids'
 import { reactive, onUnmounted, getCurrentInstance } from 'vue'
-import { inBrowser, debounce } from './utils'
+import { inBrowser, debounce, remToPx } from './utils'
 
 export const DEFAULT_GRID_FRAMEWORK = 'tailwind'
 
@@ -34,18 +34,26 @@ export const createConfigFromLiteral = (literal: GridDefinitionLiteral): GridTyp
   return grids[literal]
 }
 
-export const getCurrentBreakpoint = (config: Custom, object: CustomObject): string => {
-  const current = Object.keys(object)
-    .filter(key => {
-      return !['breakpoint'].includes(key) && typeof config[key] !== 'function'
+export const getCurrentBreakpoint = (
+  config: Custom,
+  object: CustomObject
+): string => {
+  const current = Object.keys(config)
+    .filter((key) => typeof config[key] !== "function")
+    .sort((a, b) => {
+      const valueA = remToPx(config[a] as string | number)
+      const valueB = remToPx(config[b] as string | number)
+
+      return valueA - valueB
     })
     .reverse()
-    .find(key => object[key])
-  return current || ''
+    .find((key) => object[key])
+
+  return current || ""
 }
 
 /* istanbul ignore next  */
-export const updateComputedProperties = (config: Custom, object: CustomObject): void => {
+export const updateComputedProperties = (config: Custom, object: CustomObject & { breakpoint: string }): void => {
   Object.keys(config)
     .filter((breakpoint) => {
       return typeof config[breakpoint] === 'function'
@@ -54,6 +62,8 @@ export const updateComputedProperties = (config: Custom, object: CustomObject): 
       const fn = config[breakpoint] as ComputedBreakpoint
       object[breakpoint] = fn.call(null, object)
     })
+  
+  object.breakpoint = getCurrentBreakpoint(config, object)
 }
 
 const debouncedUpdateComputedProperties = debounce(updateComputedProperties, 100)
@@ -75,7 +85,6 @@ export const createMediaQueries = (config: Custom, object: CustomObject & { brea
 
       const onChange = (event: MediaQueryListEvent) => {
         object[breakpoint] = event.matches
-        object.breakpoint = getCurrentBreakpoint(config, object)
         debouncedUpdateComputedProperties(config, object)
       }
 
@@ -89,7 +98,6 @@ export const createMediaQueries = (config: Custom, object: CustomObject & { brea
         (query as any).addListener(onChange)
       }
       object[breakpoint] = query.matches
-      object.breakpoint = getCurrentBreakpoint(config, object)
 
       // Do not leak memory by keeping event listeners active.
       // This appears to work as expected, using useGrid() inside components

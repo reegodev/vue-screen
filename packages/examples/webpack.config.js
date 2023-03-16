@@ -40,7 +40,7 @@ module.exports = {
   resolve: {
     alias: {
       vue: 'vue/dist/vue.esm-bundler.js',
-      // 'vue-screen': path.join(__dirname, '../lib/dist/vue-screen.esm.js')
+      'vue-screen': path.join(__dirname, '../lib/dist/vue-screen.esm.js')
     }
   },
 }

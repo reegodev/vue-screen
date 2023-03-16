@@ -17,3 +17,14 @@ export const debounce = (callback: (...params: unknown[]) => unknown, wait: numb
     timeout = setTimeout(later, wait);
   };
 };
+
+export const remToPx = (rem: string | number): number => {
+  let fontSize;
+  if (inBrowser) {
+    fontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+  } else {
+    fontSize = 16;
+  }
+
+  return parseFloat(rem.toString()) * fontSize;
+}

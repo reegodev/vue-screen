@@ -1,11 +1,14 @@
 /// <reference types="cypress" />
 
 import { grids } from '../../../../lib/dist/vue-screen.esm'
-const example = 'grid-properties-foundation'
+const example = 'extend-grid'
 const height = 900
 const delay = 100
 
-const grid = grids.foundation
+const grid = {
+  ...grids.tailwind,
+  xs: '31em',
+}
 
 describe(example, () => {
   beforeEach(() => {
@@ -14,7 +17,10 @@ describe(example, () => {
 
   Object.keys(grid).forEach(breakpoint => {
 
-    const width = parseInt(grid[breakpoint], 10)
+    let width = parseInt(grid[breakpoint], 10)
+    if (typeof grid[breakpoint] === 'string' && grid[breakpoint].includes('em')) {
+      width *= 16;
+    }
 
     context(`${breakpoint}`, () => {
       it(`${breakpoint} is true at ${width}px`, () => {
@@ -30,7 +36,7 @@ describe(example, () => {
         cy.get(`.${breakpoint}`).should('have.text', 'true')
         cy.get(`.breakpoint`).should('have.text', breakpoint)
       })
-
+    
       if (width > 0) {
         it(`${breakpoint} is false below ${width}px`, () => {
           cy.viewport(width - 1, height)

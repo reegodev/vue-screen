@@ -38,7 +38,7 @@ const viewports = [
 
 describe(example, () => {
   beforeEach(() => {
-    cy.visit(`/${example}`)
+    cy.visit(`/${example}/`)
   })
 
   viewports.forEach((viewport) => {

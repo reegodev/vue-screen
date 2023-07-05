@@ -11,4 +11,4 @@ To see how to configure the library please refer to the [configuration section](
 ## API
 
 The most notable change from v1 is the separation of the old `screen` object into 2 distinct objects, `screen` and `grid`.
-You can check their properties in the [API reference](/vue-screen/api)
+You can check their properties in the [API reference](/vue-screen/api/)

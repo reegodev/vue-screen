@@ -1,0 +1,1 @@
+import{_ as s,c as n,o as a,a as l}from"./app.bcbf3977.js";const A='{"title":"Custom Tailwind configuration","description":"","frontmatter":{},"headers":[],"relativePath":"guide/examples/custom-tailwind-config.md"}',p={},o=l("",4),e=[o];function t(c,r,D,F,y,i){return a(),n("div",null,e)}var d=s(p,[["render",t]]);export{A as __pageData,d as default};

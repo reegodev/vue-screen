@@ -32,4 +32,4 @@ Config can be either:
 }
 ```
 
-Please refer to [Composition API configuration](/vue-screen/guide/configuration/composition-api) for the signatures of each property.
+Please refer to [Composition API configuration](/guide/configuration/composition-api) for the signatures of each property.

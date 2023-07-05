@@ -28,7 +28,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - run: npm install -g lerna start-server-and-test
-    - run: lerna bootstrap
+    - run: yarn install
     - run: lerna run --scope vue-screen build --stream
     - run: lerna run --scope vue-screen test --stream
     - run: start-server-and-test "lerna run --scope vue-screen-examples serve --stream" http://localhost:8081 "lerna run --scope vue-screen-e2e cy:run  --stream"

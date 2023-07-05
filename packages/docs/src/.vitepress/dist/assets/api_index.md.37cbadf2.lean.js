@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a,a as r}from"./app.bcbf3977.js";const u='{"title":"API Reference","description":"","frontmatter":{},"headers":[],"relativePath":"api/index.md"}',n={},o=r("",3),i=[o];function s(c,_,h,d,p,f){return a(),t("div",null,i)}var m=e(n,[["render",s]]);export{u as __pageData,m as default};

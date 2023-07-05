@@ -8,11 +8,13 @@ To use Foundation as your UI framework, simply pass it to the configuration
 
 ```js
 import { useGrid } from 'vue-screen'
+
 const grid = useGrid('foundation')
 ```
 
 ```js
 import VueScreen from 'vue-screen'
+
 createApp().use(VueScreen, 'foundation')
 ```
 

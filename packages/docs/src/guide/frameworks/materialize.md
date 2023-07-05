@@ -8,11 +8,13 @@ To use Materialize as your UI framework, simply pass it to the configuration
 
 ```js
 import { useGrid } from 'vue-screen'
+
 const grid = useGrid('materialize')
 ```
 
 ```js
 import VueScreen from 'vue-screen'
+
 createApp().use(VueScreen, 'materialize')
 ```
 

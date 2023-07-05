@@ -8,6 +8,7 @@ Think about the following 2 components:
 <!--> Component 1 <!-->
 <script>
 import { useGrid } from 'vue-screen'
+
 export default {
   setup() {
     const grid = useGrid({
@@ -31,6 +32,7 @@ export default {
 <!--> Component 2 <!-->
 <script>
 import { useGrid } from 'vue-screen'
+
 export default {
   setup() {
     const grid = useGrid({
@@ -73,6 +75,7 @@ Now your components can import the grid object from the helper we just created, 
 <!--> Component 1 <!-->
 <script>
 import { grid } from '~/composables/vue-screen'
+
 export default {
   setup() {
     return {
@@ -87,6 +90,7 @@ export default {
 <!--> Component 2 <!-->
 <script>
 import { grid } from '~/composables/vue-screen'
+
 export default {
   setup() {
     return {

@@ -9,6 +9,7 @@ To use a custom framework, simply pass your custom grid configuration
 
 ```js
 import { useGrid } from 'vue-screen'
+
 const grid = useGrid({
   a: 340,
   b: 768,
@@ -18,6 +19,7 @@ const grid = useGrid({
 
 ```js
 import VueScreen from 'vue-screen'
+
 createApp().use(VueScreen, {
   grid: {
     a: 340,
@@ -50,6 +52,7 @@ Using a custom grid can also be useful if you need to extend one of the supporte
 ```js
 import { useGrid } from 'vue-screen'
 import tailwindConfig from './tailwind.config.js'
+
 const grid = useGrid({
   ...tailwindConfig.theme.screens,
   '3xl': '1940px',
@@ -58,6 +61,8 @@ const grid = useGrid({
 
 ```js
 import VueScreen from 'vue-screen'
+import tailwindConfig from './tailwind.config.js'
+
 createApp().use(VueScreen, {
   grid: {
     ...tailwindConfig.theme.screens,

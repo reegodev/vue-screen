@@ -1,0 +1,1 @@
+import{_ as s,c as a,o as n,a as l}from"./app.bcbf3977.js";const A='{"title":"Bulma","description":"","frontmatter":{"editLink":true},"headers":[],"relativePath":"guide/frameworks/bulma.md"}',p={},o=l("",7),e=[o];function t(c,r,F,y,D,i){return n(),a("div",null,e)}var d=s(p,[["render",t]]);export{A as __pageData,d as default};

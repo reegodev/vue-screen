@@ -3,7 +3,7 @@ editLink: true
 title: Reactive screen size and media query states for VueJs
 ---
 ::: warning
-Version 2.0 only supports Vue 3 and is still in alpha.<br> v1 docs are available [here](https://github.com/reegodev/vue-screen/tree/v1.5.3#vuescreen)
+Version 2.0 only supports Vue 3.<br> v1 docs are available [here](https://github.com/reegodev/vue-screen/tree/v1.5.3#vuescreen)
 :::
 <br>
 <div style="text-align: center">

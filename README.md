@@ -12,7 +12,7 @@
 
 <img src="/packages/docs/src/public/logo.svg" alt="VueScreen logo" width="300" style="margin-top: 40px" />
 
-# VueScreen@next
+# VueScreen
 Reactive screen size and media query states for Vue. Supports your favourite UI framework out of the box, and can be configured with any custom breakpoints.
 
 # Docs
@@ -29,11 +29,11 @@ Reactive screen size and media query states for Vue. Supports your favourite UI 
 # Installation
 
 ```bash
-npm i vue-screen@next
+npm i vue-screen
 ```
 
 ```bash
-yarn add vue-screen@next
+yarn add vue-screen
 ```
 
 # Quick start

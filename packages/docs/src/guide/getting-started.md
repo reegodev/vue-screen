@@ -7,10 +7,10 @@ editLink: true
 ## Installation
 
 ```bash
-yarn add vue-screen@next
+yarn add vue-screen
 ```
 ```bash
-npm i vue-screen@next
+npm i vue-screen
 ```
 
 The library can be used in two ways: with Composition API or as a global plugin.

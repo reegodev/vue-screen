@@ -1,6 +1,6 @@
 [![Build Status](https://img.shields.io/badge/vue-3.x-brightgreen.svg)](https://img.shields.io/badge/vue-3.x.x-brightgreen.svg)
 [![Build Status](https://github.com/reegodev/vue-screen/workflows/Node.js%20CI/badge.svg)](https://github.com/reegodev/vue-screen/actions)
-[![npm version](https://img.shields.io/npm/v/vue-screen/next)](https://www.npmjs.com/package/vue-screen)
+[![npm version](https://img.shields.io/npm/v/vue-screen)](https://www.npmjs.com/package/vue-screen)
 [![npm downloads](https://img.shields.io/npm/dm/vue-screen)](https://www.npmjs.com/package/vue-screen)
 [![codecov](https://codecov.io/gh/reegodev/vue-screen/branch/master/graph/badge.svg?token=KTHOOUSHFJ)](https://codecov.io/gh/reegodev/vue-screen)
 

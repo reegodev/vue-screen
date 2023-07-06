@@ -1,0 +1,1 @@
+import{_ as s,c as a,o as n,a as l}from"./app.bcbf3977.js";const C='{"title":"Semantic UI","description":"","frontmatter":{"editLink":true},"headers":[],"relativePath":"guide/frameworks/semantic-ui.md"}',p={},o=l("",7),e=[o];function t(c,r,F,i,y,D){return n(),a("div",null,e)}var d=s(p,[["render",t]]);export{C as __pageData,d as default};

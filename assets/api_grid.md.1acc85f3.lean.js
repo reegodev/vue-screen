@@ -1,1 +1,0 @@
-import{o as a,c as n,d as s}from"./app.ae8eaa2d.js";const e='{"title":"Grid properties","description":"","frontmatter":{"editLink":true},"relativePath":"api/grid.md","lastUpdated":1615763376870}',t={},o=s('',6);t.render=function(s,e,t,p,r,i){return a(),n("div",null,[o])};export default t;export{e as __pageData};

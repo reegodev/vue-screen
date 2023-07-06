@@ -1,1 +1,0 @@
-import{o as n,c as s,d as a}from"./app.ae8eaa2d.js";const p='{"title":"TailwindCSS","description":"","frontmatter":{"editLink":true},"relativePath":"guide/frameworks/tailwind.md","lastUpdated":1615763376877}',t={},e=a('',10);t.render=function(a,p,t,o,c,i){return n(),s("div",null,[e])};export default t;export{p as __pageData};

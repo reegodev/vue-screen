@@ -20,8 +20,8 @@ The library can be used in two ways: with Composition API or as a global plugin.
 This is the recommended way if you only use Composition API.<br>
 
 The library exposes two composables:
-- `useScreen`: returns an object containing information about the screen size, resolution, device orientation, etc.<br>[View all properties of the screen object](/vue-screen/api/screen)<br><br>
-- `useGrid`: returns an object containing information about the breakpoints state of your chosen UI framework<br> [View all properties of the grid object](/vue-screen/api/grid)
+- `useScreen`: returns an object containing information about the screen size, resolution, device orientation, etc.<br>[View all properties of the screen object](/api/screen)<br><br>
+- `useGrid`: returns an object containing information about the breakpoints state of your chosen UI framework<br> [View all properties of the grid object](/api/grid)
 
 
 ```vue
@@ -48,7 +48,7 @@ export default {
 </template>
 ```
 
-If you need to share the same config between multiple components, check out [this example](/vue-screen/guide/examples/shared-config).
+If you need to share the same config between multiple components, check out [this example](/guide/examples/shared-config).
 
 <br>
 

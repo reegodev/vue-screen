@@ -3,6 +3,5 @@
   "packages": [
     "packages/*"
   ],
-  "npmClient": "yarn",
-  "useWorkspaces": true
+  "npmClient": "yarn"
 }

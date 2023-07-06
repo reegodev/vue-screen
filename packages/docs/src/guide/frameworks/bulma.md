@@ -8,11 +8,13 @@ To use Bulma as your UI framework, simply pass it to the configuration
 
 ```js
 import { useGrid } from 'vue-screen'
+
 const grid = useGrid('bulma')
 ```
 
 ```js
 import VueScreen from 'vue-screen'
+
 createApp().use(VueScreen, 'bulma')
 ```
 

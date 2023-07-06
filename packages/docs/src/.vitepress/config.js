@@ -53,13 +53,13 @@ function getGuideSidebar() {
   return [
     {
       text: 'Getting Started',
-      children: [
+      items: [
         { text: 'Introduction', link: '/' },
         { text: 'Getting Started', link: '/guide/getting-started' },
         {
           text: 'Configuration',
           link: '/guide/configuration/composition-api',
-          children: [
+          items: [
             { text: 'Composition API', link: '/guide/configuration/composition-api' },
             { text: 'Plugin', link: '/guide/configuration/plugin' },
           ]
@@ -68,7 +68,7 @@ function getGuideSidebar() {
     },
     {
       text: 'Supported CSS frameworks',
-      children: [
+      items: [
         { text: 'TailwindCSS', link: '/guide/frameworks/tailwind' },
         { text: 'Bootstrap', link: '/guide/frameworks/bootstrap' },
         { text: 'Bulma', link: '/guide/frameworks/bulma' },
@@ -80,16 +80,21 @@ function getGuideSidebar() {
     },
     {
       text: 'SSR',
-      children: [
+      items: [
         { text: 'Caveats', link: '/guide/ssr/caveats' },
-        { text: 'Nuxt', link: '/guide/ssr/nuxt' },
       ]
     },
     {
       text: 'Examples',
-      children: [
+      items: [
         { text: 'Sharing configurations', link: '/guide/examples/shared-config' },
         { text: 'Custom Tailwind config', link: '/guide/examples/custom-tailwind-config' },
+      ]
+    },
+    {
+      text: 'Misc',
+      items: [
+        { text: 'Upgrading from v1.x', link: '/guide/upgrading' },
       ]
     }
   ]
@@ -100,7 +105,7 @@ function getApiSidebar() {
     {
       text: 'API Reference',
       link: '/api/',
-      children: [
+      items: [
         { text: 'Screen', link: '/api/screen' },
         { text: 'Grid', link: '/api/grid' },
       ]

@@ -1,0 +1,1 @@
+import{_ as s,c as n,o as a,a as o}from"./app.bcbf3977.js";const A='{"title":"Foundation","description":"","frontmatter":{"editLink":true},"headers":[],"relativePath":"guide/frameworks/foundation.md"}',l={},p=o("",7),e=[p];function t(c,r,F,i,y,D){return a(),n("div",null,e)}var C=s(l,[["render",t]]);export{A as __pageData,C as default};

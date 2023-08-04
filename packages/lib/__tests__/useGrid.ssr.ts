@@ -11,7 +11,7 @@ import grids from '../src/grids'
 
 import { watchEffect } from 'vue'
 
-describe('useGrid', () => {
+describe('useGrid SSR', () => {
 
   it('creates a config from a framework literal', () => {
     Object.keys(grids).forEach((framework) => {
@@ -84,9 +84,9 @@ describe('useGrid', () => {
 describe('getCurrentBreakpoint', () => {
   it('returns an empty value if no breakpoint is active', () => {
     const config = {
-      c: 2,
       a: 0,
       b: 1,
+      c: 2,
     }
     const gridObject = {
       a: false,
@@ -99,9 +99,9 @@ describe('getCurrentBreakpoint', () => {
 
   it('returns the currently active breakpoint', () => {
     const config = {
-      c: 2,
       a: 0,
       b: 1,
+      c: 2,
     }
     const gridObject = {
       a: false,

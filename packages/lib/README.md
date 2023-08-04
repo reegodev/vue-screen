@@ -24,7 +24,7 @@ Reactive screen size and media query states for Vue. Supports your favourite UI 
 - Reactive media query states and device orientation<br>
 - Detect touch screen capability<br>
 - Breakpoints for most common ui frameworks provided out of the box: Tailwind, Bootstrap, Bulma, Foundation, Materialize, Semantic UI<br>
-- SSR compatible <s>with Nuxt module included</s>. Nuxt module development is pending Nuxt 3 release <br>
+- SSR compatible<br>
 
 # Installation
 

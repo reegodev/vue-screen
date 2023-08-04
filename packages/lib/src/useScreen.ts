@@ -32,36 +32,38 @@ export const useScreen = (config: ScreenConfig = {}, debounceDelay = DEFAULT_DEB
     screen.height = window.innerHeight
     screen.resolution = `${screen.width}x${screen.height}`
   }
-  
+
   /* istanbul ignore next */
   const updateOrientationPropperties = (e: MediaQueryListEvent | MediaQueryList) => {
     screen.portrait = e.matches
     screen.landscape = !e.matches
     screen.orientation = e.matches ? 'portrait' : 'landscape'
   }
-  
+
   /* istanbul ignore if */
   if (inBrowser) {
     const resizeListener = debounce(updateWindowProperties, debounceDelay)
     window.addEventListener('resize', resizeListener)
     updateWindowProperties()
-  
-    const query = window.matchMedia('(orientation: portrait)')
-    if ('addEventListener' in query) {
-      query.addEventListener('change', updateOrientationPropperties);
-    } else {
-      // https://github.com/reegodev/vue-screen/issues/30
-      // query.addListener is not deprecated for iOS 12
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (query as any).addListener(updateOrientationPropperties)
-    }
-
-    updateOrientationPropperties(query)
 
     // This does not react to resize events.
     // You always need to reload the browser to add/remove touch support,
     // even when using DevTools device simulation
     screen.touch = 'ontouchstart' in window
+
+    const query = 'matchMedia' in window && window.matchMedia('(orientation: portrait)')
+    if (query) {
+      if ('addEventListener' in query) {
+        query.addEventListener('change', updateOrientationPropperties);
+      } else {
+        // https://github.com/reegodev/vue-screen/issues/30
+        // query.addListener is not deprecated for iOS 12
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (query as any).addListener(updateOrientationPropperties)
+      }
+
+      updateOrientationPropperties(query)
+    }
 
     // Do not leak memory by keeping event listeners active.
     // This appears to work as expected, using useScreen() inside components
@@ -69,14 +71,16 @@ export const useScreen = (config: ScreenConfig = {}, debounceDelay = DEFAULT_DEB
     if (getCurrentInstance()) {
       onUnmounted(() => {
         window.removeEventListener('resize', resizeListener)
-  
-        if ('removeEventListener' in query) {
-          query.removeEventListener('change', updateOrientationPropperties);
-        } else {
-          // https://github.com/reegodev/vue-screen/issues/30
-          // query.removeListener is not deprecated for iOS 12
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (query as any).removeListener(updateOrientationPropperties)
+
+        if (query) {
+          if ('removeEventListener' in query) {
+            query.removeEventListener('change', updateOrientationPropperties);
+          } else {
+            // https://github.com/reegodev/vue-screen/issues/30
+            // query.removeListener is not deprecated for iOS 12
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (query as any).removeListener(updateOrientationPropperties)
+          }
         }
       })
     }

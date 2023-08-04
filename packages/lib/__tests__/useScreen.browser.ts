@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { ScreenConfig } from '../src/types'
 import {
   useScreen,
@@ -9,19 +13,19 @@ import {
 
 import { watchEffect } from 'vue'
 
-describe('useScreen', () => {
+describe('useScreen Browser', () => {
 
   it('creates a screen object with default properties', () => {
     const screen = useScreen()
 
     expect(screen).toStrictEqual({
-      resolution: `${DEFAULT_WIDTH}x${DEFAULT_HEIGHT}`,
-      width: DEFAULT_WIDTH,
-      height: DEFAULT_HEIGHT,
+      resolution: `${window.innerWidth}x${window.innerHeight}`,
+      width: window.innerWidth,
+      height: window.innerHeight,
       orientation: DEFAULT_ORIENTATION,
       portrait: DEFAULT_ORIENTATION === 'portrait',
       landscape: DEFAULT_ORIENTATION !== 'portrait',
-      touch: DEFAULT_TOUCH_SUPPORT
+      touch: 'ontouchstart' in window
     })
   })
 
@@ -31,7 +35,7 @@ describe('useScreen', () => {
       height: 768,
       orientation: 'landscape',
       touch: false,
-    } as ScreenConfig
+    } satisfies ScreenConfig
 
     const screen = useScreen(config, 300)
 

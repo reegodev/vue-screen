@@ -62,7 +62,7 @@ export const updateComputedProperties = (config: Custom, object: CustomObject & 
       const fn = config[breakpoint] as ComputedBreakpoint
       object[breakpoint] = fn.call(null, object)
     })
-  
+
   object.breakpoint = getCurrentBreakpoint(config, object)
 }
 
@@ -88,29 +88,33 @@ export const createMediaQueries = (config: Custom, object: CustomObject & { brea
         debouncedUpdateComputedProperties(config, object)
       }
 
-      const query = window.matchMedia(`(min-width: ${width})`)
-      if ('addEventListener' in query) {
-        query.addEventListener('change', onChange);
-      } else {
-        // https://github.com/reegodev/vue-screen/issues/30
-        // query.addListener is not deprecated for iOS 12
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (query as any).addListener(onChange)
+      const query = 'matchMedia' in window && window.matchMedia(`(min-width: ${width})`)
+      if (query) {
+        if ('addEventListener' in query) {
+          query.addEventListener('change', onChange);
+        } else {
+          // https://github.com/reegodev/vue-screen/issues/30
+          // query.addListener is not deprecated for iOS 12
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (query as any).addListener(onChange)
+        }
+        object[breakpoint] = query.matches
       }
-      object[breakpoint] = query.matches
 
       // Do not leak memory by keeping event listeners active.
       // This appears to work as expected, using useGrid() inside components
       // triggers this hook when they are destroyed.
       if (getCurrentInstance()) {
         onUnmounted(() => {
-          if ('removeEventListener' in query) {
-            query.removeEventListener('change', onChange);
-          } else {
-            // https://github.com/reegodev/vue-screen/issues/30
-            // query.removeListener is not deprecated for iOS 12
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            (query as any).removeListener(onChange)
+          if (query) {
+            if ('removeEventListener' in query) {
+              query.removeEventListener('change', onChange);
+            } else {
+              // https://github.com/reegodev/vue-screen/issues/30
+              // query.removeListener is not deprecated for iOS 12
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (query as any).removeListener(onChange)
+            }
           }
         })
       }
@@ -119,9 +123,9 @@ export const createMediaQueries = (config: Custom, object: CustomObject & { brea
   updateComputedProperties(config, object)
 }
 
-export function useGrid<T extends GridDefinitionLiteral> (gridConfig: T): GridObjectLiteral<T>
-export function useGrid<T extends GridDefinitionCustomObject> (gridConfig: T): GridObject<T>
-export function useGrid (
+export function useGrid<T extends GridDefinitionLiteral>(gridConfig: T): GridObjectLiteral<T>
+export function useGrid<T extends GridDefinitionCustomObject>(gridConfig: T): GridObject<T>
+export function useGrid(
   gridConfig: GridDefinitionLiteral | GridDefinitionCustomObject = DEFAULT_GRID_FRAMEWORK
 ): Readonly<GridObjectLiteral<GridDefinitionLiteral>> | Readonly<GridObject<any>> {
   let config: Custom | SupportedGridType

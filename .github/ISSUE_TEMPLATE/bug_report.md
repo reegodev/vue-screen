@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: Create a report to help us fix a problem
 title: ''
 labels: bug
 assignees: ''
@@ -8,10 +8,10 @@ assignees: ''
 ---
 
 **Version**
-Specify vue-screen version, ie: `1.5.6`
+Specify vue-screen version, ie: `2.1.0`
 
 **Config**
-Insert your screen config
+Specify the config used in `useScreen` `useGrid` or via plugin initialization.
 
 **Reproduction link**
 Insert a reproduction link. We suggest using Codesandbox or Stackblitz. 

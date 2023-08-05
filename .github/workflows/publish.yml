@@ -22,8 +22,7 @@ jobs:
 
     - run: npm install -g lerna
     - run: yarn install
-    - run: cd packages/lib
-    - run: yarn build
+    - run: cd packages/lib && yarn build
 
     - name: Publish package on NPM
       run: npm publish --access=public

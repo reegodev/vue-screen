@@ -20,11 +20,21 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - run: npm install -g lerna
-    - run: yarn install
-    - run: cd packages/lib && yarn build
+    - name: Install dependencies
+      run: yarn install
 
-    - name: Publish package on NPM
+    - name: Build the package
+      working-directory: ./packages/lib
+      run: yarn build
+
+    - name: Configure NPM
+      working-directory: ./packages/lib
+      run: |
+        echo "//registry.npmjs.org/:_authToken=\${NODE_AUTH_TOKEN}" >> .npmrc
+        echo "always-auth: true" >> .npmrc
+
+    - name: Publish on NPM
+      working-directory: ./packages/lib
       run: npm publish --access=public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

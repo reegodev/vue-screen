@@ -6,7 +6,7 @@ editLink: true
 
 To use Bootstrap as your UI framework, simply pass it to the configuration
 
-### Boostrap 3
+### Bootstrap 3
 ```js
 import { useGrid } from 'vue-screen'
 
@@ -32,7 +32,7 @@ import VueScreen from 'vue-screen'
 createApp().use(VueScreen, 'bootstrap') // Bootstrap 3 grid
 ```
 
-### Boostrap 4
+### Bootstrap 4
 ```js
 import { useGrid } from 'vue-screen'
 
@@ -45,7 +45,7 @@ import VueScreen from 'vue-screen'
 createApp().use(VueScreen, 'bootstrap4')
 ```
 
-### Boostrap 5
+### Bootstrap 5
 ```js
 import { useGrid } from 'vue-screen'
 

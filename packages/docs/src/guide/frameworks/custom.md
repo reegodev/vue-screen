@@ -70,3 +70,23 @@ createApp().use(VueScreen, {
   }
 })
 ```
+
+::: danger
+Remember that your breakpoints must be in ascending order. If you need to add a breakpoint between two existing ones, you have to be explicit:
+
+```js
+import VueScreen from 'vue-screen'
+import tailwindConfig from './tailwind.config.js'
+
+createApp().use(VueScreen, {
+  grid: {
+    sm: tailwindConfig.theme.screens.sm,
+    md: tailwindConfig.theme.screens.md,
+    lg: tailwindConfig.theme.screens.lg,
+    lg-x: '1100px',
+    xl: tailwindConfig.theme.screens.xl,
+    2xl: tailwindConfig.theme.screens.2xl,
+  }
+})
+```
+:::

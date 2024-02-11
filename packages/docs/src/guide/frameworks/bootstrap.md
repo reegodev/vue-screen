@@ -23,13 +23,13 @@ For backwards compatibility reasons, bootstrap 3 is also aliased as just `bootst
 ```js
 import { useGrid } from 'vue-screen'
 
-const grid = useGrid('bootstrap') // Bootstrap 3 grid
+const grid = useGrid('bootstrap') // Will use Bootstrap 3 grid
 ```
 
 ```js
 import VueScreen from 'vue-screen'
 
-createApp().use(VueScreen, 'bootstrap') // Bootstrap 3 grid
+createApp().use(VueScreen, 'bootstrap') // Will use Bootstrap 3 grid
 ```
 
 Your grid object will contain the following properties:

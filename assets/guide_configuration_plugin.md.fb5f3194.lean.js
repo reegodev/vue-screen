@@ -1,1 +1,0 @@
-import{_ as s,c as a,o as n,a as o}from"./app.bcbf3977.js";const A='{"title":"Configuration as a plugin","description":"","frontmatter":{"editLink":true},"headers":[],"relativePath":"guide/configuration/plugin.md"}',p={},l=o("",9),e=[l];function t(c,r,D,y,F,i){return n(),a("div",null,e)}var u=s(p,[["render",t]]);export{A as __pageData,u as default};

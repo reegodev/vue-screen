@@ -1,1 +1,0 @@
-import{_ as s,c as n,o as a,a as l}from"./app.bcbf3977.js";const A='{"title":"Custom","description":"","frontmatter":{"editLink":true},"headers":[],"relativePath":"guide/frameworks/custom.md"}',p={},o=l("",11),e=[o];function c(t,r,D,y,F,C){return a(),n("div",null,e)}var d=s(p,[["render",c]]);export{A as __pageData,d as default};

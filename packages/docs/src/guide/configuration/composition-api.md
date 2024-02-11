@@ -51,7 +51,7 @@ useGrid(config: string)
 The value can either be a string literal, with one of the supported UI frameworks:
 
 ```ts
-'tailwind' | 'bootstrap' | 'bulma' | 'foundation' | 'materialize' | 'semanticUi'
+'tailwind' | 'bootstrap' | 'bootstrap4' | 'bootstrap5' | 'bulma' | 'foundation' | 'materialize' | 'semanticUi'
 ```
 
 or an object that specifies a custom grid:

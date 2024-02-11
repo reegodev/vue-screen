@@ -19,7 +19,7 @@ Config can be either:
 - a string, with one of the supported UI frameworks:
 
 ```ts
-'tailwind' | 'bootstrap' | 'bulma' | 'foundation' | 'materialize' | 'semanticUi'
+'tailwind' | 'bootstrap' | 'bootstrap4' | 'bootstrap5' | 'bulma' | 'foundation' | 'materialize' | 'semanticUi'
 ```
 
 - an object, with the following signature:

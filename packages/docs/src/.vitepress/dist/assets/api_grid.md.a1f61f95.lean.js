@@ -1,1 +1,0 @@
-import{_ as s,c as a,o as n,a as e}from"./app.bcbf3977.js";const h='{"title":"Grid properties","description":"","frontmatter":{"editLink":true},"headers":[],"relativePath":"api/grid.md"}',p={},o=e("",6),l=[o];function r(t,c,i,F,y,d){return n(),a("div",null,l)}var _=s(p,[["render",r]]);export{h as __pageData,_ as default};

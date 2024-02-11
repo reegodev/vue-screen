@@ -5,3 +5,4 @@ dist
 packages/e2e/cypress/screenshots
 .DS_Store
 coverage
+packages/docs/src/.vitepress/cache

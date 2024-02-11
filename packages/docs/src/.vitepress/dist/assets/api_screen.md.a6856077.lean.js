@@ -1,1 +1,0 @@
-import{_ as e,c as t,o,a as r}from"./app.bcbf3977.js";const u='{"title":"Screen properties","description":"","frontmatter":{"editLink":true},"headers":[],"relativePath":"api/screen.md"}',i={},n=r("",3),s=[n];function a(c,l,h,d,p,_){return o(),t("div",null,s)}var f=e(i,[["render",a]]);export{u as __pageData,f as default};

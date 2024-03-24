@@ -50,6 +50,7 @@ const screen = inject('screen')
 ### With options API
 
 ```vue
+<script>
 export default {
   onMounted() {
     console.log({
@@ -58,4 +59,5 @@ export default {
     })
   }
 }
+</script>
 ```

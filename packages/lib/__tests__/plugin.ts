@@ -47,4 +47,15 @@ describe('plugin', () => {
     expect(app.config.globalProperties.$grid).toHaveProperty('small')
   })
 
+  it('provides screen and grid properties', () => {
+    const app = createApp({})
+    const provideMock = jest.spyOn(app, 'provide')
+    app.use({install});
+
+    expect(provideMock).toHaveBeenCalledTimes(2)
+    expect(provideMock).toHaveBeenCalledWith('screen', expect.any(Object))
+    expect(provideMock).toHaveBeenCalledWith('grid', expect.any(Object))
+
+    provideMock.mockReset();
+  })
 })

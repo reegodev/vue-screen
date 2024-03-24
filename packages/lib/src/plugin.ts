@@ -25,6 +25,8 @@ export const install = (app: App, options: VueScreenConfig): void => {
 
   app.config.globalProperties.$screen = screen
   app.config.globalProperties.$grid = grid
+  app.provide('screen', screen);
+  app.provide('grid', grid);
 }
 
 export const plugin: Plugin = {

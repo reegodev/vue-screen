@@ -52,7 +52,7 @@ const screen = inject('screen')
 ```vue
 <script>
 export default {
-  onMounted() {
+  mounted() {
     console.log({
       screen: this.$screen,
       grid: this.$grid,

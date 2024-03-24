@@ -1,7 +1,6 @@
 {
   "name": "vue-screen-examples",
   "private": true,
-  "version": "2.0.0-alpha.0",
   "scripts": {
     "serve": "vite"
   },

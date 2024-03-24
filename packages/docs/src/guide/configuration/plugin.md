@@ -33,3 +33,29 @@ Config can be either:
 ```
 
 Please refer to [Composition API configuration](/guide/configuration/composition-api) for the signatures of each property.
+
+## Using `screen` and `grid` properties in your components
+
+### With composition API
+
+```vue
+<script setup>
+import { inject } from 'vue'
+
+const grid = inject('grid');
+const screen = inject('screen')
+</script>
+```
+
+### With options API
+
+```vue
+export default {
+  onMounted() {
+    console.log({
+      screen: this.$screen,
+      grid: this.$grid,
+    })
+  }
+}
+```

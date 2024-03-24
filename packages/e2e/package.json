@@ -1,6 +1,5 @@
 {
   "name": "vue-screen-e2e",
-  "version": "2.0.0-alpha.0",
   "license": "MIT",
   "private": true,
   "scripts": {

@@ -3,7 +3,7 @@ import { useScreen } from './useScreen'
 import { VueScreenConfig } from './types/config'
 import { useGrid } from './useGrid'
 
-export const install = (app: App, options: VueScreenConfig): void => {
+export const install = (app: App, options?: VueScreenConfig): void => {
   let screen
   let grid
 

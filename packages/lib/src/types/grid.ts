@@ -80,7 +80,7 @@ export type GridDefinitionLiteral =
 export type GridDefinition = GridDefinitionLiteral | GridDefinitionCustomObject
 
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   interface ComponentCustomProperties {
     $grid: Readonly<Record<keyof Custom, boolean> & BaseObject<Custom>>
   }

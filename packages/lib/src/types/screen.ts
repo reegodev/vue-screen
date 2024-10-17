@@ -15,7 +15,7 @@ export interface ScreenConfig {
   touch?: boolean
 }
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   interface ComponentCustomProperties {
     $screen: Readonly<ScreenObject>
   }

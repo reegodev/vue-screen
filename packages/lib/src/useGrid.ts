@@ -66,10 +66,10 @@ export const updateComputedProperties = (config: Custom, object: CustomObject & 
   object.breakpoint = getCurrentBreakpoint(config, object)
 }
 
-const debouncedUpdateComputedProperties = debounce(updateComputedProperties, 100)
-
 /* istanbul ignore next  */
 export const createMediaQueries = (config: Custom, object: CustomObject & { breakpoint: keyof CustomObject }): void => {
+  const debouncedUpdateComputedProperties = debounce(updateComputedProperties, 100);
+
   Object.keys(config)
     .filter((breakpoint) => {
       return typeof config[breakpoint] !== 'function'

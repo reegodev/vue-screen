@@ -6,7 +6,8 @@
 
 <br>
 
-> Warning: Version 2.x only supports Vue 3.<br> v1 docs are available [here](https://github.com/reegodev/vue-screen/tree/v1.5.3#vuescreen)
+> [!IMPORTANT]
+> Version 2.x only supports Vue 3.<br> v1 docs are available [here](https://github.com/reegodev/vue-screen/tree/v1.5.3#vuescreen)
 
 <br>
 
@@ -57,16 +58,17 @@ export default {
 For advanced configurations, check out the [docs website](https://reegodev.github.io/vue-screen/).
 
 ### Use as a plugin
+In main.js / main.ts:
 ```js
 import { createApp } from 'vue'
 import VueScreen from 'vue-screen'
 
-// In App.vue
 createApp()
   .use(VueScreen, 'bootstrap')
   .mount('#app')
-
-// In MyComponent.vue
+```
+In your components:
+```vue
 <template>
     <ul>
         <li>Current breakpoint is: {{ $grid.breakpoint }}</li>
